@@ -1,0 +1,12 @@
+Lab01
+Atividade 1.1.
+Realizar a instalação do terraform no ambiente virtual.
+
+Executar na máquina do laboratório (Ubuntu 20.04 LTS) o seguinte comando:
+
+# apt install terraform
+
+Para demais sistemas consultar os links:
+
+# https://www.terraform.io/downloads.html
+# https://learn.hashicorp.com/tutorials/terraform/install-cli

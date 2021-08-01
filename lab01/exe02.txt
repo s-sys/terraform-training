@@ -1,0 +1,37 @@
+Lab01
+Atividade 1.1.
+Criar automação terraform para validar o processo de criação e verificar os arquivos de controle criados.
+
+A partir da máquina do laboratório executar a seguinte sequência de comandos:
+
+# mkdir -p ~/terraform/lab01
+# cd ~/terraform/lab01
+
+Na sequência Crie o arquivo "exe02.tf" dentro do diretório ~/terraform/lab01, com o seguinte conteúdo:
+
+provider aws {
+  region = "us-west-2"
+}
+
+Execute o comando a seguir:
+
+# terraform init
+
+Verifique o diretório .terraform que foi criado e seu conteúdo.
+Verifique também o arquivo .terraform.lock.hcl e seu conteúdo.
+
+Execute agora o seguinte comando:
+
+# terraform plan
+
+Verique a saída. Nenhum erro foi apresentado.
+Execute agora o seguinte comando:
+
+# terraform apply
+
+Verique a saída. Nenhum erro foi apresentado.
+Execute agora o seguinte comando:
+
+# terraform destroy
+
+Verique a saída. Nenhum erro foi apresentado.
