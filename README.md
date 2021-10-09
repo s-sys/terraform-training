@@ -6,3 +6,4 @@ Materials for Terraform training and lab contents from SSYS.
 | :---: | :---: | :---: | :---: |
 | esxi.ssys.lab | 192.168.1.100 | root/Passw0rd@123 | VMware ESXi 7.0 |
 | vcenter.ssys.lab | 192.168.1.10 | root/Passw0rd@123 | VMware vSphere 7.0 |
+| docker.ssys.lab | 192.168.1.11 | root/linux | Ubuntu 20 LTS / Docker 20.10 |

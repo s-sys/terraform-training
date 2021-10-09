@@ -1,0 +1,42 @@
+# Lab01
+# Atividade 1.1.
+# Realizar a instalação do terraform no ambiente virtual.
+# 
+# Para a instalação do terraform utilizando o repositório para Ubuntu 20.04 LTS, utilize o seguinte sequência de comandos:
+
+apt -y install gnupg software-properties-common curl
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+apt -y install terraform
+
+# Verifique que o pacote foi instalado corretamente através do comando:
+
+terraform version
+
+# Verifique a saída, conforme a seguir:
+# 
+# # terraform version
+# Terraform v1.0.8
+# on linux_amd64
+
+# Para a instalação apenas do binário do terraform, utilize as instruções abaixo:
+
+TERRAFORM_VERSION="1.0.8"
+cd /usr/local/bin
+wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+chmod +x terraform
+
+# Verifique que o binário foi instalado corretamente através do comando:
+
+./terraform version
+
+# Verifique a saída, conforme a seguir:
+# 
+# # ./terraform version
+# Terraform v1.0.8
+# on linux_amd64
+
+# Para os demais sistemas consultar os links:
+# https://www.terraform.io/downloads.html
+# https://learn.hashicorp.com/tutorials/terraform/install-cli

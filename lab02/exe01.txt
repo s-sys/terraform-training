@@ -1,2 +1,6 @@
 Lab02
 Atividade 2.1.
+
+Crie uma variável chamada image do tipo string para a definição do nome da imagem a ser utilizada.
+Crie uma variável chamada size, contendo a relação de 3 tipos de tamanhos e implemente uma validação dos valores.
+

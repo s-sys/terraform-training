@@ -1,0 +1,14 @@
+criar conta no portal terraform
+criar organization
+criar workspace
+  execution mode: local
+
+terraform {
+  backend "remote" {
+    organization = "cleberps"
+
+    workspaces {
+      name = "terraform-training"
+    }
+  }
+}
