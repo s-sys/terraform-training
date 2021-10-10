@@ -1,0 +1,5 @@
+users = [ 
+  "joao",
+  "maria",
+  "lucas"
+]
