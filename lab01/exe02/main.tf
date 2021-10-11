@@ -7,7 +7,7 @@
 # mkdir -p ~/terraform/lab01/exe02
 # cd ~/terraform/lab01/exe02
 # 
-# Na sequência crie o arquivo "exe02.tf" dentro do diretório ~/terraform/lab01/exe02, com o seguinte conteúdo:
+# Na sequência crie o arquivo "main.tf" dentro do diretório ~/terraform/lab01/exe02, com o seguinte conteúdo:
 
 
 provider aws {

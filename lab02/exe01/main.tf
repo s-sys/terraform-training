@@ -4,7 +4,7 @@
 # Defina uma variável chamada "id_image" no terraform para armazenar o identificador da imagem de servidor a ser utilizada. Esta variável deve ser do tipo "string".
 
 
-# Crie um arquivo chamado "~/terraform/lab01/exe01/main.tf", com o seguinte conteúdo:
+# Crie um arquivo chamado "~/terraform/lab02/exe01/main.tf", com o seguinte conteúdo:
 
 variable "image_id" {
   type = string

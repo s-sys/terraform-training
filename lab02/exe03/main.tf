@@ -4,7 +4,7 @@
 # Defina uma variável chamada "username" no terraform para armazenar o nome de um usuário de aplicação. Esta variável deve ser do tipo "string" e não pode conter mais do que 10 caracteres. Crie também uma variável chamada "password" do tipo "string", para armazenar a senha do usuário da aplicação. Esta senha deve ser definida como sensível para que seu conteúdo não seja exibido no plano de execução do terraform.
 
 
-# Crie um arquivo chamado "~/terraform/lab01/exe03/main.tf", com o seguinte conteúdo:
+# Crie um arquivo chamado "~/terraform/lab02/exe03/main.tf", com o seguinte conteúdo:
 
 variable "username" {
   type    = string

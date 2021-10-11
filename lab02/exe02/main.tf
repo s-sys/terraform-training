@@ -4,7 +4,7 @@
 # Defina uma variável chamada "region" no terraform para armazenar o identificador da região onde um servidor será instanciado. Esta variável deve ser do tipo "string" e possuir um valor padrão de "centralus". Crie também uma variável chamada "names" do tipo "list", para armazenar uma lista de nomes permitidos para a máquina e defina uma lista de nomes de sua escolha.
 
 
-# Crie um arquivo chamado "~/terraform/lab01/exe02/main.tf", com o seguinte conteúdo:
+# Crie um arquivo chamado "~/terraform/lab02/exe02/main.tf", com o seguinte conteúdo:
 
 variable "region" {
   type    = string

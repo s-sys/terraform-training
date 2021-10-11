@@ -4,7 +4,7 @@
 # Defina uma variável chamada "user_info" no terraform para armazenar dados de um usuário, como por exemplo nome de usuário, nome completo, endereço, cidade, estado e CEP. Esta variável deve ser do tipo "object" e cada um dos dados do usuário deve ter seu tipo ajustado de acordo com a informação a ser armazenada. Crie uma validação para permitir a definição apenas de usuários que residam no estado de Minas Gerais (MG).
 
 
-# Crie um arquivo chamado "~/terraform/lab01/exe04/main.tf", com o seguinte conteúdo:
+# Crie um arquivo chamado "~/terraform/lab02/exe04/main.tf", com o seguinte conteúdo:
 
 variable "user_info" {
   type    = object({
