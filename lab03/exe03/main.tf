@@ -6,6 +6,7 @@
 
 # A partir da máquina docker (192.168.1.11), com o usuário ubuntu, execute os seguintes comandos para inicializar os containers do serviço HashiCups:
 # 
+# $ cd ~
 # $ git clone https://github.com/hashicorp/learn-terraform-hashicups-provider
 # $ cd learn-terraform-hashicups-provider
 # $ cd docker_compose
@@ -29,10 +30,10 @@
 # chmod +x ${P_LOCAL_PATH}/terraform-provider-hashicups_v${P_VERSION}
 
 
-# Crie um usuário para as operações a serem executadas no provider, utilizando os comandos abaixo:
+# Crie um usuário para as operações a serem executadas no provider, utilizando o comando abaixo:
 # 
 # $ curl -X POST 192.168.1.11:19090/signup -d '{"username":"education", "password":"test123"}'
-# {"UserID":1,"Username":"education","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzQwMDgxMzgsInVzZXJfaWQiOjEsInVzZXJuYW1lIjoidGVzdCJ9.XJficaXW4CqGl5-rOv94Jd3daCQs2Rq3yxLK0GwkH7A"}
+# {"UserID":1,"Username":"education","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzQwNzMxMDQsInVzZXJfaWQiOjEsInVzZXJuYW1lIjoiZWR1Y2F0aW9uIn0.mvC3yaDK9hEk9z6idEMKRy7f8NYc2K7Nz7KfHUcj_7U"}
 
 
 # Define a variável HASHICUPS_TOKEN com o valor retornado pela opção token do comando de login, conforme o comando abaixo:
