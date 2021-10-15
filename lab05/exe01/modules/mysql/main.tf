@@ -41,7 +41,6 @@ resource "random_password" "password" {
   upper   = true
   number  = true
   special = false
-
 }
 
 resource "mysql_user" "user" {
