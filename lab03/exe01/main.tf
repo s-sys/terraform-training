@@ -7,19 +7,67 @@
 # Crie um arquivo chamado "~/terraform/lab03/exe01/main.tf", com o seguinte conteúdo:
 
 terraform {
-  required_providers {
-    azurerm = "= 2.72.0"
-    aws = "= 3.59.0"
-  }
+required_providers {
+azurerm = "= 2.72.0"
+aws = "= 3.59.0"
+}
 }
 
 provider "azurerm" {
-  features {}
+features {}
 }
 
 provider "aws" {
-  region = "us-east-1"
+region = "us-east-1"
 }
+
+
+# Execute o comando abaixo para realizar a formatação do arquivo e visualizar as diferenças na formatação:
+# 
+# $ terraform fmt -diff
+# main.tf
+# --- old/main.tf
+# +++ new/main.tf
+# @@ -1,15 +1,15 @@
+#  terraform {
+# -required_providers {
+# -azurerm = "= 2.72.0"
+# -aws = "~> 3.60.0"
+# -}
+# +  required_providers {
+# +    azurerm = "= 2.72.0"
+# +    aws     = "~> 3.60.0"
+# +  }
+#  }
+#  
+#  provider "azurerm" {
+# -features {}
+# +  features {}
+#  }
+#  
+#  provider "aws" {
+# -region = "us-east-1"
+# +  region = "us-east-1"
+#  }
+ 
+
+# Verifque o arquivo após a formatação:
+# 
+# $ cat main.tf 
+# terraform {
+#   required_providers {
+#     azurerm = "= 2.72.0"
+#     aws     = "~> 3.60.0"
+#   }
+# }
+# 
+# provider "azurerm" {
+#   features {}
+# }
+# 
+# provider "aws" {
+#   region = "us-east-1"
+# }
 
 
 # Execute o comando abaixo para inicializar o diretório do terraform:
