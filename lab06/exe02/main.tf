@@ -105,7 +105,7 @@ resource "libvirt_domain" "vm" {
 }
 
 
-# Crie um arquivo chamado "~/terraform/lab05/exe05/output.tf", com o seguinte conteúdo:
+# Crie um arquivo chamado "~/terraform/lab06/exe02/output.tf", com o seguinte conteúdo:
 # 
 # output "ips" {
 #   value = libvirt_domain.vm[*].network_interface[0].addresses[0]
