@@ -4,6 +4,7 @@
 # 
 # Para a instalação do terraform utilizando o repositório para Ubuntu 20.04 LTS, utilize o seguinte sequência de comandos:
 
+sudo su -
 apt -y install gnupg software-properties-common curl
 curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
