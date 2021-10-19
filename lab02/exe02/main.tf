@@ -1,7 +1,11 @@
 # Lab02
 # Atividade 2.2.
 # 
-# Defina uma variável chamada "region" no terraform para armazenar o identificador da região onde um servidor será instanciado. Esta variável deve ser do tipo "string" e possuir um valor padrão de "centralus". Crie também uma variável chamada "names" do tipo "list", para armazenar uma lista de nomes permitidos para a máquina e defina uma lista de nomes de sua escolha.
+# Defina uma variável chamada "region" no terraform para armazenar o identificador da
+# região onde um servidor será instanciado. Esta variável deve ser do tipo "string"
+# e possuir um valor padrão de "centralus". Crie também uma variável chamada "names"
+# do tipo "list", para armazenar uma lista de nomes permitidos para a máquina e
+# defina uma lista de nomes de sua escolha.
 
 
 # Crie um arquivo chamado "~/terraform/lab02/exe02/main.tf", com o seguinte conteúdo:
@@ -37,7 +41,10 @@ resource "null_resource" "local" {
 # $ terraform plan
 
 
-# Observe que não será solicitado o valor para as variáveis "region" e "names". Este comportamento ocorreu pois as variáveis tiveram valores padrões definidos durante a sua declaração. Caso os valores não sejam adequados, será necessário utilizar algum dos métodos abaixo para alterar seus valores:
+# Observe que não será solicitado o valor para as variáveis "region" e "names".
+# Este comportamento ocorreu pois as variáveis tiveram valores padrões definidos
+# durante a sua declaração. Caso os valores não sejam adequados, será necessário
+# utilizar algum dos métodos abaixo para alterar seus valores:
 # 
 # Método 1:
 # $ terraform plan -var region="westus" -var names='["terra", "marte", "jupiter", "saturno"]'
@@ -51,7 +58,8 @@ resource "null_resource" "local" {
 # $ terraform plan -var-file=variables.tfvars
 
 
-# O mesmo processo de definição de variáveis também deve ser utilizado durante a execução do comando "terraform apply", conforme os exemplos abaixo:
+# O mesmo processo de definição de variáveis também deve ser utilizado durante a execução
+# do comando "terraform apply", conforme os exemplos abaixo:
 # 
 # Método 1:
 # $ terraform apply -var region="westus" -var names='["terra", "marte", "jupiter", "saturno"]'
@@ -65,7 +73,8 @@ resource "null_resource" "local" {
 # $ terraform apply -var-file=variables.tfvars
 
 
-# Ao final da execução do comando "terraform apply", verifique o conteúdo do arquivo output.txt gerado no mesmo diretório.
+# Ao final da execução do comando "terraform apply", verifique o conteúdo do arquivo
+# output.txt gerado no mesmo diretório.
 # 
 # $ cat output.txt
 
