@@ -1,16 +1,23 @@
 # Lab05
 # Atividade 5.1.
 # 
-# Crie uma automação em terraform, que utilize um módulo customizado para a criação de um banco de dados MySQL e realize algumas validações, conforme a seguir:
-#   - O banco de dados deve ter seu nome iniciados em "DB-". Qualquer banco que não tenha este prefixo deverá ter o mesmo adicionado automaticamente pela automação.
-#   - O nome do banco de dados deve ser sempre em maiúsculo e não pode conter mais do que 14 caracteres, sendo truncado automaticamente caso exceda este tamanho.
-#   - O nome de usuário deve ser iniciado com "u-". Qualquer usuário que não tenha este prefixo deverá ser corrigido automaticamente pela automação.
-#   - O nome do usuário não pode ter mais que 14 caracteres e caracteres em branco " " devem ser substituidos por underline ("_").
+# Crie uma automação em terraform, que utilize um módulo customizado para a criação
+# de um banco de dados MySQL e realize algumas validações, conforme a seguir:
+#   - O banco de dados deve ter seu nome iniciados em "DB-". Qualquer banco que
+#       não tenha este prefixo deverá ter o mesmo adicionado automaticamente pela automação.
+#   - O nome do banco de dados deve ser sempre em maiúsculo e não pode conter mais
+#       do que 14 caracteres, sendo truncado automaticamente caso exceda este tamanho.
+#   - O nome de usuário deve ser iniciado com "u-". Qualquer usuário que não tenha
+#       este prefixo deverá ser corrigido automaticamente pela automação.
+#   - O nome do usuário não pode ter mais que 14 caracteres e caracteres em 
+#       branco " " devem ser substituidos por underline ("_").
 #   - O nome do usuário deve ser sempre em minúsculo.
-#   - A senha do usuário deve ser gerada automaticamente e aleatoriamente e deve conter 10 caracteres e possuir caracteres maiúsculos, minúsculos e números.
+#   - A senha do usuário deve ser gerada automaticamente e aleatoriamente e deve
+#        conter 10 caracteres e possuir caracteres maiúsculos, minúsculos e números.
 
 
 # Crie um arquivo chamado "~/terraform/lab05/exe01/main.tf", com o seguinte conteúdo:
+
 
 module "mysql" {
   source   = "./modules/mysql"
@@ -36,7 +43,8 @@ module "mysql" {
 # database = "my_data"
 
 
-# Obtenha o arquivo "modules.tar.gz" disponível no repositório do exercício e descompacte, conforme abaixo:
+# Obtenha o arquivo "modules.tar.gz" disponível no repositório do exercício e descompacte,
+# conforme abaixo:
 # 
 # tar xvf modules.tar.gz
 #
@@ -54,7 +62,8 @@ module "mysql" {
 # -rw-rw-r-- 1 azureroot azureroot   77 Oct 14 22:04 variables.tf
 
 
-# Observe o arquivo "~/terraform/lab05/exe01/modules/mysql/main.tf", no bloco de definição das variáveis locais, conforme abaixo:
+# Observe o arquivo "~/terraform/lab05/exe01/modules/mysql/main.tf", no bloco de definição
+# das variáveis locais, conforme abaixo:
 # 
 # locals {
 #   db_name  = (
@@ -82,7 +91,8 @@ module "mysql" {
 # 
 # }
 # 
-# Analise as expressões utilizadas para atender aos requisitos do exercício e valide se todas as condições estão atendidas.
+# Analise as expressões utilizadas para atender aos requisitos do exercício e valide
+# se todas as condições estão atendidas.
 
 
 # Execute o comando abaixo para inicializar o diretório do terraform:
@@ -275,13 +285,16 @@ module "mysql" {
 # user = "Username: u-maria"
 
 
-# Observe que a senha não foi exibida diretamente por estar classificada como sensível. Para exibir a senha utilize o comando abaixo:
+# Observe que a senha não foi exibida diretamente por estar classificada como sensível.
+# Para exibir a senha utilize o comando abaixo:
 # 
 # $ terraform output password
 # "Password: 7UvyAHiBso"
 
 
-# Verifique se a conexão com o banco de dados MySQL está funcionando corretamente com o usuário "u-maria", e valide se o banco de dados "DB-MY_DATA" foi criado com sucesso, conforme abaixo:
+# Verifique se a conexão com o banco de dados MySQL está funcionando corretamente com
+# o usuário "u-maria", e valide se o banco de dados "DB-MY_DATA" foi criado com sucesso,
+# conforme abaixo:
 # 
 # $ mysql -h 192.168.1.13 -u u-maria -p
 # Enter password: 

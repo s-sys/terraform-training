@@ -1,10 +1,13 @@
 # Lab03
 # Atividade 3.4.
 # 
-# Utilize o terraform para automatizar a criação de um container docker e faça uma análise do ambiente gerado.
+# Utilize o terraform para automatizar a criação de um container docker e faça
+# uma análise do ambiente gerado.
 
 
-# Crie um arquivo chamado "~/terraform/lab03/exe04/main.tf", com o seguinte conteúdo:
+# Crie um arquivo chamado "~/terraform/lab03/exe04/main.tf",
+# com o seguinte conteúdo:
+
 
 terraform {
   required_providers {
@@ -31,7 +34,8 @@ resource "docker_container" "ubuntu" {
 }
 
 
-# Execute o comando abaixo para inicializar o diretório do terraform e verifique a saída do comando:
+# Execute o comando abaixo para inicializar o diretório do terraform e verifique
+# a saída do comando:
 #
 # $ terraform init
 # 

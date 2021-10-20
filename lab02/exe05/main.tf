@@ -1,7 +1,12 @@
 # Lab02
 # Atividade 2.5.
 # 
-# Defina uma variável chamada "users" no terraform para armazenar uma lista de usuários. Esta variável deve ser do tipo "list". Crie um arquivo "terraform.tfvars" para conter a definição das variáveis e ser lido de forma automática pelo terraform. Crie uma variável local que concatene os elementos da variável "users" separando os elementos por vírgula. Ao final da execução do "terraform apply" o valor desta variável deve ser exibido na saída de execução.
+# Defina uma variável chamada "users" no terraform para armazenar uma lista de
+# usuários. Esta variável deve ser do tipo "list". Crie um arquivo "terraform.tfvars"
+# para conter a definição das variáveis e ser lido de forma automática pelo terraform.
+# Crie uma variável local que concatene os elementos da variável "users" separando
+# os elementos por vírgula. Ao final da execução do "terraform apply" o valor
+# desta variável deve ser exibido na saída de execução.
 
 
 # Crie um arquivo chamado "~/terraform/lab02/exe05/main.tf", com o seguinte conteúdo:
@@ -47,12 +52,14 @@ output "my_users" {
 # $ terraform apply
 
 
-# Ao final da execução do comando "terraform apply", verifique o conteúdo do arquivo output.txt gerado no mesmo diretório.
+# Ao final da execução do comando "terraform apply", verifique o conteúdo do arquivo
+# "utput.txt" gerado no mesmo diretório.
 # 
 # $ cat output.txt
 
 
-# Verifique também a saída da execução do comando "terraform apply" contendo na seção "Output" o conteúdo da variável "my_users", conforme a seguir:
+# Verifique também a saída da execução do comando "terraform apply" contendo na seção
+# "Output" o conteúdo da variável "my_users", conforme a seguir:
 # 
 # $ terraform apply
 # 

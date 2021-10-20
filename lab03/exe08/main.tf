@@ -1,7 +1,8 @@
 # Lab03
 # Atividade 3.8.
 # 
-# Utilize o terraform para automatizar a criação de um cluster Kubernetes para deploy de uma aplicação Nginx.
+# Utilize o terraform para automatizar a criação de um cluster Kubernetes
+# para deploy de uma aplicação Nginx.
 
 # Crie um arquivo chamado "~/terraform/lab03/exe08/main.tf", com o seguinte conteúdo:
 
@@ -93,10 +94,15 @@ resource "null_resource" "kube_port_forward" {
 }
 
 
-# Adicione a chave SSH do usuário azureroot disponível em "~/.ssh/id_rsa.pub" dentro do arquivo "/root/.ssh/authorized_keys" do usuário root do servidor minikube em 192.168.1.12. Esta etapa é importante para que não seja exigida senha durante o processo de execução do serviço "kubectl fort-forward" no servidor minikube.
+# Adicione a chave SSH do usuário azureroot disponível em "~/.ssh/id_rsa.pub"
+# dentro do arquivo "/root/.ssh/authorized_keys" do usuário root do servidor
+# minikube em 192.168.1.12. Esta etapa é importante para que não seja exigida
+# senha durante o processo de execução do serviço "kubectl fort-forward" no
+# servidor minikube.
 
 
-# Execute o comando abaixo para inicializar o diretório do terraform e verifique a saída do comando:
+# Execute o comando abaixo para inicializar o diretório do terraform e verifique
+# a saída do comando:
 #
 # $ terraform init
 # 

@@ -1,10 +1,12 @@
 # Lab03
 # Atividade 3.3.
 # 
-# Instale o serviço do HashiCups para a realização de operações de CRUD (create, read, update and delete) com dados do provider customizado.
+# Instale o serviço do HashiCups para a realização de operações de CRUD (create,
+# read, update and delete) com dados do provider customizado.
 
 
-# A partir da máquina docker (192.168.1.11), com o usuário ubuntu, execute os seguintes comandos para inicializar os containers do serviço HashiCups:
+# A partir da máquina docker (192.168.1.11), com o usuário ubuntu, execute os
+# seguintes comandos para inicializar os containers do serviço HashiCups:
 # 
 # $ cd ~
 # $ git clone https://github.com/hashicorp/learn-terraform-hashicups-provider
@@ -12,13 +14,15 @@
 # $ cd docker_compose
 # $ docker-compose up
 # 
-# Será exibido o console da aplicação e mantenha esta tela aberta. Em um outro terminal execute o seguinte comando para validar se o serviço está ativo:
+# Será exibido o console da aplicação e mantenha esta tela aberta. Em um outro
+# terminal execute o seguinte comando para validar se o serviço está ativo:
 # 
 # $ curl 192.168.1.11:19090/health
 # ok
 
 
-# A partir da máquina host, execute os seguintes comandos abaixo para instalar o provider customizado.
+# A partir da máquina host, execute os seguintes comandos abaixo para instalar o
+# provider customizado.
 # 
 # P_VERSION="0.3.1"
 # P_URL="https://github.com/hashicorp/terraform-provider-hashicups"
@@ -30,15 +34,18 @@
 # chmod +x ${P_LOCAL_PATH}/terraform-provider-hashicups_v${P_VERSION}
 
 
-# Crie um usuário para as operações a serem executadas no provider, utilizando o comando abaixo:
+# Crie um usuário para as operações a serem executadas no provider, utilizando o
+# comando abaixo:
 # 
 # $ curl -X POST 192.168.1.11:19090/signup -d '{"username":"education", "password":"test123"}'
 # {"UserID":1,"Username":"education","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzQwNzMxMDQsInVzZXJfaWQiOjEsInVzZXJuYW1lIjoiZWR1Y2F0aW9uIn0.mvC3yaDK9hEk9z6idEMKRy7f8NYc2K7Nz7KfHUcj_7U"}
 
 
-# Define a variável HASHICUPS_TOKEN com o valor retornado pela opção token do comando de login, conforme o comando abaixo:
+# Define a variável HASHICUPS_TOKEN com o valor retornado pela opção token do comando
+# de login, conforme o comando abaixo:
 #
-# Esta opção não precisa ser definida, pois as definições de autenticação já fazem parte do provider.
+# Esta opção não precisa ser definida, pois as definições de autenticação já fazem
+# parte do provider.
 # $ export HASHICUPS_TOKEN="$(curl -s -X POST 192.168.1.11:19090/signin -d '{"username":"education", "password":"test123"}' | jq -r ".token")"
 
 
@@ -81,7 +88,8 @@ terraform {
 # commands will detect it and remind you to do so if necessary.
 
 
-# Altere o arquivo "~/terraform/lab03/exe03/main.tf" incluindo as configurações para o provider e utilizando os recursos disponíveis, conforme abaixo:
+# Altere o arquivo "~/terraform/lab03/exe03/main.tf" incluindo as configurações para
+# o provider e utilizando os recursos disponíveis, conforme abaixo:
 
 provider "hashicups" {
   host     = "http://192.168.1.11:19090"
@@ -109,7 +117,8 @@ output "order" {
 }
 
 
-# Execute o comando "terraform apply" para aplicar as configurações e criar os pedidos executando o comando a seguir:
+# Execute o comando "terraform apply" para aplicar as configurações e criar os pedidos
+# executando o comando a seguir:
 # 
 # $ terraform apply
 # 
@@ -283,7 +292,8 @@ output "order" {
 # }
 
 
-# Execute novamente o comando "terraform apply" para aplicar as mudanças no arquivo, conforme a seguir:
+# Execute novamente o comando "terraform apply" para aplicar as mudanças no arquivo,
+# conforme a seguir:
 # 
 # $ terraform apply
 # hashicups_order.order: Refreshing state... [id=1]
@@ -412,7 +422,8 @@ output "order" {
 # }
 
 
-# Altere o arquivo "~/terraform/lab03/exe03/main.tf" para adicionar um bloco de leitura de dados dos recursos do provider, conforme trecho abaixo:
+# Altere o arquivo "~/terraform/lab03/exe03/main.tf" para adicionar um bloco de leitura
+# de dados dos recursos do provider, conforme trecho abaixo:
 
 data "hashicups_ingredients" "first_coffee" {
   coffee_id = hashicups_order.order.items[0].coffee[0].id
@@ -423,7 +434,8 @@ output "first_coffee_ingredients" {
 }
 
 
-# Execute novamente o comando "terraform apply" para aplicar as mudanças no arquivo, conforme a seguir:
+# Execute novamente o comando "terraform apply" para aplicar as mudanças no arquivo,
+# conforme a seguir:
 # 
 # $ terraform apply
 # hashicups_order.order: Refreshing state... [id=1]

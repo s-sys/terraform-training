@@ -6,6 +6,7 @@
 
 # Crie um arquivo chamado "~/terraform/lab05/exe03/main.tf", com o seguinte conteúdo:
 
+
 terraform {
   required_providers {
     docker = {

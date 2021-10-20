@@ -1,7 +1,9 @@
 # Lab03
 # Atividade 3.5.
 # 
-# Utilize o terraform para automatizar o deploy do servidor web nginx e implemente uma validação para que a aplicação seja criada apenas caso o servidor 192.168.1.20 esteja disponível através de ping.
+# Utilize o terraform para automatizar o deploy do servidor web nginx e implemente
+# uma validação para que a aplicação seja criada apenas caso o servidor
+# 192.168.1.20 esteja disponível através de ping.
 
 
 # Crie um arquivo chamado "~/terraform/lab03/exe05/main.tf", com o seguinte conteúdo:
@@ -42,7 +44,8 @@ resource "docker_container" "nginx" {
 }
 
 
-# Execute o comando abaixo para inicializar o diretório do terraform e verifique a saída do comando:
+# Execute o comando abaixo para inicializar o diretório do terraform e verifique
+# a saída do comando:
 #
 # $ terraform init
 #
@@ -152,7 +155,10 @@ resource "docker_container" "nginx" {
 # ╵
 
 
-# Observe que ocorreu um erro na execução da automação devido a máquina de IP 192.168.1.20 não estar acessível. Desta forma o recurso não foi criado e o state foi marcado como "taint", ou seja, para remoção na próxima execução do comando "terraform apply". Verifique o state utilizando os comandos abaixo:
+# Observe que ocorreu um erro na execução da automação devido a máquina de IP
+# 192.168.1.20 não estar acessível. Desta forma o recurso não foi criado e o
+# state foi marcado como "taint", ou seja, para remoção na próxima execução do
+# comando "terraform apply". Verifique o state utilizando os comandos abaixo:
 # 
 # $ terraform state list
 # docker_image.nginx
@@ -167,7 +173,9 @@ resource "docker_container" "nginx" {
 #     repo_digest  = "nginx@sha256:06e4235e95299b1d6d595c5ef4c41a9b12641f6683136c18394b858967cd1506"
 # }
 # 
-# Observe o valor de "tainted" ao lado do state, para informar ao terraform que o objeto deve ser excluído. Ao executar o comando "terraform apply" novamente, observe o seguinte trecho na saída da execução:
+# Observe o valor de "tainted" ao lado do state, para informar ao terraform que
+# o objeto deve ser excluído. Ao executar o comando "terraform apply" novamente,
+# observe o seguinte trecho na saída da execução:
 # 
 #   # docker_image.nginx is tainted, so must be replaced
 # -/+ resource "docker_image" "nginx" {

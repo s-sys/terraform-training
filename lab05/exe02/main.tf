@@ -1,10 +1,13 @@
 # Lab05
 # Atividade 5.2.
 # 
-# Crie uma automação em terraform para a criação de containers em docker com base nas definições de um mapa de variáveis. A automação deve identificar a quantidade de elementos e os parâmetros e definir as propriedades de acordo com o especificado.
+# Crie uma automação em terraform para a criação de containers em docker com base
+# nas definições de um mapa de variáveis. A automação deve identificar a quantidade
+# de elementos e os parâmetros e definir as propriedades de acordo com o especificado.
 
 
 # Crie um arquivo chamado "~/terraform/lab05/exe02/main.tf", com o seguinte conteúdo:
+
 
 terraform {
   required_providers {

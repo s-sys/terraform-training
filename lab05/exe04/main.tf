@@ -1,10 +1,13 @@
 # Lab05
 # Atividade 5.4.
 # 
-# Crie uma automação para a criação de uma máquina virtual KVM utilizando libvirt. Crie um arquivo de clouinit para a configuração da máquina virtual e execução de comandos personalizados.
+# Crie uma automação para a criação de uma máquina virtual KVM utilizando libvirt.
+# Crie um arquivo de clouinit para a configuração da máquina virtual e execução
+# de comandos personalizados.
 
 
 # Crie um arquivo chamado "~/terraform/lab05/exe04/main.tf", com o seguinte conteúdo:
+
 
 terraform {
   required_providers {

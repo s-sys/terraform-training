@@ -1,7 +1,10 @@
 # Lab06
 # Atividade 6.1.
 # 
-# Crie uma automação para a criação de uma máquina virtual no ambiente Microsoft Azure. Defina através de variáveis em "terraform.tfvars" as propriedades principais e crie uma lista para as regras de segurança de acesso. As regras deverão ser populadas pelo terraform utilizando blocos dinâmicos.
+# Crie uma automação para a criação de uma máquina virtual no ambiente Microsoft Azure.
+# Defina através de variáveis em "terraform.tfvars" as propriedades principais e crie
+# uma lista para as regras de segurança de acesso. As regras deverão ser populadas
+# pelo terraform utilizando blocos dinâmicos.
 
 
 # Crie um arquivo chamado "~/terraform/lab06/exe01/main.tf", com o seguinte conteúdo:
@@ -126,7 +129,8 @@ resource "azurerm_linux_virtual_machine" "vm" {
 }
 
 
-# Crie um arquivo chamado "~/terraform/lab06/exe01/variables.tf", com o seguinte conteúdo:
+# Crie um arquivo chamado "~/terraform/lab06/exe01/variables.tf",
+# com o seguinte conteúdo:
 # 
 # variable "subscription_id" {
 #   type = string
@@ -170,7 +174,8 @@ resource "azurerm_linux_virtual_machine" "vm" {
 # }
 
 
-# Crie um arquivo chamado "~/terraform/lab05/exe05/output.tf", com o seguinte conteúdo:
+# Crie um arquivo chamado "~/terraform/lab05/exe05/output.tf",
+# com o seguinte conteúdo:
 # 
 # output "ip" {
 #   value = azurerm_public_ip.public_ip.ip_address
@@ -190,7 +195,8 @@ resource "azurerm_linux_virtual_machine" "vm" {
 # }
 
 
-# Crie um arquivo chamado "~/terraform/lab05/exe05/terraform.tfvars", com o seguinte conteúdo:
+# Crie um arquivo chamado "~/terraform/lab05/exe05/terraform.tfvars",
+# com o seguinte conteúdo:
 # 
 # subscription_id = ""
 # tenant_id       = ""

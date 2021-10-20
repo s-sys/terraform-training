@@ -1,9 +1,11 @@
 # Lab03
 # Atividade 3.7.
 # 
-# Utilize o terraform para automatizar o deploy de 3 servidores web nginx e faça operações de remoção e importação de recursos no terraform.
+# Utilize o terraform para automatizar o deploy de 3 servidores web nginx e faça
+# operações de remoção e importação de recursos no terraform.
 
 # Crie um arquivo chamado "~/terraform/lab03/exe07/main.tf", com o seguinte conteúdo:
+
 
 terraform {
   required_providers {
@@ -38,12 +40,14 @@ resource "docker_container" "nginx" {
 }
 
 
-# Crie o arquivo "~/terraform/lab03/exe07/terraform.tfvars" com o seguinte conteúdo:
+# Crie o arquivo "~/terraform/lab03/exe07/terraform.tfvars" com o seguinte
+# conteúdo:
 # 
 # ext_port = [8000, 8001, 8002]
 
 
-# Execute o comando abaixo para inicializar o diretório do terraform e verifique a saída do comando:
+# Execute o comando abaixo para inicializar o diretório do terraform e verifique
+# a saída do comando:
 #
 # $ terraform init
 #
@@ -345,7 +349,9 @@ resource "docker_container" "nginx" {
 # docker_image.nginx
 
 
-# Para importar o recurso novamente para o terraform, precisamos obter as informações de identificação do objeto. Utilize os comandos abaixo para obter o ID do container docker e utilize o comando "terraform import" para importar o recurso:
+# Para importar o recurso novamente para o terraform, precisamos obter as informações
+# de identificação do objeto. Utilize os comandos abaixo para obter o ID do container
+# docker e utilize o comando "terraform import" para importar o recurso:
 # 
 # $ docker inspect web-1
 # [

@@ -1,7 +1,9 @@
 # Lab06
 # Atividade 6.3.
 # 
-# Crie uma automação para a criação de máquinas virtuais em ambiente Libvirt com KVM. A automação deve manter os estados armazenados no Terraform Cloud. Crie uma conta no portal do Terraform e visualize os estados na plataforma web.
+# Crie uma automação para a criação de máquinas virtuais em ambiente Libvirt com KVM.
+# A automação deve manter os estados armazenados no Terraform Cloud. Crie uma conta
+# no portal do Terraform e visualize os estados na plataforma web.
 
 # Crie um arquivo chamado "~/terraform/lab06/exe03/main.tf", com o seguinte conteúdo:
  
@@ -133,7 +135,8 @@ resource "libvirt_domain" "vm" {
 #
 
 
-# Crie um arquivo chamado "~/terraform/lab06/exe03/network_config.cfg", com o seguinte conteúdo:
+# Crie um arquivo chamado "~/terraform/lab06/exe03/network_config.cfg",
+# com o seguinte conteúdo:
 # 
 # version: 2
 # ethernets:
@@ -144,7 +147,8 @@ resource "libvirt_domain" "vm" {
 #     dhcp6: false
 
 
-# Crie um arquivo chamado "~/terraform/lab06/exe03/terraform.auto.tfvars", com o seguinte conteúdo:
+# Crie um arquivo chamado "~/terraform/lab06/exe03/terraform.auto.tfvars",
+# com o seguinte conteúdo:
 #
 # vms = [
 #   {
@@ -163,18 +167,26 @@ resource "libvirt_domain" "vm" {
 # ]
 
 
-# Acesso o site https://portal.cloud.hashicorp.com/sign-in e faça o registro de um novo usuário, caso não tenha uma conta de acesso.
+# Acesso o site https://portal.cloud.hashicorp.com/sign-in e faça o registro de um
+# novo usuário, caso não tenha uma conta de acesso.
 # 
-# Após logar no portal, selecione a opção "Services" e o item "Terraform" e clique no link "Sign in to Terraform Cloud". Crie seu usuário caso não tenha um usuário já criado.
+# Após logar no portal, selecione a opção "Services" e o item "Terraform" e clique
+# no link "Sign in to Terraform Cloud". Crie seu usuário caso não tenha um usuário
+# já criado.
 # 
 # Clique na opção "Create an organization".
-# No campo "Organization name" digite um nome de organização e clique em "Create organization".
+# No campo "Organization name" digite um nome de organização e clique em
+# "Create organization".
 # 
-# Selecione a organização criada e clique no canto superior direito na opção "New workspace".
+# Selecione a organização criada e clique no canto superior direito na opção
+# "New workspace".
 # Selecione a opção "CLI-driven workflow" na opção "Choose Type".
-# Na aba "Configure settings" digite o nome do workspace no campo "Workspace Name". Pode ser um nome como "terraform-training" e digite uma descrição. Ao final, clique na opção "Create workspace".
+# Na aba "Configure settings" digite o nome do workspace no campo "Workspace Name".
+# Pode ser um nome como "terraform-training" e digite uma descrição. Ao final,
+# clique na opção "Create workspace".
 # 
-# Na aba de "Overview" verifique o código de exemplo para a definição do backend, e faça os ajustes adequados no seu arquivo "main.tf".
+# Na aba de "Overview" verifique o código de exemplo para a definição do backend,
+# e faça os ajustes adequados no seu arquivo "main.tf".
 # 
 # Clique na opção "Settings" e selecione "General".
 # 
@@ -187,7 +199,9 @@ resource "libvirt_domain" "vm" {
 # 
 # Será aberto o navegador para que você digite suas credenciais.
 # 
-# Caso desejo gerar o token manualmente acesso o endereço https://app.terraform.io/app/settings/tokens e clique na opção "Create an API token".
+# Caso desejo gerar o token manualmente acesso o endereço
+# https://app.terraform.io/app/settings/tokens e clique na opção
+# "Create an API token".
 
 
 # Execute o comando abaixo para inicializar o diretório do terraform:
@@ -212,9 +226,11 @@ resource "libvirt_domain" "vm" {
 #  3    prod-vm1   running
 
 
-# Conecte-se no portal do Terraform e selecione o workspace que você criou. Verifique que os dados de estado do seu código estão salvos no portal.
+# Conecte-se no portal do Terraform e selecione o workspace que você criou.
+# Verifique que os dados de estado do seu código estão salvos no portal.
 # 
-# Através deste recurso, qualquer outro usuário com acesso ao mesmo código terá a visão dos estados, pois os mesmos são mantidos no Terraform Cloud.
+# Através deste recurso, qualquer outro usuário com acesso ao mesmo código
+# terá a visão dos estados, pois os mesmos são mantidos no Terraform Cloud.
 
 
 # Execute o comando "terraform destroy" para destruir o ambiente, conforme abaixo:

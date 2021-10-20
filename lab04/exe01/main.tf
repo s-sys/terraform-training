@@ -1,10 +1,13 @@
 # Lab04
 # Atividade 4.1.
 # 
-# Crie um arquivo de terraform para a automação de uso de um módulo customizado. Defina as variáveis de entrada e analise as interações entre os arquivos.
+# Crie um arquivo de terraform para a automação de uso de um módulo customizado.
+# Defina as variáveis de entrada e analise as interações entre os arquivos.
 
 
-# Crie um arquivo chamado "~/terraform/lab04/exe01/main.tf", com o seguinte conteúdo:
+# Crie um arquivo chamado "~/terraform/lab04/exe01/main.tf",
+# com o seguinte conteúdo:
+
 
 module "user1" {
   source    = "./modules/userinfo"
@@ -39,7 +42,8 @@ resource "null_resource" "mod" {
 }
 
 
-# Crie um arquivo chamado "~/terraform/lab04/exe01/output.tf", com o seguinte conteúdo:
+# Crie um arquivo chamado "~/terraform/lab04/exe01/output.tf",
+# com o seguinte conteúdo:
 # 
 # output "arquivo_saida_user1" {
 #   value = "Arquivo result-${module.user1.username}.txt criado com sucesso."
@@ -50,7 +54,8 @@ resource "null_resource" "mod" {
 # }
 
 
-# Obtenha o arquivo "modules.tar.gz" disponível no repositório do exercício e descompacte, conforme abaixo:
+# Obtenha o arquivo "modules.tar.gz" disponível no repositório do exercício
+# e descompacte, conforme abaixo:
 # 
 # tar xvf modules.tar.gz
 #
@@ -159,7 +164,8 @@ resource "null_resource" "mod" {
 # arquivo_saida_user2 = "Arquivo result-maria.txt criado com sucesso."
 
 
-# Verifique que os arquivos "result-joao.txt", "result-maria.txt" e "result-main.txt" foram criados e analise o conteúdo, conforme abaixo:
+# Verifique que os arquivos "result-joao.txt", "result-maria.txt" e "result-main.txt"
+# foram criados e analise o conteúdo, conforme abaixo:
 # 
 # $ cat result-joao.txt 
 # joao

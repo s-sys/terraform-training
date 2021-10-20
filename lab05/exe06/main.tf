@@ -1,10 +1,15 @@
 # Lab05
 # Atividade 5.6.
 # 
-# Crie uma automação para a criação de máquinas virtuais KVM utilizando libvirt. A quantidade de máquinas virtuais a serem criadas será definida pela quantidade de elementos em uma lista de objetos definidas no arquivo "terraform.tfvars". Ao final do processo, o terraform conectará por SSH nas máquinas virtuais e executará alguns comandos de configuração.
+# Crie uma automação para a criação de máquinas virtuais KVM utilizando libvirt.
+# A quantidade de máquinas virtuais a serem criadas será definida pela quantidade
+# de elementos em uma lista de objetos definidas no arquivo "terraform.tfvars".
+# Ao final do processo, o terraform conectará por SSH nas máquinas virtuais e
+# executará alguns comandos de configuração.
 
 
-# Crie um arquivo chamado "~/terraform/lab05/exe06/main.tf", com o seguinte conteúdo:
+# Crie um arquivo chamado "~/terraform/lab05/exe06/main.tf",
+# com o seguinte conteúdo:
  
 terraform {
   experiments = [module_variable_optional_attrs]
@@ -16,7 +21,8 @@ module "kvm" {
 }
 
 
-# Crie um arquivo chamado "~/terraform/lab05/exe05/variables.tf", com o seguinte conteúdo:
+# Crie um arquivo chamado "~/terraform/lab05/exe05/variables.tf",
+# com o seguinte conteúdo:
 # 
 # variable "vms" {
 #   type = list(object({
@@ -27,7 +33,8 @@ module "kvm" {
 # }
 
 
-# Crie um arquivo chamado "~/terraform/lab05/exe05/output.tf", com o seguinte conteúdo:
+# Crie um arquivo chamado "~/terraform/lab05/exe05/output.tf",
+# com o seguinte conteúdo:
 # 
 # output "hostnames" {
 #   value = module.kvm.hostnames
@@ -38,7 +45,8 @@ module "kvm" {
 # }
 
 
-# Crie um arquivo chamado "~/terraform/lab05/exe05/terraform.tfvars", com o seguinte conteúdo:
+# Crie um arquivo chamado "~/terraform/lab05/exe05/terraform.tfvars",
+# com o seguinte conteúdo:
 # 
 # vms = [
 #   {
@@ -72,7 +80,8 @@ module "kvm" {
 # ]
 
 
-# Obtenha o arquivo "modules.tar.gz" disponível no repositório do exercício e descompacte, conforme abaixo:
+# Obtenha o arquivo "modules.tar.gz" disponível no repositório do exercício
+# e descompacte, conforme abaixo:
 #
 # tar xvf modules.tar.gz
 #
@@ -1113,7 +1122,8 @@ module "kvm" {
 # ]
 
 
-# Conecte-se por SSH em uma das máquinas virtuais, e verifique se os scripts foram executados com sucesso:
+# Conecte-se por SSH em uma das máquinas virtuais, e verifique se os scripts
+# foram executados com sucesso:
 # 
 # $ ssh root@192.168.1.136
 # The authenticity of host '192.168.1.136 (192.168.1.136)' can't be established.
@@ -1156,7 +1166,8 @@ module "kvm" {
 # Connection to 192.168.1.136 closed.
 
 
-# Com base na saída acima identique o erro e discuta sobre possíveis correções com a turma.
+# Com base na saída acima identique o erro e discuta sobre possíveis correções
+# com a turma.
 
 
 # Execute o comando "terraform destroy" para destruir o ambiente, conforme abaixo:

@@ -1,7 +1,11 @@
 # Lab04
 # Atividade 4.5.
 # 
-# Crie uma automação em terraform que utilize um módulo em terraform para a criação de de um banco de dados e usuário em MySQL. Utilize como referência o conteúdo do exercício 4.2. Os valores das variáveis devem ser definidos em um arquivo "terraform.tfvars" e a senha deve ser gerada de forma aleatória e exibida na saída da execução.
+# Crie uma automação em terraform que utilize um módulo em terraform para a criação
+# de de um banco de dados e usuário em MySQL. Utilize como referência o conteúdo do
+# exercício 4.2. Os valores das variáveis devem ser definidos em um arquivo
+# "terraform.tfvars" e a senha deve ser gerada de forma aleatória e exibida na
+# saída da execução.
 
 
 # Crie um arquivo chamado "~/terraform/lab04/exe05/main.tf", com o seguinte conteúdo:
@@ -30,7 +34,8 @@ module "mysql" {
 # database = "my_data"
 
 
-# Obtenha o arquivo "modules.tar.gz" disponível no repositório do exercício e descompacte, conforme abaixo:
+# Obtenha o arquivo "modules.tar.gz" disponível no repositório do exercício e descompacte,
+# conforme abaixo:
 # 
 # tar xvf modules.tar.gz
 #
@@ -232,13 +237,16 @@ module "mysql" {
 # password = <sensitive>
 
 
-# Observe que a senha não foi exibida diretamente por estar classificada como sensível. Para exibir a senha utilize o comando abaixo:
+# Observe que a senha não foi exibida diretamente por estar classificada como
+# sensível. Para exibir a senha utilize o comando abaixo:
 # 
 # $ terraform output password
 # "Password: tSrmIHFGyp"
 
 
-# Verifique se a conexão com o banco de dados MySQL está funcionando corretamente com o usuário "maria", e valide se o banco de dados "my_data" foi criado com sucesso, conforme abaixo:
+# Verifique se a conexão com o banco de dados MySQL está funcionando corretamente
+# com o usuário "maria", e valide se o banco de dados "my_data" foi criado com
+# sucesso, conforme abaixo:
 # 
 # $ mysql -h 192.168.1.13 -u maria -p
 # Enter password: 

@@ -1,10 +1,13 @@
 # Lab03
 # Atividade 3.2.
 # 
-# Crie um arquivo de terraform para o carregamento do provider "azurerm" para duas configurações distintas. Deve ser carregada a última versão disponível do provider "azurerm".
+# Crie um arquivo de terraform para o carregamento do provider "azurerm" para duas
+# configurações distintas. Deve ser carregada a última versão disponível do
+# provider "azurerm".
 
 
 # Crie um arquivo chamado "~/terraform/lab03/exe02/main.tf", com o seguinte conteúdo:
+
 
 provider "azurerm" {
   features {}
@@ -23,10 +26,12 @@ provider "azurerm" {
 # 
 # $ terraform init
 # 
-# Como não existe nenhum recurso definido não será necessário a execução dos demais comandos do terraform.
+# Como não existe nenhum recurso definido não será necessário a execução dos demais
+# comandos do terraform.
 
 
-# Faça um teste comentando a opção "alias" no arquivo "~/terraform/lab03/exe02/main.tf" e verifique o resultado da saída do comando "terraform init", conforme abaixo:
+# Faça um teste comentando a opção "alias" no arquivo "~/terraform/lab03/exe02/main.tf"
+# e verifique o resultado da saída do comando "terraform init", conforme abaixo:
 
 # $ terraform init
 # There are some problems with the configuration, described below.
@@ -44,4 +49,5 @@ provider "azurerm" {
 # ╵
 # 
 
-# Caso não seja especificado o parâmetro "alias" não será possível fazer uso de mais de um provider do mesmo tipo dentro do terraform.
+# Caso não seja especificado o parâmetro "alias" não será possível fazer uso de mais
+# de um provider do mesmo tipo dentro do terraform.

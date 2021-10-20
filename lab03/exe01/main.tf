@@ -1,10 +1,13 @@
 # Lab03
 # Atividade 3.1.
 # 
-# Crie um arquivo de terraform para o carregamento dos providers "aws" na versão "3.59.0" e "azurerm" na versão "2.72.0". Após a inicialização faça o upgrade do provider "aws" para o último release dentro da versão "3.60.x".
+# Crie um arquivo de terraform para o carregamento dos providers "aws" na versão "3.59.0"
+# e "azurerm" na versão "2.72.0". Após a inicialização faça o upgrade do provider "aws"
+# para o último release dentro da versão "3.60.x".
 
 
 # Crie um arquivo chamado "~/terraform/lab03/exe01/main.tf", com o seguinte conteúdo:
+
 
 terraform {
 required_providers {
@@ -22,7 +25,8 @@ region = "us-east-1"
 }
 
 
-# Execute o comando abaixo para realizar a formatação do arquivo e visualizar as diferenças na formatação:
+# Execute o comando abaixo para realizar a formatação do arquivo e visualizar as
+# diferenças na formatação:
 # 
 # $ terraform fmt -diff
 # main.tf
@@ -120,7 +124,8 @@ region = "us-east-1"
 # drwxr-xr-x 3 azureroot azureroot 4096 Oct 10 23:46 3.59.0
 
 
-# Agora faça a atualização da versão do plugin do "aws" dentro do arquivo "~/terraform/lab03/exe01/main.tf", da seguinte forma:
+# Agora faça a atualização da versão do plugin do "aws" dentro do arquivo
+# "~/terraform/lab03/exe01/main.tf", da seguinte forma:
 # 
 # terraform {
 #   required_providers {
@@ -157,7 +162,9 @@ region = "us-east-1"
 # 
 
 
-# Esta mensagem indica que não foi possível fazer o download da nova versão do provider devido ao lock presente para a versão "3.59.0". O lock pode ser consultado no arquivo .terraform.lock.hcl, conforme abaixo:
+# Esta mensagem indica que não foi possível fazer o download da nova versão do
+# provider devido ao lock presente para a versão "3.59.0". O lock pode ser
+# consultado no arquivo .terraform.lock.hcl, conforme abaixo:
 # 
 # $ cat .terraform.lock.hcl 
 # # This file is maintained automatically by "terraform init".

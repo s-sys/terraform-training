@@ -1,10 +1,14 @@
 # Lab03
 # Atividade 3.6.
 # 
-# Utilize o terraform para automatizar o deploy de 3 servidores web nginx com a porta local 80 sendo mapeada para as portas 8000, 8001 e 8002 respectivamente. Após isso, verifique os states criados e realize ações de taint em um dos servidores web.
+# Utilize o terraform para automatizar o deploy de 3 servidores web nginx com a
+# porta local 80 sendo mapeada para as portas 8000, 8001 e 8002 respectivamente.
+# Após isso, verifique os states criados e realize ações de taint em um dos
+# servidores web.
 
 
 # Crie um arquivo chamado "~/terraform/lab03/exe06/main.tf", com o seguinte conteúdo:
+
 
 terraform {
   required_providers {
@@ -44,11 +48,13 @@ resource "docker_container" "nginx" {
 # ext_port = [8000, 8001, 8002]
 
 
-# Execute o comando abaixo para inicializar o diretório do terraform e verifique a saída do comando:
+# Execute o comando abaixo para inicializar o diretório do terraform e verifique
+# a saída do comando:
 #
 # $ terraform init
 #
-# Execute o "terraform graph" para analisar o relacionamento entre os objetos do state, conforme comando abaixo:
+# Execute o "terraform graph" para analisar o relacionamento entre os objetos do state,
+# conforme comando abaixo:
 #
 # $ terraform graph | dot -Tsvg > graph.svg
 #
@@ -259,7 +265,8 @@ resource "docker_container" "nginx" {
 # 591bf0cf8ff5   nginx:latest   "/docker-entrypoint.…"   About a minute ago   Up About a minute   0.0.0.0:8002->80/tcp   web-2
 
 
-# Verifique o retorno de comunicação com cada um dos servidores para validar que o nginx está operacional, conforme comandos abaixo:
+# Verifique o retorno de comunicação com cada um dos servidores para validar que o
+# nginx está operacional, conforme comandos abaixo:
 # 
 # $ curl 192.168.1.11:8000
 # <!DOCTYPE html>
@@ -337,7 +344,8 @@ resource "docker_container" "nginx" {
 # </html>
 
 
-# Verifique as informações sobre os states utilizando o comando "terraform show", conforme abaixo:
+# Verifique as informações sobre os states utilizando o comando "terraform show",
+# conforme abaixo:
 # 
 # $ terraform show
 # # docker_container.nginx[0]:
@@ -603,13 +611,15 @@ resource "docker_container" "nginx" {
 # }
 
 
-# Marque o state como tainted (com defeito), para que seja recriado pelo terraform, utilizando o comando abaixo:
+# Marque o state como tainted (com defeito), para que seja recriado pelo terraform,
+# utilizando o comando abaixo:
 # 
 # $ terraform taint docker_container.nginx[1]
 # Resource instance docker_container.nginx[1] has been marked as tainted.
 
 
-# Em seguida execute o comando "terraform apply" e verifique as ações que serão realizadas, conforme a seguir:
+# Em seguida execute o comando "terraform apply" e verifique as ações que serão
+# realizadas, conforme a seguir:
 # 
 # $ terraform apply
 # ...
@@ -617,7 +627,8 @@ resource "docker_container" "nginx" {
 # ...
 
 
-# Agora remova um state do terraform, conforme a seguir, para tornar o recurso não mais gerenciado pelo terraform:
+# Agora remova um state do terraform, conforme a seguir, para tornar o recurso não
+# mais gerenciado pelo terraform:
 # 
 # $ terraform state rm docker_container.nginx[2]
 # Removed docker_container.nginx[2]
@@ -646,10 +657,14 @@ resource "docker_container" "nginx" {
 # ╵
 
 
-# Observe que foi apresentado um erro na remoção da imagem. Este erro foi ocasionado por existir um container (d2cfb0504727) que está fazendo uso da imagem, e por isso, a imagem docker não pode ser removida. Este container não é mais gerenciado pelo terraform. Para corrigir o problema execute a sequência de comandos abaixo:
+# Observe que foi apresentado um erro na remoção da imagem. Este erro foi ocasionado
+# por existir um container (d2cfb0504727) que está fazendo uso da imagem, e por isso,
+# a imagem docker não pode ser removida. Este container não é mais gerenciado pelo
+# terraform. Para corrigir o problema execute a sequência de comandos abaixo:
 # 
 # $ docker stop web-2
 # 
 # $ docker rm web-2
 # 
-# E repita o processo executando o comando "terraform destroy" para remover os itens restantes.
+# E repita o processo executando o comando "terraform destroy" para remover os
+# itens restantes.

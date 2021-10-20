@@ -1,7 +1,12 @@
 # Lab02
 # Atividade 2.4.
 # 
-# Defina uma variável chamada "user_info" no terraform para armazenar dados de um usuário, como por exemplo nome de usuário, nome completo, endereço, cidade, estado e CEP. Esta variável deve ser do tipo "object" e cada um dos dados do usuário deve ter seu tipo ajustado de acordo com a informação a ser armazenada. Crie uma validação para permitir a definição apenas de usuários que residam no estado de Minas Gerais (MG).
+# Defina uma variável chamada "user_info" no terraform para armazenar dados de um
+# usuário, como por exemplo nome de usuário, nome completo, endereço, cidade,
+# estado e CEP. Esta variável deve ser do tipo "object" e cada um dos dados do
+# usuário deve ter seu tipo ajustado de acordo com a informação a ser armazenada.
+# Crie uma validação para permitir a definição apenas de usuários que residam
+# no estado de Minas Gerais (MG).
 
 
 # Crie um arquivo chamado "~/terraform/lab02/exe04/main.tf", com o seguinte conteúdo:
@@ -55,7 +60,8 @@ resource "null_resource" "local" {
 # $ terraform apply -var-file=variables.tfvars
 
 
-# Ao final da execução do comando "terraform apply", verifique o conteúdo do arquivo output.txt gerado no mesmo diretório.
+# Ao final da execução do comando "terraform apply", verifique o conteúdo do
+# arquivo output.txt gerado no mesmo diretório.
 # 
 # $ cat output.txt
 
@@ -63,4 +69,5 @@ resource "null_resource" "local" {
 # Execute o comando "terraform destroy" para desfazer todas as alterações.
 
 
-# Faça a alteração do campo "state" no arquivo "variables.tfvars" para "SP", execute o processo novamente e observe o resultado.
+# Faça a alteração do campo "state" no arquivo "variables.tfvars" para "SP",
+# execute o processo novamente e observe o resultado.

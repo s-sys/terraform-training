@@ -1,7 +1,11 @@
 # Lab04
 # Atividade 4.2.
 # 
-# Crie uma automação em terraform para a criação de um banco de dados em um servidor MySQL existente. Crie um banco de dados chamado "myapp" e um usuário chamado "joao" com a senha "Linux@123". Através do terraform forneça acesso completo ("ALL") para o usuário "joao" apenas no banco de dados "myapp". Ao final conecte-se no banco de dados para validar os acessos.
+# Crie uma automação em terraform para a criação de um banco de dados em um servidor
+# MySQL existente. Crie um banco de dados chamado "myapp" e um usuário chamado "joao"
+# com a senha "Linux@123". Através do terraform forneça acesso completo ("ALL") para
+# o usuário "joao" apenas no banco de dados "myapp". Ao final conecte-se no banco de
+# dados para validar os acessos.
 
 
 # Crie um arquivo chamado "~/terraform/lab04/exe02/main.tf", com o seguinte conteúdo:
@@ -177,7 +181,9 @@ resource "mysql_grant" "joao" {
 # Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
 
 
-# Verifique se a conexão com o banco de dados MySQL está funcionando corretamente com o usuário "joao", e valide se o banco de dados "myapp" foi criado com sucesso, conforme abaixo:
+# Verifique se a conexão com o banco de dados MySQL está funcionando corretamente
+# com o usuário "joao", e valide se o banco de dados "myapp" foi criado com sucesso,
+# conforme abaixo:
 # 
 # $ mysql -h 192.168.1.13 -u joao -p 
 # Enter password: 

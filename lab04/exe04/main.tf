@@ -47,18 +47,22 @@ data "spotify_track" "toy_story_4_theme" {
 # ~/go/bin/spotify_auth_proxy
 
 
-# Acesse o site "https://developer.spotify.com/dashboard/applications/", faça o login com o seu usuário do Spotify e crie uma aplicação utilizando as seguintes informações:
+# Acesse o site "https://developer.spotify.com/dashboard/applications/", faça o
+# login com o seu usuário do Spotify e crie uma aplicação utilizando as seguintes
+# informações:
 # 
 # App name: terraform-training
 # App description: API used in terraform training.
 # 
-# Selecione a aplicação e anote o valor de "Client ID" e "Client Secret" e em seguida selecione a Opção "Edit Settings". Preencha os seguintes valores:
+# Selecione a aplicação e anote o valor de "Client ID" e "Client Secret" e em seguida
+# selecione a Opção "Edit Settings". Preencha os seguintes valores:
 # 
 # Redirect URIs: http://localhost:27228/spotify_callback
 # 
 # Clique em "Save".
 # 
-# Altere o arquivo "~/terraform/lab04/exe04/spotify-proxy.sh" incluindo os valores dos campos "Client ID" e "Client Secret" nas varíaveis adequadas.
+# Altere o arquivo "~/terraform/lab04/exe04/spotify-proxy.sh" incluindo os valores dos
+# campos "Client ID" e "Client Secret" nas varíaveis adequadas.
 
 
 # # Em um terminal separado execute o script "spotify-proxy.sh" da seguinte forma:
@@ -66,7 +70,10 @@ data "spotify_track" "toy_story_4_theme" {
 # $ bash spotify-proxy.sh
 # Auth URL: http://localhost:27228/authorize?token=1NaxKynd1787HkwkrXzMfYY7wMhInLjh_Odm3V8ZlK3nMsam6N9ktIoDERSLq74E
 # 
-# Copie o endereço acima gerado pela sua aplicação e cole em um navegador web na mesma máquina. Será solicitada a autenticação no Spotify para autorizar a aplicação a usar a sua conta do Spotify. Após a autorização será exibida uma mensagem no navegador dizendo "Authorization successful".
+# Copie o endereço acima gerado pela sua aplicação e cole em um navegador web na mesma
+# máquina. Será solicitada a autenticação no Spotify para autorizar a aplicação a usar
+# a sua conta do Spotify. Após a autorização será exibida uma mensagem no navegador
+# dizendo "Authorization successful".
 
 
 # Execute o comando abaixo para inicializar o diretório do terraform:
@@ -175,7 +182,8 @@ data "spotify_track" "toy_story_4_theme" {
 # playlist_url = "https://open.spotify.com/playlist/4eN90Q6jrOMoeqerpehueT"
 
 
-# Verifique no aplicativo Spotify se a playlist foi criada. O endereço de acesso a playlist pode ser obtido executando o comando abaixo:
+# Verifique no aplicativo Spotify se a playlist foi criada. O endereço de acesso a
+# playlist pode ser obtido executando o comando abaixo:
 # 
 # $ terraform output playlist_url
 

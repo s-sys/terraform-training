@@ -1,7 +1,11 @@
 # Lab06
 # Atividade 6.2.
 # 
-# Crie uma automação para a criação de máquinas virtuais em ambiente Libvirt com KVM. A automação deverá permitir a criação de 1 máquina para o ambiente de "dev" e "qa" e 3 máquinas pra o ambiente de "prod". Os nomes das máquinas devem ser prefixadas com o tipo de ambiente. Utilize o recurso de workspaces do terraform para criar e disponibilizar as máquinas para os 3 ambientes.
+# Crie uma automação para a criação de máquinas virtuais em ambiente Libvirt com KVM.
+# A automação deverá permitir a criação de 1 máquina para o ambiente de "dev" e "qa"
+# e 3 máquinas pra o ambiente de "prod". Os nomes das máquinas devem ser prefixadas
+# com o tipo de ambiente. Utilize o recurso de workspaces do terraform para criar e
+# disponibilizar as máquinas para os 3 ambientes.
 
 # Crie um arquivo chamado "~/terraform/lab06/exe02/main.tf", com o seguinte conteúdo:
  
@@ -105,14 +109,16 @@ resource "libvirt_domain" "vm" {
 }
 
 
-# Crie um arquivo chamado "~/terraform/lab06/exe02/output.tf", com o seguinte conteúdo:
+# Crie um arquivo chamado "~/terraform/lab06/exe02/output.tf",
+# com o seguinte conteúdo:
 # 
 # output "ips" {
 #   value = libvirt_domain.vm[*].network_interface[0].addresses[0]
 # }
 
 
-# Crie um arquivo chamado "~/terraform/lab06/exe02/cloud_init.cfg", com o seguinte conteúdo:
+# Crie um arquivo chamado "~/terraform/lab06/exe02/cloud_init.cfg",
+# com o seguinte conteúdo:
 # 
 #cloud-config
 # vim: syntax=yaml
@@ -132,7 +138,8 @@ resource "libvirt_domain" "vm" {
 # Obtenha o conteúdo do arquivo "~/.ssh/id_rsa.pub" e faça a alteração do arquivo "cloud_init.cfg" acima.
 
 
-# Crie um arquivo chamado "~/terraform/lab06/exe02/network_config.cfg", com o seguinte conteúdo:
+# Crie um arquivo chamado "~/terraform/lab06/exe02/network_config.cfg",
+# com o seguinte conteúdo:
 # 
 # version: 2
 # ethernets:
@@ -143,7 +150,8 @@ resource "libvirt_domain" "vm" {
 #     dhcp6: false
 
 
-# Crie um arquivo chamado "~/terraform/lab06/exe02/terraform-dev.tfvars", com o seguinte conteúdo:
+# Crie um arquivo chamado "~/terraform/lab06/exe02/terraform-dev.tfvars",
+# com o seguinte conteúdo:
 #
 # vms = [
 #   {
@@ -153,7 +161,8 @@ resource "libvirt_domain" "vm" {
 # ]
 
 
-# Crie um arquivo chamado "~/terraform/lab06/exe02/terraform-qa.tfvars", com o seguinte conteúdo:
+# Crie um arquivo chamado "~/terraform/lab06/exe02/terraform-qa.tfvars",
+# com o seguinte conteúdo:
 #
 # vms = [
 #   {
@@ -163,7 +172,8 @@ resource "libvirt_domain" "vm" {
 # ]
 
 
-# Crie um arquivo chamado "~/terraform/lab06/exe02/terraform-prod.tfvars", com o seguinte conteúdo:
+# Crie um arquivo chamado "~/terraform/lab06/exe02/terraform-prod.tfvars",
+# com o seguinte conteúdo:
 #
 # vms = [
 #   {
