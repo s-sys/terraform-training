@@ -105,7 +105,8 @@ resource "libvirt_domain" "vm" {
 # }
 
 
-# Execute o comando abaixo para gerar um par de chaves SSH para utilizar na conexão com a máquina virtual, mas não defina nenhuma senha para as chaves:
+# Execute o comando abaixo para gerar um par de chaves SSH para utilizar na conexão com
+# a máquina virtual, mas não defina nenhuma senha para as chaves:
 # 
 # $ ssh-keygen 
 # 

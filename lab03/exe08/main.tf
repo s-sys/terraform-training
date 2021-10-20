@@ -94,6 +94,33 @@ resource "null_resource" "kube_port_forward" {
 }
 
 
+# Execute o comando abaixo para gerar um par de chaves SSH para utilizar na conexão com
+# a máquina virtual, mas não defina nenhuma senha para as chaves:
+# 
+# $ ssh-keygen
+# 
+# Generating public/private rsa key pair.
+# Enter file in which to save the key (/home/azureroot/.ssh/id_rsa):
+# Enter passphrase (empty for no passphrase): 
+# Enter same passphrase again: 
+# Your identification has been saved in /home/azureroot/.ssh/id_rsa
+# Your public key has been saved in /home/azureroot/.ssh/id_rsa.pub
+# The key fingerprint is: 
+# SHA256:Gv5QYe4VFfxeCMrYXGF4GVwJcMavKJ3jM5ZrH/TAWrY azureroot@terraform-01
+# The key's randomart image is:
+# +---[RSA 3072]----+
+# |          .*XB.. |
+# |          .=O .  |
+# |        o=.+ + . |
+# |       o..=o  + .| 
+# |      . S..o*o . |
+# |     . =..==.+.  | 
+# |      + .o.oE .  |
+# |       o  B  .   |
+# |        .o.=.    |   
+# +----[SHA256]-----+   
+
+
 # Adicione a chave SSH do usuário azureroot disponível em "~/.ssh/id_rsa.pub"
 # dentro do arquivo "/root/.ssh/authorized_keys" do usuário root do servidor
 # minikube em 192.168.1.12. Esta etapa é importante para que não seja exigida
