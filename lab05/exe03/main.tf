@@ -31,6 +31,7 @@ resource "docker_container" "nginx" {
   name     = each.key
   ports {
     internal = each.value.internal_port
+  }
 }
 
 
