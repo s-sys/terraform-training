@@ -1,7 +1,10 @@
 # Lab05
 # Atividade 5.3.
 # 
-# Crie uma automação em terraform para a criação de containers em docker com base nas definições de um mapa de variáveis. A automação deve identificar a quantidade de elementos e os parâmetros e definir as propriedades de acordo com o especificado. Neste exemplo, ao invés de utilizar count, deve-se utilizar a estrutura for_each. 
+# Crie uma automação em terraform para a criação de containers em docker com base 
+# nas definições de um mapa de variáveis. A automação deve identificar a quantidade
+# de elementos e os parâmetros e definir as propriedades de acordo com o especificado.
+# Neste exemplo, ao invés de utilizar count, deve-se utilizar a estrutura for_each. 
 
 
 # Crie um arquivo chamado "~/terraform/lab05/exe03/main.tf", com o seguinte conteúdo:
