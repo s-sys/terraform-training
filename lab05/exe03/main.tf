@@ -29,11 +29,12 @@ resource "docker_image" "nginx" {
 }
 
 resource "docker_container" "nginx" {
-  for_each = { for o in var.instances: o.name => o}
+  for_each = {for o in var.instances: o.name => o}
   image    = docker_image.nginx.latest
   name     = each.key
   ports {
     internal = each.value.internal_port
+    external = each.value.external_port
   }
 }
 
