@@ -24,14 +24,11 @@
 # A partir da máquina host, execute os seguintes comandos abaixo para instalar o
 # provider customizado.
 # 
-# P_VERSION="0.3.1"
-# P_URL="https://github.com/hashicorp/terraform-provider-hashicups"
-# P_PATH="releases/download/v${P_VERSION}/terraform-provider-hashicups_${P_VERSION}_linux_amd64.zip"
-# curl -LO ${P_URL}/${P_PATH}
-# P_LOCAL_PATH="${HOME}/.terraform.d/plugins/hashicorp.com/edu/hashicups/${P_VERSION}/linux_amd64"
-# mkdir -p ${P_LOCAL_PATH}
-# unzip terraform-provider-hashicups_${P_VERSION}_linux_amd64.zip -d ${P_LOCAL_PATH}
-# chmod +x ${P_LOCAL_PATH}/terraform-provider-hashicups_v${P_VERSION}
+# git clone https://github.com/hashicorp/terraform-provider-hashicups
+# cd terraform-provider-hashicups
+# go build -o terraform-provider-hashicups
+# mkdir -p ~/.terraform.d/plugins/hashicorp.com/edu/hashicups/0.3.1/linux_amd64
+# cp terraform-provider-hashicups ~/.terraform.d/plugins/hashicorp.com/edu/hashicups/0.3.1/linux_amd64/
 
 
 # Crie um usuário para as operações a serem executadas no provider, utilizando o
@@ -47,6 +44,9 @@
 # Esta opção não precisa ser definida, pois as definições de autenticação já fazem
 # parte do provider.
 # $ export HASHICUPS_TOKEN="$(curl -s -X POST 192.168.1.11:19090/signin -d '{"username":"education", "password":"test123"}' | jq -r ".token")"
+#
+# Verifique o valor do token executando o comando abaixo:
+# $ echo $HASHICUPS_TOKEN
 
 
 # Crie um arquivo chamado "~/terraform/lab03/exe03/main.tf", com o seguinte conteúdo:
@@ -54,10 +54,10 @@
 terraform {
   required_providers {
     hashicups = {
-      version = "~> 0.3.1"
       source  = "hashicorp.com/edu/hashicups"
     }
   }
+  required_version = ">= 1.1.0"
 }
 
 
@@ -68,7 +68,7 @@ terraform {
 # Initializing the backend...
 # 
 # Initializing provider plugins...
-# - Finding hashicorp.com/edu/hashicups versions matching "~> 0.3.1"...
+# - Finding latest version of hashicorp.com/edu/hashicups...
 # - Installing hashicorp.com/edu/hashicups v0.3.1...
 # - Installed hashicorp.com/edu/hashicups v0.3.1 (unauthenticated)
 # 
@@ -76,6 +76,21 @@ terraform {
 # selections it made above. Include this file in your version control repository
 # so that Terraform can guarantee to make the same selections by default when
 # you run "terraform init" in the future.
+# 
+# │
+# │ Warning: Incomplete lock file information for providers
+# │
+# │ Due to your customized provider installation methods, Terraform was forced to calculate lock file checksums locally for the following
+# │ providers:
+# │   - hashicorp.com/edu/hashicups
+# │
+# │ The current .terraform.lock.hcl file only includes checksums for linux_amd64, so Terraform running on another platform will fail to
+# │ install these providers.
+# │
+# │ To calculate additional checksums for another platform, run:
+# │   terraform providers lock -platform=linux_amd64
+# │ (where linux_amd64 is the platform to generate)
+# │
 # 
 # Terraform has been successfully initialized!
 # 
@@ -90,6 +105,7 @@ terraform {
 
 # Altere o arquivo "~/terraform/lab03/exe03/main.tf" incluindo as configurações para
 # o provider e utilizando os recursos disponíveis, conforme abaixo:
+# As configurações existentes no arquivo devem ser mantidas.
 
 provider "hashicups" {
   host     = "http://192.168.1.11:19090"
@@ -98,18 +114,18 @@ provider "hashicups" {
 }
 
 resource "hashicups_order" "order" {
-  items {
-    coffee {
+  items = [{
+    coffee = {
       id = 3
     }
     quantity = 2
-  }
-  items {
-    coffee {
+    }, {
+    coffee = {
       id = 2
     }
     quantity = 2
-  }
+    }
+  ]
 }
 
 output "order" {
@@ -122,7 +138,8 @@ output "order" {
 # 
 # $ terraform apply
 # 
-# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following
+# symbols:
 #   + create
 # 
 # Terraform will perform the following actions:
@@ -130,32 +147,31 @@ output "order" {
 #   # hashicups_order.order will be created
 #   + resource "hashicups_order" "order" {
 #       + id           = (known after apply)
+#       + items        = [
+#           + {
+#               + coffee   = {
+#                   + description = (known after apply)
+#                   + id          = 3
+#                   + image       = (known after apply)
+#                   + name        = (known after apply)
+#                   + price       = (known after apply)
+#                   + teaser      = (known after apply)
+#                 }
+#               + quantity = 2
+#             },
+#           + {
+#               + coffee   = {
+#                   + description = (known after apply)
+#                   + id          = 2
+#                   + image       = (known after apply)
+#                   + name        = (known after apply)
+#                   + price       = (known after apply)
+#                   + teaser      = (known after apply)
+#                 }
+#               + quantity = 2
+#             },
+#         ]
 #       + last_updated = (known after apply)
-# 
-#       + items {
-#           + quantity = 2
-# 
-#           + coffee {
-#               + description = (known after apply)
-#               + id          = 3
-#               + image       = (known after apply)
-#               + name        = (known after apply)
-#               + price       = (known after apply)
-#               + teaser      = (known after apply)
-#             }
-#         }
-#       + items {
-#           + quantity = 2
-# 
-#           + coffee {
-#               + description = (known after apply)
-#               + id          = 2
-#               + image       = (known after apply)
-#               + name        = (known after apply)
-#               + price       = (known after apply)
-#               + teaser      = (known after apply)
-#             }
-#         }
 #     }
 # 
 # Plan: 1 to add, 0 to change, 0 to destroy.
@@ -165,29 +181,25 @@ output "order" {
 #       + id           = (known after apply)
 #       + items        = [
 #           + {
-#               + coffee   = [
-#                   + {
-#                       + description = (known after apply)
-#                       + id          = 3
-#                       + image       = (known after apply)
-#                       + name        = (known after apply)
-#                       + price       = (known after apply)
-#                       + teaser      = (known after apply)
-#                     },
-#                 ]
+#               + coffee   = {
+#                   + description = (known after apply)
+#                   + id          = 3
+#                   + image       = (known after apply)
+#                   + name        = (known after apply)
+#                   + price       = (known after apply)
+#                   + teaser      = (known after apply)
+#                 }
 #               + quantity = 2
 #             },
 #           + {
-#               + coffee   = [
-#                   + {
-#                       + description = (known after apply)
-#                       + id          = 2
-#                       + image       = (known after apply)
-#                       + name        = (known after apply)
-#                       + price       = (known after apply)
-#                       + teaser      = (known after apply)
-#                     },
-#                 ]
+#               + coffee   = {
+#                   + description = (known after apply)
+#                   + id          = 2
+#                   + image       = (known after apply)
+#                   + name        = (known after apply)
+#                   + price       = (known after apply)
+#                   + teaser      = (known after apply)
+#                 }
 #               + quantity = 2
 #             },
 #         ]
@@ -201,7 +213,7 @@ output "order" {
 #   Enter a value: yes
 # 
 # hashicups_order.order: Creating...
-# hashicups_order.order: Creation complete after 1s [id=1]
+# hashicups_order.order: Creation complete after 0s [id=1]
 # 
 # Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 # 
@@ -211,84 +223,81 @@ output "order" {
 #   "id" = "1"
 #   "items" = tolist([
 #     {
-#       "coffee" = tolist([
-#         {
-#           "description" = ""
-#           "id" = 3
-#           "image" = "/nomad.png"
-#           "name" = "Nomadicano"
-#           "price" = 150
-#           "teaser" = "Drink one today and you will want to schedule another"
-#         },
-#       ])
+#       "coffee" = {
+#         "description" = ""
+#         "id" = 3
+#         "image" = "/nomad.png"
+#         "name" = "Nomadicano"
+#         "price" = 150
+#         "teaser" = "Drink one today and you will want to schedule another"
+#       }
 #       "quantity" = 2
 #     },
 #     {
-#       "coffee" = tolist([
-#         {
-#           "description" = ""
-#           "id" = 2
-#           "image" = "/vault.png"
-#           "name" = "Vaulatte"
-#           "price" = 200
-#           "teaser" = "Nothing gives you a safe and secure feeling like a Vaulatte"
-#         },
-#       ])
+#       "coffee" = {
+#         "description" = ""
+#         "id" = 2
+#         "image" = "/vault.png"
+#         "name" = "Vaulatte"
+#         "price" = 200
+#         "teaser" = "Nothing gives you a safe and secure feeling like a Vaulatte"
+#       }
 #       "quantity" = 2
 #     },
 #   ])
-#   "last_updated" = tostring(null)
+#   "last_updated" = "Wednesday, 25-Oct-23 09:18:24 -03"
 # }
 
 
 # Execute o comando abaixo para verificar o estado do recurso hashicups_order.order.
 # 
 # $ terraform state show hashicups_order.order
-# hashicups_order.order:
+# # hashicups_order.order:
 # resource "hashicups_order" "order" {
 #     id           = "1"
-#     last_updated = "Monday, 11-Oct-21 04:26:29 UTC"
-# 
-#     items {
-#         quantity = 3
-# 
-#         coffee {
-#             id     = 3
-#             image  = "/nomad.png"
-#             name   = "Nomadicano"
-#             price  = 150
-#             teaser = "Drink one today and you will want to schedule another"
-#         }
-#     }
-#     items {
-#         quantity = 1
-# 
-#         coffee {
-#             id     = 2
-#             image  = "/vault.png"
-#             name   = "Vaulatte"
-#             price  = 200
-#             teaser = "Nothing gives you a safe and secure feeling like a Vaulatte"
-#         }
-#     }
+#     items        = [
+#         {
+#             coffee   = {
+#                 description = ""
+#                 id          = 3
+#                 image       = "/nomad.png"
+#                 name        = "Nomadicano"
+#                 price       = 150
+#                 teaser      = "Drink one today and you will want to schedule another"
+#             }
+#             quantity = 2
+#         },
+#         {
+#             coffee   = {
+#                 description = ""
+#                 id          = 2
+#                 image       = "/vault.png"
+#                 name        = "Vaulatte"
+#                 price       = 200
+#                 teaser      = "Nothing gives you a safe and secure feeling like a Vaulatte"
+#             }
+#             quantity = 2
+#         },
+#     ]
+#     last_updated = "Wednesday, 25-Oct-23 09:18:24 -03"
 # }
 
 
 # Agora altere os dados do arquivo para ajustar as quantidades do pedido, conforme a seguir:
 # 
 # resource "hashicups_order" "order" {
-#   items {
-#     coffee {
+#   items = [{
+#     coffee = {
 #       id = 3
 #     }
 #     quantity = 3
-#   }
-#   items {
-#     coffee {
+#     }, {
+#     coffee = {
 #       id = 2
 #     }
 #     quantity = 1
-#   }
+#     }
+#   ]
 # }
 
 
@@ -298,7 +307,8 @@ output "order" {
 # $ terraform apply
 # hashicups_order.order: Refreshing state... [id=1]
 # 
-# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following
+# symbols:
 #   ~ update in-place
 # 
 # Terraform will perform the following actions:
@@ -306,36 +316,63 @@ output "order" {
 #   # hashicups_order.order will be updated in-place
 #   ~ resource "hashicups_order" "order" {
 #         id           = "1"
-#         # (1 unchanged attribute hidden)
-# 
-#       ~ items {
-#           ~ quantity = 2 -> 3
-# 
-#             # (1 unchanged block hidden)
-#         }
-#       ~ items {
-#           ~ quantity = 2 -> 1
-# 
-#             # (1 unchanged block hidden)
-#         }
+#       ~ items        = [
+#           ~ {
+#               ~ coffee   = {
+#                   ~ description = "" -> (known after apply)
+#                     id          = 3
+#                   ~ image       = "/nomad.png" -> (known after apply)
+#                   ~ name        = "Nomadicano" -> (known after apply)
+#                   ~ price       = 150 -> (known after apply)
+#                   ~ teaser      = "Drink one today and you will want to schedule another" -> (known after apply)
+#                 }
+#               ~ quantity = 2 -> 3
+#             },
+#           ~ {
+#               ~ coffee   = {
+#                   ~ description = "" -> (known after apply)
+#                     id          = 2
+#                   ~ image       = "/vault.png" -> (known after apply)
+#                   ~ name        = "Vaulatte" -> (known after apply)
+#                   ~ price       = 200 -> (known after apply)
+#                   ~ teaser      = "Nothing gives you a safe and secure feeling like a Vaulatte" -> (known after apply)
+#                 }
+#               ~ quantity = 2 -> 1
+#             },
+#         ]
+#       ~ last_updated = "Wednesday, 25-Oct-23 09:18:24 -03" -> (known after apply)
 #     }
 # 
 # Plan: 0 to add, 1 to change, 0 to destroy.
 # 
 # Changes to Outputs:
 #   ~ order = {
+#         id           = "1"
 #       ~ items        = [
 #           ~ {
+#               ~ coffee   = {
+#                   ~ description = "" -> (known after apply)
+#                     id          = 3
+#                   ~ image       = "/nomad.png" -> (known after apply)
+#                   ~ name        = "Nomadicano" -> (known after apply)
+#                   ~ price       = 150 -> (known after apply)
+#                   ~ teaser      = "Drink one today and you will want to schedule another" -> (known after apply)
+#                 }
 #               ~ quantity = 2 -> 3
-#                 # (1 unchanged element hidden)
 #             },
 #           ~ {
+#               ~ coffee   = {
+#                   ~ description = "" -> (known after apply)
+#                     id          = 2
+#                   ~ image       = "/vault.png" -> (known after apply)
+#                   ~ name        = "Vaulatte" -> (known after apply)
+#                   ~ price       = 200 -> (known after apply)
+#                   ~ teaser      = "Nothing gives you a safe and secure feeling like a Vaulatte" -> (known after apply)
+#                 }
 #               ~ quantity = 2 -> 1
-#                 # (1 unchanged element hidden)
 #             },
 #         ]
-#       ~ last_updated = "Monday, 11-Oct-21 04:26:29 UTC" -> "Monday, 11-Oct-21 04:30:56 UTC"
-#         # (1 unchanged element hidden)
+#       ~ last_updated = "Wednesday, 25-Oct-23 09:18:24 -03" -> (known after apply)
 #     }
 # 
 # Do you want to perform these actions?
@@ -355,33 +392,29 @@ output "order" {
 #   "id" = "1"
 #   "items" = tolist([
 #     {
-#       "coffee" = tolist([
-#         {
-#           "description" = ""
-#           "id" = 3
-#           "image" = "/nomad.png"
-#           "name" = "Nomadicano"
-#           "price" = 150
-#           "teaser" = "Drink one today and you will want to schedule another"
-#         },
-#       ])
+#       "coffee" = {
+#         "description" = ""
+#         "id" = 3
+#         "image" = "/nomad.png"
+#         "name" = "Nomadicano"
+#         "price" = 150
+#         "teaser" = "Drink one today and you will want to schedule another"
+#       }
 #       "quantity" = 3
 #     },
 #     {
-#       "coffee" = tolist([
-#         {
-#           "description" = ""
-#           "id" = 2
-#           "image" = "/vault.png"
-#           "name" = "Vaulatte"
-#           "price" = 200
-#           "teaser" = "Nothing gives you a safe and secure feeling like a Vaulatte"
-#         },
-#       ])
+#       "coffee" = {
+#         "description" = ""
+#         "id" = 2
+#         "image" = "/vault.png"
+#         "name" = "Vaulatte"
+#         "price" = 200
+#         "teaser" = "Nothing gives you a safe and secure feeling like a Vaulatte"
+#       }
 #       "quantity" = 1
 #     },
 #   ])
-#   "last_updated" = "Monday, 11-Oct-21 04:30:56 UTC"
+#   "last_updated" = "Wednesday, 25-Oct-23 09:25:21 -03"
 # }
 
 
@@ -392,45 +425,38 @@ output "order" {
 #   "id" = "1"
 #   "items" = tolist([
 #     {
-#       "coffee" = tolist([
-#         {
-#           "description" = ""
-#           "id" = 3
-#           "image" = "/nomad.png"
-#           "name" = "Nomadicano"
-#           "price" = 150
-#           "teaser" = "Drink one today and you will want to schedule another"
-#         },
-#       ])
+#       "coffee" = {
+#         "description" = ""
+#         "id" = 3
+#         "image" = "/nomad.png"
+#         "name" = "Nomadicano"
+#         "price" = 150
+#         "teaser" = "Drink one today and you will want to schedule another"
+#       }
 #       "quantity" = 3
 #     },
 #     {
-#       "coffee" = tolist([
-#         {
-#           "description" = ""
-#           "id" = 2
-#           "image" = "/vault.png"
-#           "name" = "Vaulatte"
-#           "price" = 200
-#           "teaser" = "Nothing gives you a safe and secure feeling like a Vaulatte"
-#         },
-#       ])
+#       "coffee" = {
+#         "description" = ""
+#         "id" = 2
+#         "image" = "/vault.png"
+#         "name" = "Vaulatte"
+#         "price" = 200
+#         "teaser" = "Nothing gives you a safe and secure feeling like a Vaulatte"
+#       }
 #       "quantity" = 1
 #     },
 #   ])
-#   "last_updated" = "Monday, 11-Oct-21 04:30:56 UTC"
+#   "last_updated" = "Wednesday, 25-Oct-23 09:25:21 -03"
 # }
 
 
 # Altere o arquivo "~/terraform/lab03/exe03/main.tf" para adicionar um bloco de leitura
 # de dados dos recursos do provider, conforme trecho abaixo:
-
-data "hashicups_ingredients" "first_coffee" {
-  coffee_id = hashicups_order.order.items[0].coffee[0].id
-}
+# As configurações existentes no arquivo devem ser mantidas.
 
 output "first_coffee_ingredients" {
-  value = data.hashicups_ingredients.first_coffee
+  value = hashicups_order.order.items[0].coffee.id
 }
 
 
@@ -441,28 +467,7 @@ output "first_coffee_ingredients" {
 # hashicups_order.order: Refreshing state... [id=1]
 # 
 # Changes to Outputs:
-#   + first_coffee_ingredients = {
-#       + coffee_id   = 3
-#       + id          = "3"
-#       + ingredients = [
-#           + {
-#               + id       = 1
-#               + name     = "ingredient - Espresso"
-#               + quantity = 20
-#               + unit     = "ml"
-#             },
-#           + {
-#               + id       = 3
-#               + name     = "ingredient - Hot Water"
-#               + quantity = 100
-#               + unit     = "ml"
-#             },
-#         ]
-#     }
-#   ~ order                    = {
-#       ~ last_updated = "Monday, 11-Oct-21 04:30:56 UTC" -> "Monday, 11-Oct-21 04:31:09 UTC"
-#         # (2 unchanged elements hidden)
-#     }
+#   + first_coffee_ingredients = 3
 # 
 # You can apply this plan to save these new output values to the Terraform state, without changing any real infrastructure.
 # 
@@ -477,55 +482,34 @@ output "first_coffee_ingredients" {
 # 
 # Outputs:
 # 
-# first_coffee_ingredients = {
-#   "coffee_id" = 3
-#   "id" = "3"
-#   "ingredients" = tolist([
-#     {
-#       "id" = 1
-#       "name" = "ingredient - Espresso"
-#       "quantity" = 20
-#       "unit" = "ml"
-#     },
-#     {
-#       "id" = 3
-#       "name" = "ingredient - Hot Water"
-#       "quantity" = 100
-#       "unit" = "ml"
-#     },
-#   ])
-# }
+# first_coffee_ingredients = 3
 # order = {
 #   "id" = "1"
 #   "items" = tolist([
 #     {
-#       "coffee" = tolist([
-#         {
-#           "description" = ""
-#           "id" = 3
-#           "image" = "/nomad.png"
-#           "name" = "Nomadicano"
-#           "price" = 150
-#           "teaser" = "Drink one today and you will want to schedule another"
-#         },
-#       ])
+#       "coffee" = {
+#         "description" = ""
+#         "id" = 3
+#         "image" = "/nomad.png"
+#         "name" = "Nomadicano"
+#         "price" = 150
+#         "teaser" = "Drink one today and you will want to schedule another"
+#       }
 #       "quantity" = 3
 #     },
 #     {
-#       "coffee" = tolist([
-#         {
-#           "description" = ""
-#           "id" = 2
-#           "image" = "/vault.png"
-#           "name" = "Vaulatte"
-#           "price" = 200
-#           "teaser" = "Nothing gives you a safe and secure feeling like a Vaulatte"
-#         },
-#       ])
+#       "coffee" = {
+#         "description" = ""
+#         "id" = 2
+#         "image" = "/vault.png"
+#         "name" = "Vaulatte"
+#         "price" = 200
+#         "teaser" = "Nothing gives you a safe and secure feeling like a Vaulatte"
+#       }
 #       "quantity" = 1
 #     },
 #   ])
-#   "last_updated" = "Monday, 11-Oct-21 04:31:09 UTC"
+#   "last_updated" = "Wednesday, 25-Oct-23 09:25:21 -03"
 # }
 
 
@@ -534,7 +518,8 @@ output "first_coffee_ingredients" {
 # $ terraform destroy
 # hashicups_order.order: Refreshing state... [id=1]
 # 
-# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following
+# symbols:
 #   - destroy
 # 
 # Terraform will perform the following actions:
@@ -542,84 +527,64 @@ output "first_coffee_ingredients" {
 #   # hashicups_order.order will be destroyed
 #   - resource "hashicups_order" "order" {
 #       - id           = "1" -> null
-#       - last_updated = "Monday, 11-Oct-21 04:31:09 UTC" -> null
-# 
-#       - items {
-#           - quantity = 3 -> null
-# 
-#           - coffee {
-#               - id     = 3 -> null
-#               - image  = "/nomad.png" -> null
-#               - name   = "Nomadicano" -> null
-#               - price  = 150 -> null
-#               - teaser = "Drink one today and you will want to schedule another" -> null
-#             }
-#         }
-#       - items {
-#           - quantity = 1 -> null
-# 
-#           - coffee {
-#               - id     = 2 -> null
-#               - image  = "/vault.png" -> null
-#               - name   = "Vaulatte" -> null
-#               - price  = 200 -> null
-#               - teaser = "Nothing gives you a safe and secure feeling like a Vaulatte" -> null
-#             }
-#         }
+#       - items        = [
+#           - {
+#               - coffee   = {
+#                   - description = "" -> null
+#                   - id          = 3 -> null
+#                   - image       = "/nomad.png" -> null
+#                   - name        = "Nomadicano" -> null
+#                   - price       = 150 -> null
+#                   - teaser      = "Drink one today and you will want to schedule another" -> null
+#                 } -> null
+#               - quantity = 3 -> null
+#             },
+#           - {
+#               - coffee   = {
+#                   - description = "" -> null
+#                   - id          = 2 -> null
+#                   - image       = "/vault.png" -> null
+#                   - name        = "Vaulatte" -> null
+#                   - price       = 200 -> null
+#                   - teaser      = "Nothing gives you a safe and secure feeling like a Vaulatte" -> null
+#                 } -> null
+#               - quantity = 1 -> null
+#             },
+#         ] -> null
+#       - last_updated = "Wednesday, 25-Oct-23 09:25:21 -03" -> null
 #     }
 # 
 # Plan: 0 to add, 0 to change, 1 to destroy.
 # 
 # Changes to Outputs:
-#   - first_coffee_ingredients = {
-#       - coffee_id   = 3
-#       - id          = "3"
-#       - ingredients = [
-#           - {
-#               - id       = 1
-#               - name     = "ingredient - Espresso"
-#               - quantity = 20
-#               - unit     = "ml"
-#             },
-#           - {
-#               - id       = 3
-#               - name     = "ingredient - Hot Water"
-#               - quantity = 100
-#               - unit     = "ml"
-#             },
-#         ]
-#     } -> null
+#   - first_coffee_ingredients = 3 -> null
 #   - order                    = {
 #       - id           = "1"
 #       - items        = [
 #           - {
-#               - coffee   = [
-#                   - {
-#                       - description = ""
-#                       - id          = 3
-#                       - image       = "/nomad.png"
-#                       - name        = "Nomadicano"
-#                       - price       = 150
-#                       - teaser      = "Drink one today and you will want to schedule another"
-#                     },
-#                 ]
+#               - coffee   = {
+#                   - description = ""
+#                   - id          = 3
+#                   - image       = "/nomad.png"
+#                   - name        = "Nomadicano"
+#                   - price       = 150
+#                   - teaser      = "Drink one today and you will want to schedule another"
+#                 }
 #               - quantity = 3
 #             },
 #           - {
-#               - coffee   = [
-#                   - {
-#                       - description = ""
-#                       - id          = 2
-#                       - image       = "/vault.png"
-#                       - name        = "Vaulatte"
-#                       - price       = 200
-#                       - teaser      = "Nothing gives you a safe and secure feeling like a Vaulatte"
-#                     },
-#                 ]
+#               - coffee   = {
+#                   - description = ""
+#                   - id          = 2
+#                   - image       = "/vault.png"
+#                   - name        = "Vaulatte"
+#                   - price       = 200
+#                   - teaser      = "Nothing gives you a safe and secure feeling like a Vaulatte"
+#                 }
 #               - quantity = 1
 #             },
 #         ]
-#       - last_updated = "Monday, 11-Oct-21 04:31:09 UTC"
+#       - last_updated = "Wednesday, 25-Oct-23 09:25:21 -03"
 #     } -> null
 # 
 # Do you really want to destroy all resources?

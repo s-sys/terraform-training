@@ -32,23 +32,23 @@ region = "us-east-1"
 # main.tf
 # --- old/main.tf
 # +++ new/main.tf
-# @@ -1,15 +1,15 @@
+# @@ -1,14 +1,14 @@
 #  terraform {
 # -required_providers {
 # -azurerm = "= 2.72.0"
-# -aws = "~> 3.60.0"
+# -aws = "= 3.59.0"
 # -}
 # +  required_providers {
 # +    azurerm = "= 2.72.0"
-# +    aws     = "~> 3.60.0"
+# +    aws     = "= 3.59.0"
 # +  }
 #  }
-#  
+# 
 #  provider "azurerm" {
 # -features {}
 # +  features {}
 #  }
-#  
+# 
 #  provider "aws" {
 # -region = "us-east-1"
 # +  region = "us-east-1"
@@ -61,7 +61,7 @@ region = "us-east-1"
 # terraform {
 #   required_providers {
 #     azurerm = "= 2.72.0"
-#     aws     = "~> 3.60.0"
+#     aws     = "= 3.59.0"
 #   }
 # }
 # 
@@ -153,12 +153,12 @@ region = "us-east-1"
 # - Reusing previous version of hashicorp/aws from the dependency lock file
 # - Reusing previous version of hashicorp/azurerm from the dependency lock file
 # - Using previously-installed hashicorp/azurerm v2.72.0
-# ╷
+# │
 # │ Error: Failed to query available provider packages
-# │ 
-# │ Could not retrieve the list of available versions for provider hashicorp/aws: locked provider registry.terraform.io/hashicorp/aws 3.59.0 does not
-# │ match configured version constraint ~> 3.60.0; must use terraform init -upgrade to allow selection of new versions
-# ╵
+# │
+# │ Could not retrieve the list of available versions for provider hashicorp/aws: locked provider registry.terraform.io/hashicorp/aws
+# │ 3.59.0 does not match configured version constraint ~> 3.60.0; must use terraform init -upgrade to allow selection of new versions
+# │
 # 
 
 
@@ -216,11 +216,11 @@ region = "us-east-1"
 # Initializing the backend...
 # 
 # Initializing provider plugins...
-# - Finding hashicorp/azurerm versions matching "2.72.0"...
 # - Finding hashicorp/aws versions matching "~> 3.60.0"...
-# - Using previously-installed hashicorp/azurerm v2.72.0
+# - Finding hashicorp/azurerm versions matching "2.72.0"...
 # - Installing hashicorp/aws v3.60.0...
 # - Installed hashicorp/aws v3.60.0 (signed by HashiCorp)
+# - Using previously-installed hashicorp/azurerm v2.72.0
 # 
 # Terraform has made some changes to the provider dependency selections recorded
 # in the .terraform.lock.hcl file. Review those changes and commit them to your

@@ -26,8 +26,8 @@ provider aws {
 # 
 # Initializing provider plugins...
 # - Finding latest version of hashicorp/aws...
-# - Installing hashicorp/aws v3.62.0...
-# - Installed hashicorp/aws v3.62.0 (signed by HashiCorp)
+# - Installing hashicorp/aws v5.22.0...
+# - Installed hashicorp/aws v5.22.0 (signed by HashiCorp)
 # 
 # Terraform has created a lock file .terraform.lock.hcl to record the provider
 # selections it made above. Include this file in your version control repository
@@ -49,32 +49,32 @@ provider aws {
 # 
 # $ ls -lR .terraform
 # .terraform:
-# total 4
-# drwxr-xr-x 3 azureroot azureroot 4096 Oct  9 14:20 providers
+# total 0
+# drwxr-xr-x 3 root root 35 Oct 24 20:45 providers
 # 
 # .terraform/providers:
-# total 4
-# drwxr-xr-x 3 azureroot azureroot 4096 Oct  9 14:20 registry.terraform.io
+# total 0
+# drwxr-xr-x 3 root root 23 Oct 24 20:45 registry.terraform.io
 # 
 # .terraform/providers/registry.terraform.io:
-# total 4
-# drwxr-xr-x 3 azureroot azureroot 4096 Oct  9 14:20 hashicorp
+# total 0
+# drwxr-xr-x 3 root root 17 Oct 24 20:45 hashicorp
 # 
 # .terraform/providers/registry.terraform.io/hashicorp:
-# total 4
-# drwxr-xr-x 3 azureroot azureroot 4096 Oct  9 14:20 aws
+# total 0
+# drwxr-xr-x 3 root root 20 Oct 24 20:45 aws
 # 
 # .terraform/providers/registry.terraform.io/hashicorp/aws:
-# total 4
-# drwxr-xr-x 3 azureroot azureroot 4096 Oct  9 14:20 3.62.0
+# total 0
+# drwxr-xr-x 3 root root 25 Oct 24 20:45 5.22.0
 # 
-# .terraform/providers/registry.terraform.io/hashicorp/aws/3.62.0:
-# total 4
-# drwxr-xr-x 2 azureroot azureroot 4096 Oct  9 14:20 linux_amd64
+# .terraform/providers/registry.terraform.io/hashicorp/aws/5.22.0:
+# total 0
+# drwxr-xr-x 2 root root 47 Oct 24 20:45 linux_amd64
 # 
-# .terraform/providers/registry.terraform.io/hashicorp/aws/3.62.0/linux_amd64:
-# total 189732
-# -rwxr-xr-x 1 azureroot azureroot 194285568 Oct  9 14:20 terraform-provider-aws_v3.62.0_x5
+# .terraform/providers/registry.terraform.io/hashicorp/aws/5.22.0/linux_amd64:
+# total 346384
+# -rwxr-xr-x 1 root root 354697216 Oct 24 20:45 terraform-provider-aws_v5.22.0_x5
 
 
 # Verifique também o arquivo .terraform.lock.hcl e seu conteúdo.
@@ -84,20 +84,24 @@ provider aws {
 # # Manual edits may be lost in future updates.
 # 
 # provider "registry.terraform.io/hashicorp/aws" {
-#   version = "3.62.0"
+#   version = "5.22.0"
 #   hashes = [
-#     "h1:OxJqmYKlCkE5iJK3/NoCP+9EQXQQD2ORdwnRIHaTlgs=",
-#     "zh:08a94019e17304f5927d7c85b8f5dade6b9ffebeb7b06ec0643aaa1130c4c85d",
-#     "zh:0e3709f6c1fed8c5119a5653bec7e3069258ddf91f62d851f8deeede10487fb8",
-#     "zh:0ed32886abce5fee49f1ae49b84472558224366c31a638e51c63061c3126e7c2",
-#     "zh:0f1ecbeddfa61d87701a3f3b463e508773171981bf6dad8b1313a9eafaffd5e1",
-#     "zh:724cde4f27253b547714a606288ede17f5df67f430438478feed113d7acb5ac7",
-#     "zh:81e6e751a168eab1a054230d4441b43c68693bfb6e0545536f2ea6dbb39fe9af",
-#     "zh:84deaf1c6661ba0dbc07ac159109fb6746772476646d39854c755c8dfb7a8ac4",
-#     "zh:909dcefc6c986c926ad856662ab5d38a3988b1906569387b5b58e7ddd89a155c",
-#     "zh:d03886705e9f25d4bebeae115bb07e36adb14e778859cedb2bf3c3bed39f4d2b",
-#     "zh:de9fc80c5a5d3be7535856242c823a92516eb7d5c16ae509fa10b92cd6b3fa9b",
-#     "zh:e91dcd9eec8b779a9b089f2f8d45f1047f890cb7b9241490451da52c04cef63d",
+#     "h1:s5D2g7z2dt8mqIwnQAjyE6NZWEirfRxt7kLsmslY5Ls=",
+#     "zh:09b8475cd519c945423b1e1183b71a4209dd2927e0d289a88c5abeecb53c1753",
+#     "zh:2448e0c3ce9b991a5dd70f6a42d842366a6a2460cf63b31fb9bc5d2cc92ced19",
+#     "zh:3b9fc2bf6714a9a9ab25eae3e56cead3d3917bc1b6d8b9fb3111c4198a790c72",
+#     "zh:4fbd28ad5380529a36c54d7a96c9768df1288c625d28b8fa3a50d4fc2176ef0f",
+#     "zh:54d550f190702a7edc2d459952d025e259a8c0b0ff7df3f15bbcc148539214bf",
+#     "zh:638f406d084ac96f3a0b0a5ce8aa71a5a2a781a56ba96e3a235d3982b89eef0d",
+#     "zh:69d4c175b13b6916b5c9398172cc384e7af46cb737b45870ab9907f12e82a28a",
+#     "zh:81edec181a67255d25caf5e7ffe6d5e8f9373849b9e8f5e0705f277640abb18e",
+#     "zh:9b12af85486a96aedd8d7984b0ff811a4b42e3d88dad1a3fb4c0b580d04fa425",
+#     "zh:a66efb2b3cf7be8116728ae5782d7550f23f3719da2ed3c10228d29c44b7dc84",
+#     "zh:ae754478d0bfa42195d16cf46091fab7c1c075ebc965d919338e36aed45add78",
+#     "zh:e0603ad0061c43aa1cb52740b1e700b8afb55667d7ee01c1cc1ceb6f983d4c9d",
+#     "zh:e4cb701d0185884eed0492a66eff17251f5b4971d30e81acd5e0a55627059fc8",
+#     "zh:f7db2fcf69679925dde1ae326526242fd61ba1f83f614b1f6d9d68c925417e51",
+#     "zh:fef331b9b62bc26d900ae937cc662281ff30794edf48aebfe8997d0e16835f6d",
 #   ]
 # }
 
@@ -126,11 +130,12 @@ provider aws {
 # $ cat terraform.tfstate 
 # {
 #   "version": 4,
-#   "terraform_version": "1.0.8",
+#   "terraform_version": "1.6.2",
 #   "serial": 1,
-#   "lineage": "af619d3c-7166-ce5b-ab86-04c3bb324e24",
+#   "lineage": "9a7178f4-da6e-a0c5-9c97-005c6f903eac",
 #   "outputs": {},
-#   "resources": []
+#   "resources": [],
+#   "check_results": null
 # }
 
 

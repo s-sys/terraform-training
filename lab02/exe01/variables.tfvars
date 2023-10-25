@@ -1,1 +1,1 @@
-image_id="ubuntu20-lts"
+image_id="ubuntu22-lts"

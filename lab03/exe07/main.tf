@@ -11,7 +11,7 @@ terraform {
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
-      version = "2.15.0"
+      version = "3.0.2"
     }
   }
 }
@@ -55,55 +55,46 @@ resource "docker_container" "nginx" {
 # 
 # $ terraform apply
 # 
-# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following
+# symbols:
 #   + create
 # 
 # Terraform will perform the following actions:
 # 
 #   # docker_container.nginx[0] will be created
 #   + resource "docker_container" "nginx" {
-#       + attach           = false
-#       + bridge           = (known after apply)
-#       + command          = (known after apply)
-#       + container_logs   = (known after apply)
-#       + entrypoint       = (known after apply)
-#       + env              = (known after apply)
-#       + exit_code        = (known after apply)
-#       + gateway          = (known after apply)
-#       + hostname         = (known after apply)
-#       + id               = (known after apply)
-#       + image            = "nginx:latest"
-#       + init             = (known after apply)
-#       + ip_address       = (known after apply)
-#       + ip_prefix_length = (known after apply)
-#       + ipc_mode         = (known after apply)
-#       + log_driver       = "json-file"
-#       + logs             = false
-#       + must_run         = true
-#       + name             = "web-0"
-#       + network_data     = (known after apply)
-#       + read_only        = false
-#       + remove_volumes   = true
-#       + restart          = "no"
-#       + rm               = false
-#       + security_opts    = (known after apply)
-#       + shm_size         = (known after apply)
-#       + start            = true
-#       + stdin_open       = false
-#       + tty              = false
-# 
-#       + healthcheck {
-#           + interval     = (known after apply)
-#           + retries      = (known after apply)
-#           + start_period = (known after apply)
-#           + test         = (known after apply)
-#           + timeout      = (known after apply)
-#         }
-# 
-#       + labels {
-#           + label = (known after apply)
-#           + value = (known after apply)
-#         }
+#       + attach                                      = false
+#       + bridge                                      = (known after apply)
+#       + command                                     = (known after apply)
+#       + container_logs                              = (known after apply)
+#       + container_read_refresh_timeout_milliseconds = 15000
+#       + entrypoint                                  = (known after apply)
+#       + env                                         = (known after apply)
+#       + exit_code                                   = (known after apply)
+#       + hostname                                    = (known after apply)
+#       + id                                          = (known after apply)
+#       + image                                       = "nginx:latest"
+#       + init                                        = (known after apply)
+#       + ipc_mode                                    = (known after apply)
+#       + log_driver                                  = (known after apply)
+#       + logs                                        = false
+#       + must_run                                    = true
+#       + name                                        = "web-0"
+#       + network_data                                = (known after apply)
+#       + read_only                                   = false
+#       + remove_volumes                              = true
+#       + restart                                     = "no"
+#       + rm                                          = false
+#       + runtime                                     = (known after apply)
+#       + security_opts                               = (known after apply)
+#       + shm_size                                    = (known after apply)
+#       + start                                       = true
+#       + stdin_open                                  = false
+#       + stop_signal                                 = (known after apply)
+#       + stop_timeout                                = (known after apply)
+#       + tty                                         = false
+#       + wait                                        = false
+#       + wait_timeout                                = 60
 # 
 #       + ports {
 #           + external = 8000
@@ -115,48 +106,38 @@ resource "docker_container" "nginx" {
 # 
 #   # docker_container.nginx[1] will be created
 #   + resource "docker_container" "nginx" {
-#       + attach           = false
-#       + bridge           = (known after apply)
-#       + command          = (known after apply)
-#       + container_logs   = (known after apply)
-#       + entrypoint       = (known after apply)
-#       + env              = (known after apply)
-#       + exit_code        = (known after apply)
-#       + gateway          = (known after apply)
-#       + hostname         = (known after apply)
-#       + id               = (known after apply)
-#       + image            = "nginx:latest"
-#       + init             = (known after apply)
-#       + ip_address       = (known after apply)
-#       + ip_prefix_length = (known after apply)
-#       + ipc_mode         = (known after apply)
-#       + log_driver       = "json-file"
-#       + logs             = false
-#       + must_run         = true
-#       + name             = "web-1"
-#       + network_data     = (known after apply)
-#       + read_only        = false
-#       + remove_volumes   = true
-#       + restart          = "no"
-#       + rm               = false
-#       + security_opts    = (known after apply)
-#       + shm_size         = (known after apply)
-#       + start            = true
-#       + stdin_open       = false
-#       + tty              = false
-# 
-#       + healthcheck {
-#           + interval     = (known after apply)
-#           + retries      = (known after apply)
-#           + start_period = (known after apply)
-#           + test         = (known after apply)
-#           + timeout      = (known after apply)
-#         }
-# 
-#       + labels {
-#           + label = (known after apply)
-#           + value = (known after apply)
-#         }
+#       + attach                                      = false
+#       + bridge                                      = (known after apply)
+#       + command                                     = (known after apply)
+#       + container_logs                              = (known after apply)
+#       + container_read_refresh_timeout_milliseconds = 15000
+#       + entrypoint                                  = (known after apply)
+#       + env                                         = (known after apply)
+#       + exit_code                                   = (known after apply)
+#       + hostname                                    = (known after apply)
+#       + id                                          = (known after apply)
+#       + image                                       = "nginx:latest"
+#       + init                                        = (known after apply)
+#       + ipc_mode                                    = (known after apply)
+#       + log_driver                                  = (known after apply)
+#       + logs                                        = false
+#       + must_run                                    = true
+#       + name                                        = "web-1"
+#       + network_data                                = (known after apply)
+#       + read_only                                   = false
+#       + remove_volumes                              = true
+#       + restart                                     = "no"
+#       + rm                                          = false
+#       + runtime                                     = (known after apply)
+#       + security_opts                               = (known after apply)
+#       + shm_size                                    = (known after apply)
+#       + start                                       = true
+#       + stdin_open                                  = false
+#       + stop_signal                                 = (known after apply)
+#       + stop_timeout                                = (known after apply)
+#       + tty                                         = false
+#       + wait                                        = false
+#       + wait_timeout                                = 60
 # 
 #       + ports {
 #           + external = 8001
@@ -168,48 +149,38 @@ resource "docker_container" "nginx" {
 # 
 #   # docker_container.nginx[2] will be created
 #   + resource "docker_container" "nginx" {
-#       + attach           = false
-#       + bridge           = (known after apply)
-#       + command          = (known after apply)
-#       + container_logs   = (known after apply)
-#       + entrypoint       = (known after apply)
-#       + env              = (known after apply)
-#       + exit_code        = (known after apply)
-#       + gateway          = (known after apply)
-#       + hostname         = (known after apply)
-#       + id               = (known after apply)
-#       + image            = "nginx:latest"
-#       + init             = (known after apply)
-#       + ip_address       = (known after apply)
-#       + ip_prefix_length = (known after apply)
-#       + ipc_mode         = (known after apply)
-#       + log_driver       = "json-file"
-#       + logs             = false
-#       + must_run         = true
-#       + name             = "web-2"
-#       + network_data     = (known after apply)
-#       + read_only        = false
-#       + remove_volumes   = true
-#       + restart          = "no"
-#       + rm               = false
-#       + security_opts    = (known after apply)
-#       + shm_size         = (known after apply)
-#       + start            = true
-#       + stdin_open       = false
-#       + tty              = false
-# 
-#       + healthcheck {
-#           + interval     = (known after apply)
-#           + retries      = (known after apply)
-#           + start_period = (known after apply)
-#           + test         = (known after apply)
-#           + timeout      = (known after apply)
-#         }
-# 
-#       + labels {
-#           + label = (known after apply)
-#           + value = (known after apply)
-#         }
+#       + attach                                      = false
+#       + bridge                                      = (known after apply)
+#       + command                                     = (known after apply)
+#       + container_logs                              = (known after apply)
+#       + container_read_refresh_timeout_milliseconds = 15000
+#       + entrypoint                                  = (known after apply)
+#       + env                                         = (known after apply)
+#       + exit_code                                   = (known after apply)
+#       + hostname                                    = (known after apply)
+#       + id                                          = (known after apply)
+#       + image                                       = "nginx:latest"
+#       + init                                        = (known after apply)
+#       + ipc_mode                                    = (known after apply)
+#       + log_driver                                  = (known after apply)
+#       + logs                                        = false
+#       + must_run                                    = true
+#       + name                                        = "web-2"
+#       + network_data                                = (known after apply)
+#       + read_only                                   = false
+#       + remove_volumes                              = true
+#       + restart                                     = "no"
+#       + rm                                          = false
+#       + runtime                                     = (known after apply)
+#       + security_opts                               = (known after apply)
+#       + shm_size                                    = (known after apply)
+#       + start                                       = true
+#       + stdin_open                                  = false
+#       + stop_signal                                 = (known after apply)
+#       + stop_timeout                                = (known after apply)
+#       + tty                                         = false
+#       + wait                                        = false
+#       + wait_timeout                                = 60
 # 
 #       + ports {
 #           + external = 8002
@@ -222,10 +193,9 @@ resource "docker_container" "nginx" {
 #   # docker_image.nginx will be created
 #   + resource "docker_image" "nginx" {
 #       + id           = (known after apply)
+#       + image_id     = (known after apply)
 #       + keep_locally = false
-#       + latest       = (known after apply)
 #       + name         = "nginx:latest"
-#       + output       = (known after apply)
 #       + repo_digest  = (known after apply)
 #     }
 # 
@@ -238,13 +208,13 @@ resource "docker_container" "nginx" {
 #   Enter a value: yes
 # 
 # docker_image.nginx: Creating...
-# docker_image.nginx: Creation complete after 6s [id=sha256:f8f4ffc8092c956ddd6a3a64814f36882798065799b8aedeebedf2855af3395bnginx:latest]
+# docker_image.nginx: Creation complete after 5s [id=sha256:593aee2afb642798b83a85306d2625fd7f089c0a1242c7e75a237846d80aa2a0nginx:latest]
+# docker_container.nginx[1]: Creating...
 # docker_container.nginx[2]: Creating...
 # docker_container.nginx[0]: Creating...
-# docker_container.nginx[1]: Creating...
-# docker_container.nginx[0]: Creation complete after 4s [id=38602f4ab3e46262ba99dad4bee848e63cba090612f2fe56422d554832af56eb]
-# docker_container.nginx[2]: Creation complete after 5s [id=591bf0cf8ff52bac11f19347ceed96970b71304e03e03fe159978cf80b882501]
-# docker_container.nginx[1]: Creation complete after 5s [id=96d90f817950165c2f5e4b25ed80d3a042abfc2d7278d9f2e05972c0c8b6bc65]
+# docker_container.nginx[0]: Creation complete after 4s [id=2e2ff12a327c433339d01f7118289089914e6c2ee9121af0317af4650ea3df22]
+# docker_container.nginx[2]: Creation complete after 4s [id=ee52d6bbb8d90117843a7db2e3ff8c16b42f73090921432d0671e2213fa27796]
+# docker_container.nginx[1]: Creation complete after 4s [id=3ec47d29e47e7150eabf6a97e85259c871ea70d6d630bbca49b0e5617bb9300c]
 # 
 # Apply complete! Resources: 4 added, 0 changed, 0 destroyed.
 
@@ -253,9 +223,9 @@ resource "docker_container" "nginx" {
 # 
 # $ docker ps 
 # CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS                  NAMES
-# 8e66a4db0ab9   nginx:latest   "/docker-entrypoint.…"   17 minutes ago   Up 17 minutes   0.0.0.0:8002->80/tcp   web-2
-# 0536e3e017d7   nginx:latest   "/docker-entrypoint.…"   17 minutes ago   Up 17 minutes   0.0.0.0:8001->80/tcp   web-1
-# 809009b8999a   nginx:latest   "/docker-entrypoint.…"   17 minutes ago   Up 17 minutes   0.0.0.0:8000->80/tcp   web-0
+# 2e2ff12a327c   nginx:latest   "/docker-entrypoint.…"   28 seconds ago   Up 23 seconds   0.0.0.0:8000->80/tcp   web-0
+# ee52d6bbb8d9   nginx:latest   "/docker-entrypoint.…"   28 seconds ago   Up 23 seconds   0.0.0.0:8002->80/tcp   web-2
+# 3ec47d29e47e   nginx:latest   "/docker-entrypoint.…"   28 seconds ago   Up 23 seconds   0.0.0.0:8001->80/tcp   web-1
 
 
 # Verifique os states criados, conforme o comando abaixo:
@@ -270,60 +240,61 @@ resource "docker_container" "nginx" {
 # Verifique as informações de um dos states, conforme comando abaixo:
 # 
 # $ terraform state show docker_container.nginx[1] 
-# docker_container.nginx[1]:
+# # docker_container.nginx[1]:
 # resource "docker_container" "nginx" {
-#     command           = [
+#     attach                                      = false
+#     command                                     = [
 #         "nginx",
 #         "-g",
 #         "daemon off;",
 #     ]
-#     cpu_shares        = 0
-#     dns               = []
-#     dns_opts          = []
-#     dns_search        = []
-#     entrypoint        = [
+#     container_read_refresh_timeout_milliseconds = 15000
+#     cpu_shares                                  = 0
+#     entrypoint                                  = [
 #         "/docker-entrypoint.sh",
 #     ]
-#     gateway           = "172.17.0.1"
-#     group_add         = []
-#     hostname          = "0536e3e017d7"
-#     id                = "0536e3e017d7799ad8d381351d222ee0b5df67bdc2365c0d199eccced1136cc5"
-#     image             = "sha256:87a94228f133e2da99cb16d653cd1373c5b4e8689956386c1c12b60a20421a02"
-#     init              = false
-#     ip_address        = "172.17.0.2"
-#     ip_prefix_length  = 16
-#     ipc_mode          = "private"
-#     links             = []
-#     log_driver        = "json-file"
-#     log_opts          = {}
-#     max_retry_count   = 0
-#     memory            = 0
-#     memory_swap       = 0
-#     name              = "web-1"
-#     network_data      = [
+#     env                                         = []
+#     hostname                                    = "3ec47d29e47e"
+#     id                                          = "3ec47d29e47e7150eabf6a97e85259c871ea70d6d630bbca49b0e5617bb9300c"
+#     image                                       = "sha256:593aee2afb642798b83a85306d2625fd7f089c0a1242c7e75a237846d80aa2a0"
+#     init                                        = false
+#     ipc_mode                                    = "private"
+#     log_driver                                  = "json-file"
+#     logs                                        = false
+#     max_retry_count                             = 0
+#     memory                                      = 0
+#     memory_swap                                 = 0
+#     must_run                                    = true
+#     name                                        = "web-1"
+#     network_data                                = [
 #         {
 #             gateway                   = "172.17.0.1"
 #             global_ipv6_address       = ""
 #             global_ipv6_prefix_length = 0
-#             ip_address                = "172.17.0.2"
+#             ip_address                = "172.17.0.4"
 #             ip_prefix_length          = 16
 #             ipv6_gateway              = ""
+#             mac_address               = "02:42:ac:11:00:04"
 #             network_name              = "bridge"
 #         },
 #     ]
-#     network_mode      = "default"
-#     privileged        = false
-#     publish_all_ports = false
-#     read_only         = false
-#     restart           = "no"
-#     rm                = false
-#     security_opts     = []
-#     shm_size          = 64
-#     stdin_open        = false
-#     storage_opts      = {}
-#     sysctls           = {}
-#     tmpfs             = {}
-#     tty               = false
+#     network_mode                                = "default"
+#     privileged                                  = false
+#     publish_all_ports                           = false
+#     read_only                                   = false
+#     remove_volumes                              = true
+#     restart                                     = "no"
+#     rm                                          = false
+#     runtime                                     = "runc"
+#     security_opts                               = []
+#     shm_size                                    = 64
+#     start                                       = true
+#     stdin_open                                  = false
+#     stop_signal                                 = "SIGQUIT"
+#     stop_timeout                                = 0
+#     tty                                         = false
+#     wait                                        = false
+#     wait_timeout                                = 60
 # 
 #     ports {
 #         external = 8001
@@ -356,8 +327,8 @@ resource "docker_container" "nginx" {
 # $ docker inspect web-1
 # [
 #     {
-#         "Id": "0536e3e017d7799ad8d381351d222ee0b5df67bdc2365c0d199eccced1136cc5",
-#         "Created": "2021-10-12T03:04:27.811903695Z",
+#         "Id": "3ec47d29e47e7150eabf6a97e85259c871ea70d6d630bbca49b0e5617bb9300c",
+#         "Created": "2023-10-25T13:37:10.109031518Z",
 #         "Path": "/docker-entrypoint.sh",
 #         "Args": [
 #             "nginx",
@@ -371,21 +342,21 @@ resource "docker_container" "nginx" {
 #             "Restarting": false,
 #             "OOMKilled": false,
 #             "Dead": false,
-#             "Pid": 12941,
+#             "Pid": 4004,
 #             "ExitCode": 0,
 #             "Error": "",
-#             "StartedAt": "2021-10-12T03:04:31.40862224Z",
+#             "StartedAt": "2023-10-25T13:37:14.24677451Z",
 #             "FinishedAt": "0001-01-01T00:00:00Z"
 #         },
 # ...
 #  
 # De posse do ID acima, execute o comando "terraform import", conforme comando abaixo:
 # 
-# $ terraform import docker_container.nginx[1] 0536e3e017d7799ad8d381351d222ee0b5df67bdc2365c0d199eccced1136cc5
-# docker_container.nginx[1]: Importing from ID "0536e3e017d7799ad8d381351d222ee0b5df67bdc2365c0d199eccced1136cc5"...
+# $ terraform import docker_container.nginx[1] 3ec47d29e47e7150eabf6a97e85259c871ea70d6d630bbca49b0e5617bb9300c
+# docker_container.nginx[1]: Importing from ID "3ec47d29e47e7150eabf6a97e85259c871ea70d6d630bbca49b0e5617bb9300c"...
 # docker_container.nginx[1]: Import prepared!
 #   Prepared docker_container for import
-# docker_container.nginx[1]: Refreshing state... [id=0536e3e017d7799ad8d381351d222ee0b5df67bdc2365c0d199eccced1136cc5]
+# docker_container.nginx[1]: Refreshing state... [id=3ec47d29e47e7150eabf6a97e85259c871ea70d6d630bbca49b0e5617bb9300c]
 # 
 # Import successful!
 # 

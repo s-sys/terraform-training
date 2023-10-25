@@ -3,7 +3,7 @@
 # 
 # Defina uma variável chamada "users" no terraform para armazenar uma lista de
 # usuários. Esta variável deve ser do tipo "list". Crie um arquivo "terraform.tfvars"
-# para conter a definição das variáveis e ser lido de forma automática pelo terraform.
+# para conter a definição das variáveis a serem lidas de forma automática pelo terraform.
 # Crie uma variável local que concatene os elementos da variável "users" separando
 # os elementos por vírgula. Ao final da execução do "terraform apply" o valor
 # desta variável deve ser exibido na saída de execução.
