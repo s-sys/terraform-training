@@ -13,11 +13,10 @@ terraform {
   required_providers {
     libvirt = {
       source = "dmacvicar/libvirt"
-      version = "~> 0.6.11"
+      version = "~> 0.7.6"
     }
   }
-  required_version = ">= 0.13"
-  experiments      = [module_variable_optional_attrs]
+  required_version = ">= 1.6"
 }
 
 provider "libvirt" {
@@ -43,8 +42,9 @@ locals {
 resource "libvirt_volume" "volume" {
   count  = local.num_vms 
   name   = "${local.instances[count.index]}.qcow2"
-  source = "https://cloud-images.ubuntu.com/releases/focal/release/ubuntu-20.04-server-cloudimg-amd64.img"
+  source = "https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img"
   pool   = "VMs"
+  format = "qcow2"
 }
 
 data "template_file" "user_data" {
@@ -73,7 +73,6 @@ resource "libvirt_domain" "vm" {
   name       = local.instances[count.index]
   memory     = var.vms[count.index].memory == null ? 640 : var.vms[count.index].memory
   vcpu       = var.vms[count.index].vcpu   == null ? 2   : var.vms[count.index].vcpu
-  qemu_agent = true
   cloudinit  = libvirt_cloudinit_disk.cloudinit[count.index].id
 
   cpu {
@@ -120,8 +119,10 @@ resource "libvirt_domain" "vm" {
 # Crie um arquivo chamado "~/terraform/lab06/exe02/cloud_init.cfg",
 # com o seguinte conteúdo:
 # 
-#cloud-config
-# vim: syntax=yaml
+# #cloud-config
+# # vim: syntax=yaml
+# hostname: ${hostname}
+# 
 # ssh_pwauth: true
 # chpasswd:
 #   list: |
@@ -131,8 +132,10 @@ resource "libvirt_domain" "vm" {
 # 
 # disable_root: false
 # 
-# ssh_authorized_keys:
-#     - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDb6VI1UvD8kHvCfjioiFgTseLSn5/MvvAUKFp/miqjM5YOHMIEWvgKNNBoz5REYp2GKSVFiXBKcrsYq8FpZePd7CMX2NZoJOraEMl/2IqHeo2Y+Y1F+VWUilHx98Co/0epgRG1UgVY7ZxC0SjX2rjxBV4LOulOVxDjyJc/RUatT/x7D9gIKo2DW5z6U2zO4hiTvoeY9tU2XubgDNu7bkoL75U49uToKsy/R4Paf1EOHCC/Hfdxyoyx6yibNA5KxqManBMY4dcWAnt3O03pBW7vJRAJ2M9p7VJsx7iSRKdktdf6yr54UFhCFkMMTiEuto8RVIObNs5DYo5dYKWsNewwcoYsotFTPrXXb7FiMTTsGjPEJ57TzNupemmupmfTUPEDo2J/GLVI9ah9nilK+RU4uyvaO4SU6JpSplHGUJbMXd2gpm5ahoPjZ3thjuSbRbek/7cIxvaPB4OV6YBsM4qPYGxYTaiOfprXspe9vJvQlHLYeTCv1VErtyzXlWzFqpc= azureroot@terraform-01
+# users:
+#   - name: root
+#     ssh_authorized_keys:
+#       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDb6VI1UvD8kHvCfjioiFgTseLSn5/MvvAUKFp/miqjM5YOHMIEWvgKNNBoz5REYp2GKSVFiXBKcrsYq8FpZePd7CMX2NZoJOraEMl/2IqHeo2Y+Y1F+VWUilHx98Co/0epgRG1UgVY7ZxC0SjX2rjxBV4LOulOVxDjyJc/RUatT/x7D9gIKo2DW5z6U2zO4hiTvoeY9tU2XubgDNu7bkoL75U49uToKsy/R4Paf1EOHCC/Hfdxyoyx6yibNA5KxqManBMY4dcWAnt3O03pBW7vJRAJ2M9p7VJsx7iSRKdktdf6yr54UFhCFkMMTiEuto8RVIObNs5DYo5dYKWsNewwcoYsotFTPrXXb7FiMTTsGjPEJ57TzNupemmupmfTUPEDo2J/GLVI9ah9nilK+RU4uyvaO4SU6JpSplHGUJbMXd2gpm5ahoPjZ3thjuSbRbek/7cIxvaPB4OV6YBsM4qPYGxYTaiOfprXspe9vJvQlHLYeTCv1VErtyzXlWzFqpc= azureroot@terraform-01
 
 
 # Obtenha o conteúdo do arquivo "~/.ssh/id_rsa.pub" e faça a alteração do arquivo "cloud_init.cfg" acima.
@@ -250,33 +253,34 @@ resource "libvirt_domain" "vm" {
 # 
 # $ virsh list
 # 
-#  Id   Name        State
-# ---------------------------
-#  1    docker      running
-#  3    databases   running
-#  71   minikube    running
-#  72   prod-vm3    running
-#  73   prod-vm1    running
-#  74   prod-vm2    running
-#  75   qa-vm1      running
-#  76   dev-vm1     running
+#  Id   Name       State
+# --------------------------
+#  1    docker     running
+#  2    k8s        running
+#  3    db         running
+#  52   prod-vm2   running
+#  53   prod-vm1   running
+#  54   prod-vm3   running
+#  55   dev-vm1    running
+#  56   qa-vm1     running
 
 
 # Verifique no diretório "terraform.tfstate.d" que os arquivos de estado foram criados para cada workspace:
 # 
 # $ ls -lR terraform.tfstate.d/
 # terraform.tfstate.d/:
-# total 8
-# drwxr-xr-x 2 azureroot azureroot 4096 Oct 18 03:03 dev
-# drwxr-xr-x 2 azureroot azureroot 4096 Oct 18 03:02 qa
+# total 0
+# drwxr-xr-x 2 azureroot users 63 Dec  2 23:11 dev
+# drwxr-xr-x 2 azureroot users 31 Dec  2 23:12 qa
 # 
 # terraform.tfstate.d/dev:
-# total 12
-# -rw-rw-r-- 1 azureroot azureroot 8835 Oct 18 03:03 terraform.tfstate
+# total 16
+# -rw-r--r-- 1 azureroot users 9404 Dec  2 23:11 terraform.tfstate
+# -rw-r--r-- 1 azureroot users 4044 Dec  2 23:10 terraform.tfstate.backup
 # 
 # terraform.tfstate.d/qa:
 # total 12
-# -rw-rw-r-- 1 azureroot azureroot 8827 Oct 18 03:02 terraform.tfstate
+# -rw-r--r-- 1 azureroot users 9394 Dec  2 23:12 terraform.tfstate
 # 
 # O arquivo de estado para o workspace "default" continua no mesmo local em "terraform.tfstate".
 

@@ -10,7 +10,7 @@ terraform {
   required_providers {
     spotify = {
       source  = "conradludgate/spotify"
-      version = "~> 0.2.0"
+      version = "~> 0.2.7"
     }
   }
 }
@@ -83,9 +83,9 @@ data "spotify_track" "toy_story_4_theme" {
 # Initializing the backend...
 # 
 # Initializing provider plugins...
-# - Finding conradludgate/spotify versions matching "~> 0.2.0"...
-# - Installing conradludgate/spotify v0.2.6...
-# - Installed conradludgate/spotify v0.2.6 (self-signed, key ID B4E4E68AFAC5D89C)
+# - Finding conradludgate/spotify versions matching "~> 0.2.7"...
+# - Installing conradludgate/spotify v0.2.7...
+# - Installed conradludgate/spotify v0.2.7 (self-signed, key ID B4E4E68AFAC5D89C)
 # 
 # Partner and community providers are signed by their developers.
 # If you'd like to know more about provider signing, you can read about it here:
@@ -110,63 +110,59 @@ data "spotify_track" "toy_story_4_theme" {
 # Na sequência execute o comando abaixo para validar o plano de execução do terraform:
 # 
 # $ terraform plan
+# data.spotify_track.toy_story_4_theme: Reading...
+# data.spotify_track.toy_story_4_theme: Read complete after 0s [id=0pUdOFWYSL4c7bFlpV68GG]
 # 
-# spotify_playlist.terraform_playlist: Refreshing state... [id=4eN90Q6jrOMoeqerpehueT]
+# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+#   + create
 # 
-# Note: Objects have changed outside of Terraform
+# Terraform will perform the following actions:
 # 
-# Terraform detected the following changes made outside of Terraform since the last "terraform apply":
-# 
-#   # spotify_playlist.terraform_playlist has been changed
-#   ~ resource "spotify_playlist" "terraform_playlist" {
-#         id          = "4eN90Q6jrOMoeqerpehueT"
-#         name        = "Terraform Training Playlist"
-#       ~ snapshot_id = "MyxkNTYwODlkYjRhNDAxNzhhYmViOTM2YzdlMzA0MGI0MTg0NDEwNWYz" -> "NCw1YzEzMjJjOTg3MGE4NmU4YmMxYjJjZDQxZWFhM2FjZjA2YjA0NzZh"
-#         # (3 unchanged attributes hidden)
+#   # spotify_playlist.terraform_playlist will be created
+#   + resource "spotify_playlist" "terraform_playlist" {
+#       + description = "Playlist used in terraform training."
+#       + id          = (known after apply)
+#       + name        = "Terraform Training Playlist"
+#       + public      = false
+#       + snapshot_id = (known after apply)
+#       + tracks      = [
+#           + "0pUdOFWYSL4c7bFlpV68GG",
+#         ]
 #     }
 # 
-# Unless you have made equivalent changes to your configuration, or ignored the relevant attributes using ignore_changes, the following plan may
-# include actions to undo or respond to these changes.
+# Plan: 1 to add, 0 to change, 0 to destroy.
 # 
-# ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+# ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 # 
-# Changes to Outputs:
-#   + playlist_url = "https://open.spotify.com/playlist/4eN90Q6jrOMoeqerpehueT"
-# 
-# You can apply this plan to save these new output values to the Terraform state, without changing any real infrastructure.
-# 
-# ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-# 
-# Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
+# Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply"
+# now.
 
 
 # Em seguida execute o comando abaixo para aplicar a configuração do terraform:
 # 
 # $ terraform apply
 # 
-# spotify_playlist.terraform_playlist: Refreshing state... [id=4eN90Q6jrOMoeqerpehueT]
+# data.spotify_track.toy_story_4_theme: Reading...
+# data.spotify_track.toy_story_4_theme: Read complete after 1s [id=0pUdOFWYSL4c7bFlpV68GG]
 # 
-# Note: Objects have changed outside of Terraform
+# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+#   + create
 # 
-# Terraform detected the following changes made outside of Terraform since the last "terraform apply":
+# Terraform will perform the following actions:
 # 
-#   # spotify_playlist.terraform_playlist has been changed
-#   ~ resource "spotify_playlist" "terraform_playlist" {
-#         id          = "4eN90Q6jrOMoeqerpehueT"
-#         name        = "Terraform Training Playlist"
-#       ~ snapshot_id = "MyxkNTYwODlkYjRhNDAxNzhhYmViOTM2YzdlMzA0MGI0MTg0NDEwNWYz" -> "NCw1YzEzMjJjOTg3MGE4NmU4YmMxYjJjZDQxZWFhM2FjZjA2YjA0NzZh"
-#         # (3 unchanged attributes hidden)
+#   # spotify_playlist.terraform_playlist will be created
+#   + resource "spotify_playlist" "terraform_playlist" {
+#       + description = "Playlist used in terraform training."
+#       + id          = (known after apply)
+#       + name        = "Terraform Training Playlist"
+#       + public      = false
+#       + snapshot_id = (known after apply)
+#       + tracks      = [
+#           + "0pUdOFWYSL4c7bFlpV68GG",
+#         ]
 #     }
 # 
-# Unless you have made equivalent changes to your configuration, or ignored the relevant attributes using ignore_changes, the following plan may
-# include actions to undo or respond to these changes.
-# 
-# ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-# 
-# Changes to Outputs:
-#   + playlist_url = "https://open.spotify.com/playlist/4eN90Q6jrOMoeqerpehueT"
-# 
-# You can apply this plan to save these new output values to the Terraform state, without changing any real infrastructure.
+# Plan: 1 to add, 0 to change, 0 to destroy.
 # 
 # Do you want to perform these actions?
 #   Terraform will perform the actions described above.
@@ -174,25 +170,29 @@ data "spotify_track" "toy_story_4_theme" {
 # 
 #   Enter a value: yes
 # 
+# spotify_playlist.terraform_playlist: Creating...
+# spotify_playlist.terraform_playlist: Creation complete after 1s [id=3y4U7AC0aOnpRvVyEI5mum]
 # 
-# Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
+# Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 # 
 # Outputs:
 # 
-# playlist_url = "https://open.spotify.com/playlist/4eN90Q6jrOMoeqerpehueT"
+# playlist_url = "https://open.spotify.com/playlist/3y4U7AC0aOnpRvVyEI5mum"
 
 
 # Verifique no aplicativo Spotify se a playlist foi criada. O endereço de acesso a
 # playlist pode ser obtido executando o comando abaixo:
 # 
 # $ terraform output playlist_url
+# "https://open.spotify.com/playlist/3y4U7AC0aOnpRvVyEI5mum"
 
 
 # Execute o comando "terraform destroy" para destruir o ambiente, conforme abaixo:
 # 
 # $ terraform destroy 
-# 
-# spotify_playlist.terraform_playlist: Refreshing state... [id=4eN90Q6jrOMoeqerpehueT]
+# data.spotify_track.toy_story_4_theme: Reading...
+# data.spotify_track.toy_story_4_theme: Read complete after 0s [id=0pUdOFWYSL4c7bFlpV68GG]
+# spotify_playlist.terraform_playlist: Refreshing state... [id=3y4U7AC0aOnpRvVyEI5mum]
 # 
 # Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
 #   - destroy
@@ -202,10 +202,10 @@ data "spotify_track" "toy_story_4_theme" {
 #   # spotify_playlist.terraform_playlist will be destroyed
 #   - resource "spotify_playlist" "terraform_playlist" {
 #       - description = "Playlist used in terraform training." -> null
-#       - id          = "4eN90Q6jrOMoeqerpehueT" -> null
+#       - id          = "3y4U7AC0aOnpRvVyEI5mum" -> null
 #       - name        = "Terraform Training Playlist" -> null
 #       - public      = false -> null
-#       - snapshot_id = "NCw1YzEzMjJjOTg3MGE4NmU4YmMxYjJjZDQxZWFhM2FjZjA2YjA0NzZh" -> null
+#       - snapshot_id = "MyxlNjQ2OGU5MjExMzc2YTQyN2RiYTk5M2RmMzY2MmEzMDhmZTI2Yzlm" -> null
 #       - tracks      = [
 #           - "0pUdOFWYSL4c7bFlpV68GG",
 #         ] -> null
@@ -214,7 +214,7 @@ data "spotify_track" "toy_story_4_theme" {
 # Plan: 0 to add, 0 to change, 1 to destroy.
 # 
 # Changes to Outputs:
-#   - playlist_url = "https://open.spotify.com/playlist/4eN90Q6jrOMoeqerpehueT" -> null
+#   - playlist_url = "https://open.spotify.com/playlist/3y4U7AC0aOnpRvVyEI5mum" -> null
 # 
 # Do you really want to destroy all resources?
 #   Terraform will destroy all your managed infrastructure, as shown above.
@@ -222,7 +222,7 @@ data "spotify_track" "toy_story_4_theme" {
 # 
 #   Enter a value: yes
 # 
-# spotify_playlist.terraform_playlist: Destroying... [id=4eN90Q6jrOMoeqerpehueT]
-# spotify_playlist.terraform_playlist: Destruction complete after 0s
+# spotify_playlist.terraform_playlist: Destroying... [id=3y4U7AC0aOnpRvVyEI5mum]
+# spotify_playlist.terraform_playlist: Destruction complete after 1s
 # 
 # Destroy complete! Resources: 1 destroyed.

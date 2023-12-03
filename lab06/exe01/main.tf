@@ -14,7 +14,7 @@ terraform {
   required_providers {
     azurerm = {
       source = "hashicorp/azurerm"
-      version = "~> 2.81"
+      version = "~> 3.83.0"
     }
   }
 }
@@ -233,6 +233,8 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
 
 # Preencha os dados de acesso do Azure e do "Resource Group" com as informações fornecidas pelo instrutor.
+# O script "az.sh" pode ser utilizado para preencher as variáveis referentes aos dados da aplicação 
+# do Azure que serão utilizadas para as atividades do laboratório.
 
 
 # Execute o comando abaixo para inicializar o diretório do terraform:
@@ -242,9 +244,9 @@ resource "azurerm_linux_virtual_machine" "vm" {
 # Initializing the backend...
 # 
 # Initializing provider plugins...
-# - Finding hashicorp/azurerm versions matching "~> 2.81"...
-# - Installing hashicorp/azurerm v2.81.0...
-# - Installed hashicorp/azurerm v2.81.0 (signed by HashiCorp)
+# - Finding hashicorp/azurerm versions matching "~> 3.83.0"...
+# - Installing hashicorp/azurerm v3.83.0...
+# - Installed hashicorp/azurerm v3.83.0 (signed by HashiCorp)
 # 
 # Terraform has created a lock file .terraform.lock.hcl to record the provider
 # selections it made above. Include this file in your version control repository
@@ -266,39 +268,45 @@ resource "azurerm_linux_virtual_machine" "vm" {
 # 
 # $ terraform apply -auto-approve
 # 
-# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+# data.azurerm_resource_group.rg: Reading...
+# data.azurerm_resource_group.rg: Read complete after 0s [id=/subscriptions/f4d6246c-29d3-4562-b7f0-43e4c51c2374/resourceGroups/terraform-rg-student-01]
+# 
+# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the
+# following symbols:
 #   + create
 # 
 # Terraform will perform the following actions:
 # 
 #   # azurerm_linux_virtual_machine.vm will be created
 #   + resource "azurerm_linux_virtual_machine" "vm" {
-#       + admin_password                  = (sensitive value)
-#       + admin_username                  = "azureroot"
-#       + allow_extension_operations      = true
-#       + computer_name                   = "vm1"
-#       + disable_password_authentication = false
-#       + extensions_time_budget          = "PT1H30M"
-#       + id                              = (known after apply)
-#       + location                        = "centralus"
-#       + max_bid_price                   = -1
-#       + name                            = "vm1"
-#       + network_interface_ids           = (known after apply)
-#       + platform_fault_domain           = -1
-#       + priority                        = "Regular"
-#       + private_ip_address              = (known after apply)
-#       + private_ip_addresses            = (known after apply)
-#       + provision_vm_agent              = true
-#       + public_ip_address               = (known after apply)
-#       + public_ip_addresses             = (known after apply)
-#       + resource_group_name             = "terraform-rg-student-01"
-#       + size                            = "Standard_B1ls"
-#       + virtual_machine_id              = (known after apply)
-#       + zone                            = (known after apply)
+#       + admin_password                                         = (sensitive value)
+#       + admin_username                                         = "azureroot"
+#       + allow_extension_operations                             = true
+#       + bypass_platform_safety_checks_on_user_schedule_enabled = false
+#       + computer_name                                          = "vm1"
+#       + disable_password_authentication                        = false
+#       + extensions_time_budget                                 = "PT1H30M"
+#       + id                                                     = (known after apply)
+#       + location                                               = "centralus"
+#       + max_bid_price                                          = -1
+#       + name                                                   = "vm1"
+#       + network_interface_ids                                  = (known after apply)
+#       + patch_assessment_mode                                  = "ImageDefault"
+#       + patch_mode                                             = "ImageDefault"
+#       + platform_fault_domain                                  = -1
+#       + priority                                               = "Regular"
+#       + private_ip_address                                     = (known after apply)
+#       + private_ip_addresses                                   = (known after apply)
+#       + provision_vm_agent                                     = true
+#       + public_ip_address                                      = (known after apply)
+#       + public_ip_addresses                                    = (known after apply)
+#       + resource_group_name                                    = "terraform-rg-student-01"
+#       + size                                                   = "Standard_B1ls"
+#       + virtual_machine_id                                     = (known after apply)
 # 
 #       + admin_ssh_key {
 #           + public_key = <<-EOT
-#                 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDb6VI1UvD8kHvCfjioiFgTseLSn5/MvvAUKFp/miqjM5YOHMIEWvgKNNBoz5REYp2GKSVFiXBKcrsYq8FpZePd7CMX2NZoJOraEMl/2IqHeo2Y+Y1F+VWUilHx98Co/0epgRG1UgVY7ZxC0SjX2rjxBV4LOulOVxDjyJc/RUatT/x7D9gIKo2DW5z6U2zO4hiTvoeY9tU2XubgDNu7bkoL75U49uToKsy/R4Paf1EOHCC/Hfdxyoyx6yibNA5KxqManBMY4dcWAnt3O03pBW7vJRAJ2M9p7VJsx7iSRKdktdf6yr54UFhCFkMMTiEuto8RVIObNs5DYo5dYKWsNewwcoYsotFTPrXXb7FiMTTsGjPEJ57TzNupemmupmfTUPEDo2J/GLVI9ah9nilK+RU4uyvaO4SU6JpSplHGUJbMXd2gpm5ahoPjZ3thjuSbRbek/7cIxvaPB4OV6YBsM4qPYGxYTaiOfprXspe9vJvQlHLYeTCv1VErtyzXlWzFqpc= azureroot@terraform-01
+#                 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDDerMYphqZbqxnAQ4fTzTFKq865w+1arOORCtzj8yX9gv29EQPBQlK5VoSlLk8TEax/0MYtrb4GhPvn30eialp59EtO4A6SiFVR0JUKBen3z4QixnQXsBjNLOI5qKlIYN62RDnzv2p4WbggNsLPLkFoqfZZaZjF7oXvQtrIJqXEY77roQZnUFQLhJox0G5HNJgUJVTkrAedpcR9UpB48d/ji+uXXeoZbxsGbJZmv/xENnbSqq4R5QLJJ0gTaP2gdRPBxifT1Hm0XzvQQtDuN/OWuNK4A2hVCkvYMzvp5Pa2XzKskWjjawITMUuHQraVEWzuIXc1N+xn7eTZV8X4OrZIDU17IQZn4GlYhwgRr+4rvVoM+y1WiIc+vvQvA1rIdYNB/zKVqNNPNxKRrjCUsMHPvZeDWLcyY4mexagk0v1R9UOXkp/taDiUR5XFh9nY/Va9AeWwXsNSHHxfhn9ol9Q/+PFYLWKTlJwCHyWGNpqs5URNGNCvTjMA+IeEt0AmYE= azureroot@t01-tf201
 #             EOT
 #           + username   = "azureroot"
 #         }
@@ -337,13 +345,14 @@ resource "azurerm_linux_virtual_machine" "vm" {
 #       + virtual_machine_id            = (known after apply)
 # 
 #       + ip_configuration {
-#           + name                          = "ip-internal"
-#           + primary                       = (known after apply)
-#           + private_ip_address            = (known after apply)
-#           + private_ip_address_allocation = "dynamic"
-#           + private_ip_address_version    = "IPv4"
-#           + public_ip_address_id          = (known after apply)
-#           + subnet_id                     = (known after apply)
+#           + gateway_load_balancer_frontend_ip_configuration_id = (known after apply)
+#           + name                                               = "ip-internal"
+#           + primary                                            = (known after apply)
+#           + private_ip_address                                 = (known after apply)
+#           + private_ip_address_allocation                      = "Dynamic"
+#           + private_ip_address_version                         = "IPv4"
+#           + public_ip_address_id                               = (known after apply)
+#           + subnet_id                                          = (known after apply)
 #         }
 #     }
 # 
@@ -439,7 +448,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 #   # azurerm_public_ip.public_ip will be created
 #   + resource "azurerm_public_ip" "public_ip" {
 #       + allocation_method       = "Static"
-#       + availability_zone       = (known after apply)
+#       + ddos_protection_mode    = "VirtualNetworkInherited"
 #       + fqdn                    = (known after apply)
 #       + id                      = (known after apply)
 #       + idle_timeout_in_minutes = 4
@@ -450,36 +459,35 @@ resource "azurerm_linux_virtual_machine" "vm" {
 #       + resource_group_name     = "terraform-rg-student-01"
 #       + sku                     = "Basic"
 #       + sku_tier                = "Regional"
-#       + zones                   = (known after apply)
 #     }
 # 
 #   # azurerm_subnet.subnet will be created
 #   + resource "azurerm_subnet" "subnet" {
-#       + address_prefix                                 = (known after apply)
 #       + address_prefixes                               = [
 #           + "10.0.1.0/24",
 #         ]
-#       + enforce_private_link_endpoint_network_policies = false
-#       + enforce_private_link_service_network_policies  = false
+#       + enforce_private_link_endpoint_network_policies = (known after apply)
+#       + enforce_private_link_service_network_policies  = (known after apply)
 #       + id                                             = (known after apply)
 #       + name                                           = "internal"
+#       + private_endpoint_network_policies_enabled      = (known after apply)
+#       + private_link_service_network_policies_enabled  = (known after apply)
 #       + resource_group_name                            = "terraform-rg-student-01"
 #       + virtual_network_name                           = "network"
 #     }
 # 
 #   # azurerm_virtual_network.network will be created
 #   + resource "azurerm_virtual_network" "network" {
-#       + address_space         = [
+#       + address_space       = [
 #           + "10.0.0.0/16",
 #         ]
-#       + dns_servers           = (known after apply)
-#       + guid                  = (known after apply)
-#       + id                    = (known after apply)
-#       + location              = "centralus"
-#       + name                  = "network"
-#       + resource_group_name   = "terraform-rg-student-01"
-#       + subnet                = (known after apply)
-#       + vm_protection_enabled = false
+#       + dns_servers         = (known after apply)
+#       + guid                = (known after apply)
+#       + id                  = (known after apply)
+#       + location            = "centralus"
+#       + name                = "network"
+#       + resource_group_name = "terraform-rg-student-01"
+#       + subnet              = (known after apply)
 #     }
 # 
 # Plan: 7 to add, 0 to change, 0 to destroy.
@@ -489,23 +497,40 @@ resource "azurerm_linux_virtual_machine" "vm" {
 #   + password    = (sensitive value)
 #   + ssh_command = (known after apply)
 #   + username    = "azureroot"
-# azurerm_public_ip.public_ip: Creating...
+# 
+# Do you want to perform these actions?
+#   Terraform will perform the actions described above.
+#   Only 'yes' will be accepted to approve.
+# 
+#   Enter a value: yes
+# 
 # azurerm_virtual_network.network: Creating...
+# azurerm_public_ip.public_ip: Creating...
 # azurerm_network_security_group.nsg: Creating...
-# ...
+# azurerm_network_security_group.nsg: Creation complete after 2s [id=/subscriptions/f4d6246c-29d3-4562-b7f0-43e4c51c2374/resourceGroups/terraform-rg-student-01/providers/Microsoft.Network/networkSecurityGroups/nsg]
+# azurerm_public_ip.public_ip: Creation complete after 2s [id=/subscriptions/f4d6246c-29d3-4562-b7f0-43e4c51c2374/resourceGroups/terraform-rg-student-01/providers/Microsoft.Network/publicIPAddresses/public_ip]
+# azurerm_virtual_network.network: Creation complete after 4s [id=/subscriptions/f4d6246c-29d3-4562-b7f0-43e4c51c2374/resourceGroups/terraform-rg-student-01/providers/Microsoft.Network/virtualNetworks/network]
 # azurerm_subnet.subnet: Creating...
+# azurerm_subnet.subnet: Creation complete after 3s [id=/subscriptions/f4d6246c-29d3-4562-b7f0-43e4c51c2374/resourceGroups/terraform-rg-student-01/providers/Microsoft.Network/virtualNetworks/network/subnets/internal]
 # azurerm_network_interface.nic: Creating...
+# azurerm_network_interface.nic: Still creating... [10s elapsed]
+# azurerm_network_interface.nic: Creation complete after 11s [id=/subscriptions/f4d6246c-29d3-4562-b7f0-43e4c51c2374/resourceGroups/terraform-rg-student-01/providers/Microsoft.Network/networkInterfaces/nic]
 # azurerm_network_interface_security_group_association.nsg_association: Creating...
 # azurerm_linux_virtual_machine.vm: Creating...
+# azurerm_network_interface_security_group_association.nsg_association: Creation complete after 1s [id=/subscriptions/f4d6246c-29d3-4562-b7f0-43e4c51c2374/resourceGroups/terraform-rg-student-01/providers/Microsoft.Network/networkInterfaces/nic|/subscriptions/f4d6246c-29d3-4562-b7f0-43e4c51c2374/resourceGroups/terraform-rg-student-01/providers/Microsoft.Network/networkSecurityGroups/nsg]
 # azurerm_linux_virtual_machine.vm: Still creating... [10s elapsed]
+# azurerm_linux_virtual_machine.vm: Still creating... [20s elapsed]
+# azurerm_linux_virtual_machine.vm: Still creating... [30s elapsed]
+# azurerm_linux_virtual_machine.vm: Still creating... [40s elapsed]
+# azurerm_linux_virtual_machine.vm: Creation complete after 47s [id=/subscriptions/f4d6246c-29d3-4562-b7f0-43e4c51c2374/resourceGroups/terraform-rg-student-01/providers/Microsoft.Compute/virtualMachines/vm1]
 # 
 # Apply complete! Resources: 7 added, 0 changed, 0 destroyed.
 # 
 # Outputs:
 # 
-# ip = "104.43.198.204"
+# ip = "20.12.184.22"
 # password = <sensitive>
-# ssh_command = "ssh azureroot@104.43.198.204"
+# ssh_command = "ssh azureroot@20.12.184.22"
 # username = "azureroot"
 
 

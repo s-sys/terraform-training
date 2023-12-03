@@ -17,7 +17,7 @@ terraform {
       version = "~> 1.10.6"
     }
   }
-  required_version = ">= 0.13"
+  required_version = ">= 1.6"
 }
 
 provider "mysql" {
@@ -80,7 +80,8 @@ resource "mysql_grant" "joao" {
 # 
 # $ terraform plan
 # 
-# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated
+# with the following symbols:
 #   + create
 # 
 # Terraform will perform the following actions:
@@ -118,16 +119,18 @@ resource "mysql_grant" "joao" {
 # 
 # Plan: 3 to add, 0 to change, 0 to destroy.
 # 
-# ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+# ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 # 
-# Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
+# Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these
+# actions if you run "terraform apply" now.
 
 
 # Em seguida execute o comando abaixo para aplicar a configuração do terraform:
 # 
 # $ terraform apply
 # 
-# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated
+# with the following symbols:
 #   + create
 # 
 # Terraform will perform the following actions:
@@ -171,10 +174,10 @@ resource "mysql_grant" "joao" {
 # 
 #   Enter a value: yes
 # 
-# mysql_database.myapp: Creating...
 # mysql_user.joao: Creating...
-# mysql_user.joao: Creation complete after 0s [id=joao@%]
+# mysql_database.myapp: Creating...
 # mysql_database.myapp: Creation complete after 0s [id=myapp]
+# mysql_user.joao: Creation complete after 0s [id=joao@%]
 # mysql_grant.joao: Creating...
 # mysql_grant.joao: Creation complete after 0s [id=joao@%:`myapp`]
 # 
@@ -186,59 +189,36 @@ resource "mysql_grant" "joao" {
 # conforme abaixo:
 # 
 # $ mysql -h 192.168.1.13 -u joao -p 
-# Enter password: 
-# Welcome to the MySQL monitor.  Commands end with ; or \g.
-# Your MySQL connection id is 36
-# Server version: 5.5.5-10.6.4-MariaDB-1:10.6.4+maria~focal mariadb.org binary distribution
+# Enter password:
+# Welcome to the MariaDB monitor.  Commands end with ; or \g.
+# Your MariaDB connection id is 38
+# Server version: 10.6.12-MariaDB-0ubuntu0.22.04.1 Ubuntu 22.04
 # 
-# Copyright (c) 2000, 2021, Oracle and/or its affiliates.
-# 
-# Oracle is a registered trademark of Oracle Corporation and/or its
-# affiliates. Other names may be trademarks of their respective
-# owners.
+# Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
 # 
 # Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 # 
-# mysql> show databases;
+# MariaDB [(none)]> show databases;
 # +--------------------+
 # | Database           |
 # +--------------------+
 # | information_schema |
 # | myapp              |
 # +--------------------+
-# 2 rows in set (0.01 sec)
+# 2 rows in set (0.001 sec)
 # 
-# mysql> ^DBye
+# MariaDB [(none)]> ^DBye
 
 
 # Execute o comando "terraform destroy" para destruir o ambiente, conforme abaixo:
 # 
 # $ terraform destroy 
-# 
 # mysql_database.myapp: Refreshing state... [id=myapp]
 # mysql_user.joao: Refreshing state... [id=joao@%]
 # mysql_grant.joao: Refreshing state... [id=joao@%:`myapp`]
 # 
-# Note: Objects have changed outside of Terraform
-# 
-# Terraform detected the following changes made outside of Terraform since the last "terraform apply":
-# 
-#   # mysql_grant.joao has been changed
-#   ~ resource "mysql_grant" "joao" {
-#         id         = "joao@%:`myapp`"
-#       ~ privileges = [
-#           - "ALL",
-#           + "ALL PRIVILEGES",
-#         ]
-#         # (6 unchanged attributes hidden)
-#     }
-# 
-# Unless you have made equivalent changes to your configuration, or ignored the relevant attributes using ignore_changes, the following plan may include
-# actions to undo or respond to these changes.
-# 
-# ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-# 
-# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated
+# with the following symbols:
 #   - destroy
 # 
 # Terraform will perform the following actions:
@@ -269,7 +249,7 @@ resource "mysql_grant" "joao" {
 #   - resource "mysql_user" "joao" {
 #       - host               = "%" -> null
 #       - id                 = "joao@%" -> null
-#       - plaintext_password = (sensitive value)
+#       - plaintext_password = (sensitive value) -> null
 #       - tls_option         = "NONE" -> null
 #       - user               = "joao" -> null
 #     }
@@ -284,8 +264,8 @@ resource "mysql_grant" "joao" {
 # 
 # mysql_grant.joao: Destroying... [id=joao@%:`myapp`]
 # mysql_grant.joao: Destruction complete after 0s
-# mysql_database.myapp: Destroying... [id=myapp]
 # mysql_user.joao: Destroying... [id=joao@%]
+# mysql_database.myapp: Destroying... [id=myapp]
 # mysql_user.joao: Destruction complete after 0s
 # mysql_database.myapp: Destruction complete after 0s
 # 
@@ -295,5 +275,5 @@ resource "mysql_grant" "joao" {
 # Verifique que o usuário "joao" foi removido, utilizando o comando abaixo:
 # 
 # $ mysql -h 192.168.1.13 -u joao -p 
-# Enter password: 
-# ERROR 1045 (28000): Access denied for user 'joao'@'192.168.1.1' (using password: YES)
+# Enter password:
+# ERROR 1045 (28000): Access denied for user 'joao'@'_gateway' (using password: YES)

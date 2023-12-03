@@ -85,7 +85,8 @@ resource "null_resource" "mod" {
 # 
 # $ terraform apply
 # 
-# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated
+# with the following symbols:
 #   + create
 # 
 # Terraform will perform the following actions:
@@ -123,38 +124,38 @@ resource "null_resource" "mod" {
 # 
 #   Enter a value: yes
 # 
+# module.user2.null_resource.userinfo: Creating...
 # null_resource.mod: Creating...
 # module.user1.null_resource.userinfo: Creating...
-# module.user2.null_resource.userinfo: Creating...
-# module.user1.null_resource.userinfo: Provisioning with 'local-exec'...
-# module.user1.null_resource.userinfo (local-exec): Executing: ["/bin/sh" "-c" "echo joao > result-joao.txt"]
-# module.user2.null_resource.userinfo: Provisioning with 'local-exec'...
-# module.user2.null_resource.userinfo (local-exec): Executing: ["/bin/sh" "-c" "echo maria > result-maria.txt"]
 # null_resource.mod: Provisioning with 'local-exec'...
+# module.user2.null_resource.userinfo: Provisioning with 'local-exec'...
 # null_resource.mod (local-exec): Executing: ["/bin/sh" "-c" "echo joao > result-main.txt"]
 # module.user1.null_resource.userinfo: Provisioning with 'local-exec'...
+# module.user1.null_resource.userinfo (local-exec): Executing: ["/bin/sh" "-c" "echo joao > result-joao.txt"]
+# module.user2.null_resource.userinfo (local-exec): Executing: ["/bin/sh" "-c" "echo maria > result-maria.txt"]
+# null_resource.mod: Creation complete after 0s [id=9020046723180817948]
 # module.user2.null_resource.userinfo: Provisioning with 'local-exec'...
-# module.user1.null_resource.userinfo (local-exec): Executing: ["/bin/sh" "-c" "echo Joao Manuel da Silva >> result-joao.txt"]
+# module.user1.null_resource.userinfo: Provisioning with 'local-exec'...
 # module.user2.null_resource.userinfo (local-exec): Executing: ["/bin/sh" "-c" "echo Maria Joaquina >> result-maria.txt"]
-# null_resource.mod: Creation complete after 0s [id=1637553602754785817]
+# module.user1.null_resource.userinfo (local-exec): Executing: ["/bin/sh" "-c" "echo Joao Manuel da Silva >> result-joao.txt"]
 # module.user1.null_resource.userinfo: Provisioning with 'local-exec'...
 # module.user1.null_resource.userinfo (local-exec): Executing: ["/bin/sh" "-c" "echo Rua das Orquideas, 100 >> result-joao.txt"]
 # module.user2.null_resource.userinfo: Provisioning with 'local-exec'...
 # module.user2.null_resource.userinfo (local-exec): Executing: ["/bin/sh" "-c" "echo Rua da Esquina, 99 >> result-maria.txt"]
 # module.user1.null_resource.userinfo: Provisioning with 'local-exec'...
-# module.user1.null_resource.userinfo (local-exec): Executing: ["/bin/sh" "-c" "echo Belo Horizonte >> result-joao.txt"]
 # module.user2.null_resource.userinfo: Provisioning with 'local-exec'...
 # module.user2.null_resource.userinfo (local-exec): Executing: ["/bin/sh" "-c" "echo Sao Paulo >> result-maria.txt"]
+# module.user1.null_resource.userinfo (local-exec): Executing: ["/bin/sh" "-c" "echo Belo Horizonte >> result-joao.txt"]
+# module.user2.null_resource.userinfo: Provisioning with 'local-exec'...
 # module.user1.null_resource.userinfo: Provisioning with 'local-exec'...
 # module.user1.null_resource.userinfo (local-exec): Executing: ["/bin/sh" "-c" "echo MG >> result-joao.txt"]
-# module.user2.null_resource.userinfo: Provisioning with 'local-exec'...
 # module.user2.null_resource.userinfo (local-exec): Executing: ["/bin/sh" "-c" "echo SP >> result-maria.txt"]
 # module.user1.null_resource.userinfo: Provisioning with 'local-exec'...
 # module.user1.null_resource.userinfo (local-exec): Executing: ["/bin/sh" "-c" "echo 13500-000 >> result-joao.txt"]
 # module.user2.null_resource.userinfo: Provisioning with 'local-exec'...
 # module.user2.null_resource.userinfo (local-exec): Executing: ["/bin/sh" "-c" "echo 04120-190 >> result-maria.txt"]
-# module.user1.null_resource.userinfo: Creation complete after 0s [id=3747855491562556748]
-# module.user2.null_resource.userinfo: Creation complete after 0s [id=7721466408348223532]
+# module.user1.null_resource.userinfo: Creation complete after 0s [id=6541228836793985713]
+# module.user2.null_resource.userinfo: Creation complete after 0s [id=5279201581873199666]
 # 
 # Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
 # 
@@ -190,23 +191,24 @@ resource "null_resource" "mod" {
 # Execute o comando "terraform destroy" para destruir o ambiente, conforme abaixo:
 # 
 # $ terraform destroy 
-# module.user1.null_resource.userinfo: Refreshing state... [id=3747855491562556748]
-# module.user2.null_resource.userinfo: Refreshing state... [id=7721466408348223532]
-# null_resource.mod: Refreshing state... [id=1637553602754785817]
+# module.user2.null_resource.userinfo: Refreshing state... [id=5279201581873199666]
+# null_resource.mod: Refreshing state... [id=9020046723180817948]
+# module.user1.null_resource.userinfo: Refreshing state... [id=6541228836793985713]
 # 
-# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated
+# with the following symbols:
 #   - destroy
 # 
 # Terraform will perform the following actions:
 # 
 #   # null_resource.mod will be destroyed
 #   - resource "null_resource" "mod" {
-#       - id = "1637553602754785817" -> null
+#       - id = "9020046723180817948" -> null
 #     }
 # 
 #   # module.user1.null_resource.userinfo will be destroyed
 #   - resource "null_resource" "userinfo" {
-#       - id       = "3747855491562556748" -> null
+#       - id       = "6541228836793985713" -> null
 #       - triggers = {
 #           - "username" = "joao"
 #         } -> null
@@ -214,7 +216,7 @@ resource "null_resource" "mod" {
 # 
 #   # module.user2.null_resource.userinfo will be destroyed
 #   - resource "null_resource" "userinfo" {
-#       - id       = "7721466408348223532" -> null
+#       - id       = "5279201581873199666" -> null
 #       - triggers = {
 #           - "username" = "maria"
 #         } -> null
@@ -232,17 +234,17 @@ resource "null_resource" "mod" {
 # 
 #   Enter a value: yes
 # 
-# null_resource.mod: Destroying... [id=1637553602754785817]
-# module.user1.null_resource.userinfo: Destroying... [id=3747855491562556748]
-# module.user2.null_resource.userinfo: Destroying... [id=7721466408348223532]
-# null_resource.mod: Provisioning with 'local-exec'...
+# module.user1.null_resource.userinfo: Destroying... [id=6541228836793985713]
 # module.user1.null_resource.userinfo: Provisioning with 'local-exec'...
-# module.user2.null_resource.userinfo: Provisioning with 'local-exec'...
-# module.user2.null_resource.userinfo (local-exec): Executing: ["/bin/sh" "-c" "rm -f result-maria.txt"]
-# null_resource.mod (local-exec): Executing: ["/bin/sh" "-c" "rm -f result-main.txt"]
 # module.user1.null_resource.userinfo (local-exec): Executing: ["/bin/sh" "-c" "rm -f result-joao.txt"]
-# module.user2.null_resource.userinfo: Destruction complete after 0s
+# null_resource.mod: Destroying... [id=9020046723180817948]
+# module.user2.null_resource.userinfo: Destroying... [id=5279201581873199666]
+# null_resource.mod: Provisioning with 'local-exec'...
+# module.user2.null_resource.userinfo: Provisioning with 'local-exec'...
+# null_resource.mod (local-exec): Executing: ["/bin/sh" "-c" "rm -f result-main.txt"]
+# module.user2.null_resource.userinfo (local-exec): Executing: ["/bin/sh" "-c" "rm -f result-maria.txt"]
 # module.user1.null_resource.userinfo: Destruction complete after 0s
+# module.user2.null_resource.userinfo: Destruction complete after 0s
 # null_resource.mod: Destruction complete after 0s
 # 
 # Destroy complete! Resources: 3 destroyed.

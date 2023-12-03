@@ -39,7 +39,7 @@ resource "random_password" "password" {
   min_upper   = 1
   lower   = true
   upper   = true
-  number  = true
+  numeric = true
   special = false
 }
 

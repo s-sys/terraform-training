@@ -37,6 +37,22 @@ module "mysql" {
 # }
 
 
+# Crie um arquivo chamado "~/terraform/lab05/exe01/output.tf", com o seguinte conteúdo:
+# 
+# output "user" {
+#   value     = "Username: ${module.mysql.user}"
+# }
+# 
+# output "database" {
+#   value     = "Database: ${module.mysql.database}"
+# }
+# 
+# output "password" {
+#   value     = "Password: ${module.mysql.password}"
+#   sensitive = true
+# }
+
+
 # Crie um arquivo chamado "~/terraform/lab05/exe01/terraform.tfvars", com o seguinte conteúdo:
 # 
 # user     = "maria"
@@ -51,15 +67,15 @@ module "mysql" {
 # Verifique a estrutura dos arquivos, conforme abaixo:
 # 
 # $ ls -lR modules
-# modules/:
-# total 4
-# drwxrwxr-x 2 azureroot azureroot 4096 Oct 14 22:51 mysql
+modules:
+# total 0
+# drwxr-xr-x 2 azureroot users 58 Oct 15  2021 mysql
 # 
 # modules/mysql:
 # total 12
-# -rw-rw-r-- 1 azureroot azureroot 1307 Oct 14 22:51 main.tf
-# -rw-rw-r-- 1 azureroot azureroot  134 Oct 14 22:16 output.tf
-# -rw-rw-r-- 1 azureroot azureroot   77 Oct 14 22:04 variables.tf
+# -rw-r--r-- 1 azureroot users 1306 Oct 15  2021 main.tf
+# -rw-r--r-- 1 azureroot users  134 Oct 14  2021 output.tf
+# -rw-r--r-- 1 azureroot users   77 Oct 14  2021 variables.tf
 
 
 # Observe o arquivo "~/terraform/lab05/exe01/modules/mysql/main.tf", no bloco de definição
@@ -99,18 +115,17 @@ module "mysql" {
 # 
 # $ terraform init
 # 
+# Initializing the backend...
 # Initializing modules...
 # - mysql in modules/mysql
 # 
-# Initializing the backend...
-# 
 # Initializing provider plugins...
-# - Finding latest version of hashicorp/random...
 # - Finding winebarrel/mysql versions matching "~> 1.10.6"...
-# - Installing hashicorp/random v3.1.0...
-# - Installed hashicorp/random v3.1.0 (signed by HashiCorp)
+# - Finding latest version of hashicorp/random...
 # - Installing winebarrel/mysql v1.10.6...
 # - Installed winebarrel/mysql v1.10.6 (self-signed, key ID 879D0138295C4E40)
+# - Installing hashicorp/random v3.5.1...
+# - Installed hashicorp/random v3.5.1 (signed by HashiCorp)
 # 
 # Partner and community providers are signed by their developers.
 # If you'd like to know more about provider signing, you can read about it here:
@@ -174,6 +189,7 @@ module "mysql" {
 # 
 #   # module.mysql.random_password.password will be created
 #   + resource "random_password" "password" {
+#       + bcrypt_hash = (sensitive value)
 #       + id          = (known after apply)
 #       + length      = 10
 #       + lower       = true
@@ -182,6 +198,7 @@ module "mysql" {
 #       + min_special = 0
 #       + min_upper   = 1
 #       + number      = true
+#       + numeric     = true
 #       + result      = (sensitive value)
 #       + special     = false
 #       + upper       = true
@@ -193,10 +210,22 @@ module "mysql" {
 #   + database = "Database: DB-MY_DATA"
 #   + password = (sensitive value)
 #   + user     = "Username: u-maria"
+# ╷
+# │ Warning: Attribute Deprecated
+# │
+# │   with module.mysql.random_password.password,
+# │   on modules/mysql/main.tf line 42, in resource "random_password" "password":
+# │   42:   number  = true
+# │
+# │ **NOTE**: This is deprecated, use `numeric` instead.
+# │
+# │ (and one more similar warning elsewhere)
+# ╵
 # 
-# ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+# ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 # 
-# Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
+# Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply"
+# now.
 
 
 # Em seguida execute o comando abaixo para aplicar a configuração do terraform:
@@ -241,6 +270,7 @@ module "mysql" {
 # 
 #   # module.mysql.random_password.password will be created
 #   + resource "random_password" "password" {
+#       + bcrypt_hash = (sensitive value)
 #       + id          = (known after apply)
 #       + length      = 10
 #       + lower       = true
@@ -249,6 +279,7 @@ module "mysql" {
 #       + min_special = 0
 #       + min_upper   = 1
 #       + number      = true
+#       + numeric     = true
 #       + result      = (sensitive value)
 #       + special     = false
 #       + upper       = true
@@ -267,10 +298,10 @@ module "mysql" {
 # 
 #   Enter a value: yes
 # 
-# module.mysql.random_password.password: Creating...
 # module.mysql.mysql_database.database: Creating...
-# module.mysql.random_password.password: Creation complete after 0s [id=none]
+# module.mysql.random_password.password: Creating...
 # module.mysql.mysql_database.database: Creation complete after 0s [id=DB-MY_DATA]
+# module.mysql.random_password.password: Creation complete after 0s [id=none]
 # module.mysql.mysql_user.user: Creating...
 # module.mysql.mysql_user.user: Creation complete after 0s [id=u-maria@%]
 # module.mysql.mysql_grant.grant: Creating...
@@ -289,7 +320,7 @@ module "mysql" {
 # Para exibir a senha utilize o comando abaixo:
 # 
 # $ terraform output password
-# "Password: 7UvyAHiBso"
+# "Password: Qb3K4GD4No"
 
 
 # Verifique se a conexão com o banco de dados MySQL está funcionando corretamente com
@@ -297,58 +328,34 @@ module "mysql" {
 # conforme abaixo:
 # 
 # $ mysql -h 192.168.1.13 -u u-maria -p
-# Enter password: 
-# Welcome to the MySQL monitor.  Commands end with ; or \g.
-# Your MySQL connection id is 83
-# Server version: 5.5.5-10.6.4-MariaDB-1:10.6.4+maria~focal mariadb.org binary distribution
+# Enter password:
+# Welcome to the MariaDB monitor.  Commands end with ; or \g.
+# Your MariaDB connection id is 42
+# Server version: 10.6.12-MariaDB-0ubuntu0.22.04.1 Ubuntu 22.04
 # 
-# Copyright (c) 2000, 2021, Oracle and/or its affiliates.
-# 
-# Oracle is a registered trademark of Oracle Corporation and/or its
-# affiliates. Other names may be trademarks of their respective
-# owners.
+# Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
 # 
 # Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 # 
-# mysql> show databases;
+# MariaDB [(none)]> show databases;
 # +--------------------+
 # | Database           |
 # +--------------------+
 # | DB-MY_DATA         |
 # | information_schema |
 # +--------------------+
-# 2 rows in set (0.00 sec)
+# 2 rows in set (0.002 sec)
 # 
-# mysql> ^DBye
+# MariaDB [(none)]> ^DBye
 
 
 # Execute o comando "terraform destroy" para destruir o ambiente, conforme abaixo:
 # 
-# $ terraform destroy 
-# 
-# module.mysql.mysql_database.database: Refreshing state... [id=DB-MY_DATA]
+# $ terraform destroy
 # module.mysql.random_password.password: Refreshing state... [id=none]
+# module.mysql.mysql_database.database: Refreshing state... [id=DB-MY_DATA]
 # module.mysql.mysql_user.user: Refreshing state... [id=u-maria@%]
 # module.mysql.mysql_grant.grant: Refreshing state... [id=u-maria@%:`DB-MY_DATA`]
-# 
-# Note: Objects have changed outside of Terraform
-# 
-# Terraform detected the following changes made outside of Terraform since the last "terraform apply":
-# 
-#   # module.mysql.mysql_grant.grant has been changed
-#   ~ resource "mysql_grant" "grant" {
-#         id         = "u-maria@%:`DB-MY_DATA`"
-#       ~ privileges = [
-#           - "ALL",
-#           + "ALL PRIVILEGES",
-#         ]
-#         # (6 unchanged attributes hidden)
-#     }
-# 
-# Unless you have made equivalent changes to your configuration, or ignored the relevant attributes using ignore_changes, the following plan may
-# include actions to undo or respond to these changes.
-# 
-# ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 # 
 # Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
 #   - destroy
@@ -381,13 +388,14 @@ module "mysql" {
 #   - resource "mysql_user" "user" {
 #       - host               = "%" -> null
 #       - id                 = "u-maria@%" -> null
-#       - plaintext_password = (sensitive value)
+#       - plaintext_password = (sensitive value) -> null
 #       - tls_option         = "NONE" -> null
 #       - user               = "u-maria" -> null
 #     }
 # 
 #   # module.mysql.random_password.password will be destroyed
 #   - resource "random_password" "password" {
+#       - bcrypt_hash = (sensitive value) -> null
 #       - id          = "none" -> null
 #       - length      = 10 -> null
 #       - lower       = true -> null
@@ -396,7 +404,8 @@ module "mysql" {
 #       - min_special = 0 -> null
 #       - min_upper   = 1 -> null
 #       - number      = true -> null
-#       - result      = (sensitive value)
+#       - numeric     = true -> null
+#       - result      = (sensitive value) -> null
 #       - special     = false -> null
 #       - upper       = true -> null
 #     }
@@ -405,7 +414,7 @@ module "mysql" {
 # 
 # Changes to Outputs:
 #   - database = "Database: DB-MY_DATA" -> null
-#   - password = (sensitive value)
+#   - password = (sensitive value) -> null
 #   - user     = "Username: u-maria" -> null
 # 
 # Do you really want to destroy all resources?

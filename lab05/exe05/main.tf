@@ -14,10 +14,10 @@ terraform {
   required_providers {
     libvirt = {
       source = "dmacvicar/libvirt"
-      version = "~> 0.6.11"
+      version = "~> 0.7.6"
     }
   }
- required_version = ">= 0.13"
+ required_version = ">= 1.6"
 }
 
 provider "libvirt" {
@@ -26,7 +26,7 @@ provider "libvirt" {
 
 resource "libvirt_volume" "volume" {
   name   = "t-ubuntu-test.qcow2"
-  source = "https://cloud-images.ubuntu.com/releases/focal/release/ubuntu-20.04-server-cloudimg-amd64.img"
+  source = "https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img"
   pool   = "VMs"
 }
 
@@ -49,7 +49,6 @@ resource "libvirt_domain" "vm" {
   name       = "t-ubuntu-test"
   memory     = "512"
   vcpu       = 1
-  qemu_agent = true
   cloudinit  = libvirt_cloudinit_disk.cloudinit.id
 
   cpu {
@@ -107,6 +106,7 @@ resource "libvirt_domain" "vm" {
 
 # Execute o comando abaixo para gerar um par de chaves SSH para utilizar na conexão com
 # a máquina virtual, mas não defina nenhuma senha para as chaves:
+# (Caso o arquivo ~/.ssh/id_rsa.pub já existir, este comando não precisa ser executado novamente.)
 # 
 # $ ssh-keygen 
 # 
@@ -117,25 +117,26 @@ resource "libvirt_domain" "vm" {
 # Your identification has been saved in /home/azureroot/.ssh/id_rsa
 # Your public key has been saved in /home/azureroot/.ssh/id_rsa.pub
 # The key fingerprint is:
-# SHA256:Gv5QYe4VFfxeCMrYXGF4GVwJcMavKJ3jM5ZrH/TAWrY azureroot@terraform-01
+# SHA256:VHtKtxfT23tzVSM4iLFaFYyJpEo/3+RQwUk10Ze0QNU azureroot@t01-tf201
 # The key's randomart image is:
 # +---[RSA 3072]----+
-# |          .*XB.. |
-# |          .=O .  |
-# |        o=.+ + . |
-# |       o..=o  + .|
-# |      . S..o*o . |
-# |     . =..==.+.  |
-# |      + .o.oE .  |
-# |       o  B  .   |
-# |        .o.=.    |
+# |    ..++***oooo  |
+# |    .. =*ooooo.E |
+# | . .   =..oo+oo.o|
+# |. o   +. . +...o=|
+# | . o o .S . . ..o|
+# |    o =      .  o|
+# |     . o       oo|
+# |                +|
+# |                 |
 # +----[SHA256]-----+
 
 
 # Crie um arquivo chamado "~/terraform/lab05/exe05/cloud_init.cfg", com o seguinte conteúdo:
+# (Substitua o conteúdo do parâmetro ssh_authorized_keys pelo conteúdo do arquivo ~/.ssh/id_rsa.pub gerado acima)
 # 
-#cloud-config
-# vim: syntax=yaml
+# #cloud-config
+# # vim: syntax=yaml
 # ssh_pwauth: true
 # chpasswd:
 #   list: |
@@ -145,14 +146,13 @@ resource "libvirt_domain" "vm" {
 # 
 # disable_root: false
 # 
-# ssh_authorized_keys:
-#     - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDb6VI1UvD8kHvCfjioiFgTseLSn5/MvvAUKFp/miqjM5YOHMIEWvgKNNBoz5REYp2GKSVFiXBKcrsYq8FpZePd7CMX2NZoJOraEMl/2IqHeo2Y+Y1F+VWUilHx98Co/0epgRG1UgVY7ZxC0SjX2rjxBV4LOulOVxDjyJc/RUatT/x7D9gIKo2DW5z6U2zO4hiTvoeY9tU2XubgDNu7bkoL75U49uToKsy/R4Paf1EOHCC/Hfdxyoyx6yibNA5KxqManBMY4dcWAnt3O03pBW7vJRAJ2M9p7VJsx7iSRKdktdf6yr54UFhCFkMMTiEuto8RVIObNs5DYo5dYKWsNewwcoYsotFTPrXXb7FiMTTsGjPEJ57TzNupemmupmfTUPEDo2J/GLVI9ah9nilK+RU4uyvaO4SU6JpSplHGUJbMXd2gpm5ahoPjZ3thjuSbRbek/7cIxvaPB4OV6YBsM4qPYGxYTaiOfprXspe9vJvQlHLYeTCv1VErtyzXlWzFqpc= azureroot@terraform-01
+# users:
+#   - name: root
+#     ssh_authorized_keys:
+#       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDb6VI1UvD8kHvCfjioiFgTseLSn5/MvvAUKFp/miqjM5YOHMIEWvgKNNBoz5REYp2GKSVFiXBKcrsYq8FpZePd7CMX2NZoJOraEMl/2IqHeo2Y+Y1F+VWUilHx98Co/0epgRG1UgVY7ZxC0SjX2rjxBV4LOulOVxDjyJc/RUatT/x7D9gIKo2DW5z6U2zO4hiTvoeY9tU2XubgDNu7bkoL75U49uToKsy/R4Paf1EOHCC/Hfdxyoyx6yibNA5KxqManBMY4dcWAnt3O03pBW7vJRAJ2M9p7VJsx7iSRKdktdf6yr54UFhCFkMMTiEuto8RVIObNs5DYo5dYKWsNewwcoYsotFTPrXXb7FiMTTsGjPEJ57TzNupemmupmfTUPEDo2J/GLVI9ah9nilK+RU4uyvaO4SU6JpSplHGUJbMXd2gpm5ahoPjZ3thjuSbRbek/7cIxvaPB4OV6YBsM4qPYGxYTaiOfprXspe9vJvQlHLYeTCv1VErtyzXlWzFqpc= azureroot@terraform-01
 # 
 # runcmd:
 #   - echo "yes" > /root/cloud-init.ok
-
-
-# Obtenha o conteúdo do arquivo "~/.ssh/id_rsa.pub" e faça a alteração do arquivo "cloud_init.cfg" acima.
 
 
 # Crie um arquivo chamado "~/terraform/lab05/exe05/network_config.cfg", com o seguinte conteúdo:
@@ -173,21 +173,10 @@ resource "libvirt_domain" "vm" {
 # Initializing the backend...
 # 
 # Initializing provider plugins...
-# - Finding dmacvicar/libvirt versions matching "~> 0.6.11"...
-# - Finding latest version of hashicorp/template...
-# - Installing dmacvicar/libvirt v0.6.11...
-# - Installed dmacvicar/libvirt v0.6.11 (self-signed, key ID 96B1FE1A8D4E1EAB)
-# - Installing hashicorp/template v2.2.0...
-# - Installed hashicorp/template v2.2.0 (signed by HashiCorp)
-# 
-# Partner and community providers are signed by their developers.
-# If you'd like to know more about provider signing, you can read about it here:
-# https://www.terraform.io/docs/cli/plugins/signing.html
-# 
-# Terraform has created a lock file .terraform.lock.hcl to record the provider
-# selections it made above. Include this file in your version control repository
-# so that Terraform can guarantee to make the same selections by default when
-# you run "terraform init" in the future.
+# - Reusing previous version of dmacvicar/libvirt from the dependency lock file
+# - Reusing previous version of hashicorp/template from the dependency lock file
+# - Using previously-installed dmacvicar/libvirt v0.7.6
+# - Using previously-installed hashicorp/template v2.2.0
 # 
 # Terraform has been successfully initialized!
 # 
@@ -202,9 +191,14 @@ resource "libvirt_domain" "vm" {
 
 # Em seguida execute o comando abaixo para aplicar a configuração do terraform:
 # 
-# $ terraform apply -auto-approve 
+# $ terraform apply -auto-approve
+# data.template_file.network_config: Reading...
+# data.template_file.user_data: Reading...
+# data.template_file.network_config: Read complete after 0s [id=98585aaf6c6ab040bbb6943114277cec19c43ff9543db03ed0d772104e8cf42e]
+# data.template_file.user_data: Read complete after 0s [id=4550334f89885a433a7e230e1c373f3cc1006f412277dbeeac9e84e754704383]
 # 
-# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the
+# following symbols:
 #   + create
 # 
 # Terraform will perform the following actions:
@@ -232,12 +226,14 @@ resource "libvirt_domain" "vm" {
 #                 root:linux
 #                 ubuntu:linux
 #               expire: false
-#             
+# 
 #             disable_root: false
-#             
-#             ssh_authorized_keys:
-#                 - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDb6VI1UvD8kHvCfjioiFgTseLSn5/MvvAUKFp/miqjM5YOHMIEWvgKNNBoz5REYp2GKSVFiXBKcrsYq8FpZePd7CMX2NZoJOraEMl/2IqHeo2Y+Y1F+VWUilHx98Co/0epgRG1UgVY7ZxC0SjX2rjxBV4LOulOVxDjyJc/RUatT/x7D9gIKo2DW5z6U2zO4hiTvoeY9tU2XubgDNu7bkoL75U49uToKsy/R4Paf1EOHCC/Hfdxyoyx6yibNA5KxqManBMY4dcWAnt3O03pBW7vJRAJ2M9p7VJsx7iSRKdktdf6yr54UFhCFkMMTiEuto8RVIObNs5DYo5dYKWsNewwcoYsotFTPrXXb7FiMTTsGjPEJ57TzNupemmupmfTUPEDo2J/GLVI9ah9nilK+RU4uyvaO4SU6JpSplHGUJbMXd2gpm5ahoPjZ3thjuSbRbek/7cIxvaPB4OV6YBsM4qPYGxYTaiOfprXspe9vJvQlHLYeTCv1VErtyzXlWzFqpc= azureroot@terraform-01
-#             
+# 
+#             users:
+#               - name: root
+#                 ssh_authorized_keys:
+#                   - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDDerMYphqZbqxnAQ4fTzTFKq865w+1arOORCtzj8yX9gv29EQPBQlK5VoSlLk8TEax/0MYtrb4GhPvn30eialp59EtO4A6SiFVR0JUKBen3z4QixnQXsBjNLOI5qKlIYN62RDnzv2p4WbggNsLPLkFoqfZZaZjF7oXvQtrIJqXEY77roQZnUFQLhJox0G5HNJgUJVTkrAedpcR9UpB48d/ji+uXXeoZbxsGbJZmv/xENnbSqq4R5QLJJ0gTaP2gdRPBxifT1Hm0XzvQQtDuN/OWuNK4A2hVCkvYMzvp5Pa2XzKskWjjawITMUuHQraVEWzuIXc1N+xn7eTZV8X4OrZIDU17IQZn4GlYhwgRr+4rvVoM+y1WiIc+vvQvA1rIdYNB/zKVqNNPNxKRrjCUsMHPvZeDWLcyY4mexagk0v1R9UOXkp/taDiUR5XFh9nY/Va9AeWwXsNSHHxfhn9ol9Q/+PFYLWKTlJwCHyWGNpqs5URNGNCvTjMA+IeEt0AmYE= azureroot@t01-tf201
+# 
 #             runcmd:
 #               - echo "yes" > /root/cloud-init.ok
 #         EOT
@@ -246,25 +242,17 @@ resource "libvirt_domain" "vm" {
 #   # libvirt_domain.vm will be created
 #   + resource "libvirt_domain" "vm" {
 #       + arch        = (known after apply)
+#       + autostart   = (known after apply)
 #       + cloudinit   = (known after apply)
-#       + disk        = [
-#           + {
-#               + block_device = null
-#               + file         = null
-#               + scsi         = true
-#               + url          = null
-#               + volume_id    = (known after apply)
-#               + wwn          = null
-#             },
-#         ]
 #       + emulator    = (known after apply)
 #       + fw_cfg_name = "opt/com.coreos/config"
 #       + id          = (known after apply)
 #       + machine     = (known after apply)
 #       + memory      = 512
 #       + name        = "t-ubuntu-test"
-#       + qemu_agent  = true
+#       + qemu_agent  = false
 #       + running     = true
+#       + type        = "kvm"
 #       + vcpu        = 1
 # 
 #       + console {
@@ -284,6 +272,11 @@ resource "libvirt_domain" "vm" {
 # 
 #       + cpu {
 #           + mode = "host-model"
+#         }
+# 
+#       + disk {
+#           + scsi      = true
+#           + volume_id = (known after apply)
 #         }
 # 
 #       + graphics {
@@ -310,42 +303,28 @@ resource "libvirt_domain" "vm" {
 #       + name   = "t-ubuntu-test.qcow2"
 #       + pool   = "VMs"
 #       + size   = (known after apply)
-#       + source = "https://cloud-images.ubuntu.com/releases/focal/release/ubuntu-20.04-server-cloudimg-amd64.img"
+#       + source = "https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img"
 #     }
 # 
 # Plan: 3 to add, 0 to change, 0 to destroy.
 # 
 # Changes to Outputs:
-#   + ips = (known after apply)
+#   + ips = [
+#       + (known after apply),
+#     ]
 # libvirt_volume.volume: Creating...
-# libvirt_volume.volume: Creation complete after 9s [id=/data/vms/t-ubuntu-test.qcow2]
+# libvirt_volume.volume: Still creating... [10s elapsed]
+# libvirt_volume.volume: Still creating... [20s elapsed]
+# libvirt_volume.volume: Creation complete after 25s [id=/data/vms/t-ubuntu-test.qcow2]
 # libvirt_cloudinit_disk.cloudinit: Creating...
-# libvirt_cloudinit_disk.cloudinit: Creation complete after 0s [id=/data/vms/cloudinit.iso;b8ae4975-4f1a-4f0b-bc14-992389c0f435]
+# libvirt_cloudinit_disk.cloudinit: Creation complete after 0s [id=/data/vms/cloudinit.iso;51a9bba0-5c4f-4a97-8d93-bda11cbfc6b8]
 # libvirt_domain.vm: Creating...
 # libvirt_domain.vm: Still creating... [10s elapsed]
 # libvirt_domain.vm: Still creating... [20s elapsed]
 # libvirt_domain.vm: Still creating... [30s elapsed]
 # libvirt_domain.vm: Provisioning with 'remote-exec'...
 # libvirt_domain.vm (remote-exec): Connecting to remote host via SSH...
-# libvirt_domain.vm (remote-exec):   Host: 192.168.1.106
-# libvirt_domain.vm (remote-exec):   User: root
-# libvirt_domain.vm (remote-exec):   Password: false
-# libvirt_domain.vm (remote-exec):   Private key: true
-# libvirt_domain.vm (remote-exec):   Certificate: false
-# libvirt_domain.vm (remote-exec):   SSH Agent: false
-# libvirt_domain.vm (remote-exec):   Checking Host Key: false
-# libvirt_domain.vm (remote-exec):   Target Platform: unix
-# libvirt_domain.vm (remote-exec): Connecting to remote host via SSH...
-# libvirt_domain.vm (remote-exec):   Host: 192.168.1.106
-# libvirt_domain.vm (remote-exec):   User: root
-# libvirt_domain.vm (remote-exec):   Password: false
-# libvirt_domain.vm (remote-exec):   Private key: true
-# libvirt_domain.vm (remote-exec):   Certificate: false
-# libvirt_domain.vm (remote-exec):   SSH Agent: false
-# libvirt_domain.vm (remote-exec):   Checking Host Key: false
-# libvirt_domain.vm (remote-exec):   Target Platform: unix
-# libvirt_domain.vm (remote-exec): Connecting to remote host via SSH...
-# libvirt_domain.vm (remote-exec):   Host: 192.168.1.106
+# libvirt_domain.vm (remote-exec):   Host: 192.168.1.107
 # libvirt_domain.vm (remote-exec):   User: root
 # libvirt_domain.vm (remote-exec):   Password: false
 # libvirt_domain.vm (remote-exec):   Private key: true
@@ -354,14 +333,17 @@ resource "libvirt_domain" "vm" {
 # libvirt_domain.vm (remote-exec):   Checking Host Key: false
 # libvirt_domain.vm (remote-exec):   Target Platform: unix
 # libvirt_domain.vm (remote-exec): Connected!
-# libvirt_domain.vm: Still creating... [40s elapsed]
-# libvirt_domain.vm: Creation complete after 43s [id=381d13a7-51e1-40ca-a101-ce502e7bb94b]
+# libvirt_domain.vm: Creation complete after 37s [id=7f53dfcd-7aba-4dff-8a3c-2feac61b528b]
 # 
 # Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
 # 
 # Outputs:
 # 
-# ips = "192.168.1.106"
+# ips = tolist([
+#   tolist([
+#     "192.168.1.107",
+#   ]),
+# ])
 
 
 # Execute o comando abaixo para verificar que a máquina foi criada:
@@ -369,50 +351,54 @@ resource "libvirt_domain" "vm" {
 # $ virsh list
 #  Id   Name            State
 # -------------------------------
-#  1    docker          running
-#  2    minikube        running
-#  3    databases       running
-#  11   t-ubuntu-test   running
+#  2    docker          running
+#  3    k8s             running
+#  4    db              running
+#  12   t-ubuntu-test   running
 
 
 # Em seguida, obtenha o endereço IP gerado pela máquina virtual, conforme abaixo:
 # $ terraform output ips
-# "192.168.1.106"
+# tolist([
+#   tolist([
+#     "192.168.1.107",
+#   ]),
+# ])
 
 
 # Conecte-se por SSH na máquina virtual, utilizando o endereço IP reportado na saída acima:
 # 
-# $ ssh root@192.168.1.106
-# The authenticity of host '192.168.1.106 (192.168.1.106)' can't be established.
-# ECDSA key fingerprint is SHA256:vb8sidBJqxQBmXHfAf14AVR4eVv6eL3zqX967Bivxqo.
+# $ ssh root@192.168.1.107
+# The authenticity of host '192.168.1.107 (192.168.1.107)' can't be established.
+# ECDSA key fingerprint is SHA256:0NKGs/i5c3GbgkyhBRaJPrxvFEaKfYcv1qN3XLfC+JM.
 # Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
-# Warning: Permanently added '192.168.1.106' (ECDSA) to the list of known hosts.
-# Welcome to Ubuntu 20.04.3 LTS (GNU/Linux 5.4.0-88-generic x86_64)
+# Warning: Permanently added '192.168.1.107' (ECDSA) to the list of known hosts.
+# Welcome to Ubuntu 22.04.3 LTS (GNU/Linux 5.15.0-89-generic x86_64)
 # 
 #  * Documentation:  https://help.ubuntu.com
 #  * Management:     https://landscape.canonical.com
 #  * Support:        https://ubuntu.com/advantage
 # 
-#   System information as of Sat Oct 16 22:26:38 UTC 2021
+#   System information as of Sat Dec  2 21:49:15 UTC 2023
 # 
-#   System load:  0.31              Processes:             105
-#   Usage of /:   65.3% of 1.96GB   Users logged in:       0
-#   Memory usage: 39%               IPv4 address for ens3: 192.168.1.106
+#   System load:  0.00146484375     Processes:             92
+#   Usage of /:   73.0% of 1.96GB   Users logged in:       0
+#   Memory usage: 38%               IPv4 address for ens3: 192.168.1.107
 #   Swap usage:   0%
 # 
 # 
-# 1 update can be applied immediately.
-# To see these additional updates run: apt list --upgradable
+# Expanded Security Maintenance for Applications is not enabled.
+# 
+# 0 updates can be applied immediately.
+# 
+# Enable ESM Apps to receive additional future security updates.
+# See https://ubuntu.com/esm or run: sudo pro status
 # 
 # 
-# Last login: Sat Oct 16 22:23:59 2021 from 192.168.1.1
-# root@ubuntu:~# ls -l 
-# total 12
-# -rw-r--r-- 1 root root    4 Oct 16 22:24 cloud-init.ok
-# drwxr-xr-x 3 root root 4096 Oct 16 22:24 snap
-# -rw-r--r-- 1 root root    4 Oct 16 22:23 test.txt
-# root@ubuntu:~# logout
-# Connection to 192.168.1.106 closed.
+# Last login: Sat Dec  2 21:43:47 2023 from 192.168.1.1
+# root@ubuntu:~#
+# logout
+# Connection to 192.168.1.107 closed.
 
 
 # Verifique que os comandos informados tanto no arquivo de cloudinit quanto o script definido na conexão SSH foram executados com sucesso.
@@ -421,45 +407,23 @@ resource "libvirt_domain" "vm" {
 # Execute o comando "terraform destroy" para destruir o ambiente, conforme abaixo:
 # 
 # $ terraform apply -auto-approve -destroy
-# 
+# data.template_file.network_config: Reading...
+# data.template_file.user_data: Reading...
+# data.template_file.network_config: Read complete after 0s [id=98585aaf6c6ab040bbb6943114277cec19c43ff9543db03ed0d772104e8cf42e]
+# data.template_file.user_data: Read complete after 0s [id=4550334f89885a433a7e230e1c373f3cc1006f412277dbeeac9e84e754704383]
 # libvirt_volume.volume: Refreshing state... [id=/data/vms/t-ubuntu-test.qcow2]
-# libvirt_cloudinit_disk.cloudinit: Refreshing state... [id=/data/vms/cloudinit.iso;b8ae4975-4f1a-4f0b-bc14-992389c0f435]
-# libvirt_domain.vm: Refreshing state... [id=381d13a7-51e1-40ca-a101-ce502e7bb94b]
+# libvirt_cloudinit_disk.cloudinit: Refreshing state... [id=/data/vms/cloudinit.iso;51a9bba0-5c4f-4a97-8d93-bda11cbfc6b8]
+# libvirt_domain.vm: Refreshing state... [id=7f53dfcd-7aba-4dff-8a3c-2feac61b528b]
 # 
-# Note: Objects have changed outside of Terraform
-# 
-# Terraform detected the following changes made outside of Terraform since the last "terraform apply":
-# 
-#   # libvirt_domain.vm has been changed
-#   ~ resource "libvirt_domain" "vm" {
-#       + cmdline     = []
-#         id          = "381d13a7-51e1-40ca-a101-ce502e7bb94b"
-#         name        = "t-ubuntu-test"
-#         # (10 unchanged attributes hidden)
-# 
-# 
-# 
-# 
-#       ~ network_interface {
-#           + hostname       = "t-ubuntu-test"
-#             # (5 unchanged attributes hidden)
-#         }
-#         # (4 unchanged blocks hidden)
-#     }
-# 
-# Unless you have made equivalent changes to your configuration, or ignored the relevant attributes using ignore_changes, the following plan may
-# include actions to undo or respond to these changes.
-# 
-# ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-# 
-# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+# Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the
+# following symbols:
 #   - destroy
 # 
 # Terraform will perform the following actions:
 # 
 #   # libvirt_cloudinit_disk.cloudinit will be destroyed
 #   - resource "libvirt_cloudinit_disk" "cloudinit" {
-#       - id             = "/data/vms/cloudinit.iso;b8ae4975-4f1a-4f0b-bc14-992389c0f435" -> null
+#       - id             = "/data/vms/cloudinit.iso;51a9bba0-5c4f-4a97-8d93-bda11cbfc6b8" -> null
 #       - name           = "cloudinit.iso" -> null
 #       - network_config = <<-EOT
 #             version: 2
@@ -480,12 +444,14 @@ resource "libvirt_domain" "vm" {
 #                 root:linux
 #                 ubuntu:linux
 #               expire: false
-#             
+# 
 #             disable_root: false
-#             
-#             ssh_authorized_keys:
-#                 - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDb6VI1UvD8kHvCfjioiFgTseLSn5/MvvAUKFp/miqjM5YOHMIEWvgKNNBoz5REYp2GKSVFiXBKcrsYq8FpZePd7CMX2NZoJOraEMl/2IqHeo2Y+Y1F+VWUilHx98Co/0epgRG1UgVY7ZxC0SjX2rjxBV4LOulOVxDjyJc/RUatT/x7D9gIKo2DW5z6U2zO4hiTvoeY9tU2XubgDNu7bkoL75U49uToKsy/R4Paf1EOHCC/Hfdxyoyx6yibNA5KxqManBMY4dcWAnt3O03pBW7vJRAJ2M9p7VJsx7iSRKdktdf6yr54UFhCFkMMTiEuto8RVIObNs5DYo5dYKWsNewwcoYsotFTPrXXb7FiMTTsGjPEJ57TzNupemmupmfTUPEDo2J/GLVI9ah9nilK+RU4uyvaO4SU6JpSplHGUJbMXd2gpm5ahoPjZ3thjuSbRbek/7cIxvaPB4OV6YBsM4qPYGxYTaiOfprXspe9vJvQlHLYeTCv1VErtyzXlWzFqpc= azureroot@terraform-01
-#             
+# 
+#             users:
+#               - name: root
+#                 ssh_authorized_keys:
+#                   - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDDerMYphqZbqxnAQ4fTzTFKq865w+1arOORCtzj8yX9gv29EQPBQlK5VoSlLk8TEax/0MYtrb4GhPvn30eialp59EtO4A6SiFVR0JUKBen3z4QixnQXsBjNLOI5qKlIYN62RDnzv2p4WbggNsLPLkFoqfZZaZjF7oXvQtrIJqXEY77roQZnUFQLhJox0G5HNJgUJVTkrAedpcR9UpB48d/ji+uXXeoZbxsGbJZmv/xENnbSqq4R5QLJJ0gTaP2gdRPBxifT1Hm0XzvQQtDuN/OWuNK4A2hVCkvYMzvp5Pa2XzKskWjjawITMUuHQraVEWzuIXc1N+xn7eTZV8X4OrZIDU17IQZn4GlYhwgRr+4rvVoM+y1WiIc+vvQvA1rIdYNB/zKVqNNPNxKRrjCUsMHPvZeDWLcyY4mexagk0v1R9UOXkp/taDiUR5XFh9nY/Va9AeWwXsNSHHxfhn9ol9Q/+PFYLWKTlJwCHyWGNpqs5URNGNCvTjMA+IeEt0AmYE= azureroot@t01-tf201
+# 
 #             runcmd:
 #               - echo "yes" > /root/cloud-init.ok
 #         EOT -> null
@@ -494,26 +460,18 @@ resource "libvirt_domain" "vm" {
 #   # libvirt_domain.vm will be destroyed
 #   - resource "libvirt_domain" "vm" {
 #       - arch        = "x86_64" -> null
-#       - cloudinit   = "/data/vms/cloudinit.iso;b8ae4975-4f1a-4f0b-bc14-992389c0f435" -> null
+#       - autostart   = false -> null
+#       - cloudinit   = "/data/vms/cloudinit.iso;51a9bba0-5c4f-4a97-8d93-bda11cbfc6b8" -> null
 #       - cmdline     = [] -> null
-#       - disk        = [
-#           - {
-#               - block_device = ""
-#               - file         = ""
-#               - scsi         = true
-#               - url          = ""
-#               - volume_id    = "/data/vms/t-ubuntu-test.qcow2"
-#               - wwn          = ""
-#             },
-#         ] -> null
 #       - emulator    = "/usr/bin/qemu-system-x86_64" -> null
 #       - fw_cfg_name = "opt/com.coreos/config" -> null
-#       - id          = "381d13a7-51e1-40ca-a101-ce502e7bb94b" -> null
-#       - machine     = "ubuntu" -> null
+#       - id          = "7f53dfcd-7aba-4dff-8a3c-2feac61b528b" -> null
+#       - machine     = "pc" -> null
 #       - memory      = 512 -> null
 #       - name        = "t-ubuntu-test" -> null
-#       - qemu_agent  = true -> null
+#       - qemu_agent  = false -> null
 #       - running     = true -> null
+#       - type        = "kvm" -> null
 #       - vcpu        = 1 -> null
 # 
 #       - console {
@@ -532,7 +490,13 @@ resource "libvirt_domain" "vm" {
 #         }
 # 
 #       - cpu {
-#           - mode = "host-model" -> null
+#           - mode = "custom" -> null
+#         }
+# 
+#       - disk {
+#           - scsi      = true -> null
+#           - volume_id = "/data/vms/t-ubuntu-test.qcow2" -> null
+#           - wwn       = "05abcdfd83e05267" -> null
 #         }
 # 
 #       - graphics {
@@ -540,15 +504,16 @@ resource "libvirt_domain" "vm" {
 #           - listen_address = "127.0.0.1" -> null
 #           - listen_type    = "address" -> null
 #           - type           = "spice" -> null
+#           - websocket      = 0 -> null
 #         }
 # 
 #       - network_interface {
 #           - addresses      = [
-#               - "192.168.1.106",
+#               - "192.168.1.107",
 #             ] -> null
 #           - hostname       = "t-ubuntu-test" -> null
-#           - mac            = "52:54:00:D2:43:48" -> null
-#           - network_id     = "67274476-dea4-11eb-ade5-000d3a3ea45d" -> null
+#           - mac            = "52:54:00:BE:52:BE" -> null
+#           - network_id     = "c36decbb-311f-4e34-b1d3-dada42179db0" -> null
 #           - network_name   = "default" -> null
 #           - wait_for_lease = true -> null
 #         }
@@ -561,16 +526,20 @@ resource "libvirt_domain" "vm" {
 #       - name   = "t-ubuntu-test.qcow2" -> null
 #       - pool   = "VMs" -> null
 #       - size   = 2361393152 -> null
-#       - source = "https://cloud-images.ubuntu.com/releases/focal/release/ubuntu-20.04-server-cloudimg-amd64.img" -> null
+#       - source = "https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img" -> null
 #     }
 # 
 # Plan: 0 to add, 0 to change, 3 to destroy.
 # 
 # Changes to Outputs:
-#   - ips = "192.168.1.106" -> null
-# libvirt_domain.vm: Destroying... [id=381d13a7-51e1-40ca-a101-ce502e7bb94b]
-# libvirt_domain.vm: Destruction complete after 0s
-# libvirt_cloudinit_disk.cloudinit: Destroying... [id=/data/vms/cloudinit.iso;b8ae4975-4f1a-4f0b-bc14-992389c0f435]
+#   - ips = [
+#       - [
+#           - "192.168.1.107",
+#         ],
+#     ] -> null
+# libvirt_domain.vm: Destroying... [id=7f53dfcd-7aba-4dff-8a3c-2feac61b528b]
+# libvirt_domain.vm: Destruction complete after 1s
+# libvirt_cloudinit_disk.cloudinit: Destroying... [id=/data/vms/cloudinit.iso;51a9bba0-5c4f-4a97-8d93-bda11cbfc6b8]
 # libvirt_cloudinit_disk.cloudinit: Destruction complete after 0s
 # libvirt_volume.volume: Destroying... [id=/data/vms/t-ubuntu-test.qcow2]
 # libvirt_volume.volume: Destruction complete after 0s

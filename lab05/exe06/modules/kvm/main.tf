@@ -2,10 +2,10 @@ terraform {
   required_providers {
     libvirt = {
       source = "dmacvicar/libvirt"
-      version = "~> 0.6.11"
+      version = "~> 0.7.6"
     }
   }
- required_version = ">= 0.13"
+ required_version = ">= 1.6"
 }
 
 provider "libvirt" {
@@ -22,6 +22,7 @@ resource "libvirt_volume" "volume" {
   name   = "${local.instances[count.index]}.qcow2"
   source = "https://cloud-images.ubuntu.com/releases/focal/release/ubuntu-20.04-server-cloudimg-amd64.img"
   pool   = "VMs"
+  format = "qcow2"
 }
 
 data "template_file" "user_data" {
@@ -50,7 +51,6 @@ resource "libvirt_domain" "vm" {
   name       = local.instances[count.index]
   memory     = var.vms[count.index].memory == null ? 640 : var.vms[count.index].memory
   vcpu       = var.vms[count.index].vcpu   == null ? 2   : var.vms[count.index].vcpu
-  qemu_agent = true
   cloudinit  = libvirt_cloudinit_disk.cloudinit[count.index].id
 
   cpu {

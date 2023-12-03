@@ -34,6 +34,14 @@ module "mysql" {
 # database = "my_data"
 
 
+# Crie um arquivo chamado "~/terraform/lab04/exe05/output.tfvars", com o seguinte conteúdo:
+#
+# output "password" {
+#   value     = "Password: ${module.mysql.password}"
+#   sensitive = true
+# }
+
+
 # Obtenha o arquivo "modules.tar.gz" disponível no repositório do exercício e descompacte,
 # conforme abaixo:
 # 
@@ -93,7 +101,7 @@ module "mysql" {
 # Na sequência execute o comando abaixo para validar o plano de execução do terraform:
 # 
 # $ terraform plan
-# 
+#
 # Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
 #   + create
 # 
@@ -132,6 +140,7 @@ module "mysql" {
 # 
 #   # module.mysql.random_password.password will be created
 #   + resource "random_password" "password" {
+#       + bcrypt_hash = (sensitive value)
 #       + id          = (known after apply)
 #       + length      = 10
 #       + lower       = true
@@ -140,6 +149,7 @@ module "mysql" {
 #       + min_special = 0
 #       + min_upper   = 0
 #       + number      = true
+#       + numeric     = true
 #       + result      = (sensitive value)
 #       + special     = false
 #       + upper       = true
@@ -150,15 +160,16 @@ module "mysql" {
 # Changes to Outputs:
 #   + password = (sensitive value)
 # 
-# ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+# ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 # 
-# Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
+# Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply"
+# now.
 
 
 # Em seguida execute o comando abaixo para aplicar a configuração do terraform:
-# 
+#
 # $ terraform apply
-# 
+#
 # Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
 #   + create
 # 
@@ -197,6 +208,7 @@ module "mysql" {
 # 
 #   # module.mysql.random_password.password will be created
 #   + resource "random_password" "password" {
+#       + bcrypt_hash = (sensitive value)
 #       + id          = (known after apply)
 #       + length      = 10
 #       + lower       = true
@@ -205,6 +217,7 @@ module "mysql" {
 #       + min_special = 0
 #       + min_upper   = 0
 #       + number      = true
+#       + numeric     = true
 #       + result      = (sensitive value)
 #       + special     = false
 #       + upper       = true
@@ -221,11 +234,11 @@ module "mysql" {
 # 
 #   Enter a value: yes
 # 
-# module.mysql.random_password.password: Creating...
 # module.mysql.mysql_database.database: Creating...
+# module.mysql.random_password.password: Creating...
+# module.mysql.mysql_database.database: Creation complete after 0s [id=my_data]
 # module.mysql.random_password.password: Creation complete after 0s [id=none]
 # module.mysql.mysql_user.user: Creating...
-# module.mysql.mysql_database.database: Creation complete after 0s [id=my_data]
 # module.mysql.mysql_user.user: Creation complete after 0s [id=maria@%]
 # module.mysql.mysql_grant.grant: Creating...
 # module.mysql.mysql_grant.grant: Creation complete after 0s [id=maria@%:`my_data`]
@@ -241,7 +254,7 @@ module "mysql" {
 # sensível. Para exibir a senha utilize o comando abaixo:
 # 
 # $ terraform output password
-# "Password: tSrmIHFGyp"
+# "Password: oWKuINtlMw"
 
 
 # Verifique se a conexão com o banco de dados MySQL está funcionando corretamente
@@ -249,57 +262,34 @@ module "mysql" {
 # sucesso, conforme abaixo:
 # 
 # $ mysql -h 192.168.1.13 -u maria -p
-# Enter password: 
-# Welcome to the MySQL monitor.  Commands end with ; or \g.
-# Your MySQL connection id is 64
-# Server version: 5.5.5-10.6.4-MariaDB-1:10.6.4+maria~focal mariadb.org binary distribution
+# Enter password:
+# Welcome to the MariaDB monitor.  Commands end with ; or \g.
+# Your MariaDB connection id is 32
+# Server version: 10.6.12-MariaDB-0ubuntu0.22.04.1 Ubuntu 22.04
 # 
-# Copyright (c) 2000, 2021, Oracle and/or its affiliates.
-# 
-# Oracle is a registered trademark of Oracle Corporation and/or its
-# affiliates. Other names may be trademarks of their respective
-# owners.
+# Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
 # 
 # Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 # 
-# mysql> show databases;
+# MariaDB [(none)]> show databases;
 # +--------------------+
 # | Database           |
 # +--------------------+
 # | information_schema |
 # | my_data            |
 # +--------------------+
-# 2 rows in set (0.00 sec)
+# 2 rows in set (0.002 sec)
 # 
-# mysql> ^DBye
+# MariaDB [(none)]> ^DBye
 
 
 # Execute o comando "terraform destroy" para destruir o ambiente, conforme abaixo:
 # 
-# $ terraform destroy 
+# $ terraform destroy
 # module.mysql.mysql_database.database: Refreshing state... [id=my_data]
 # module.mysql.random_password.password: Refreshing state... [id=none]
 # module.mysql.mysql_user.user: Refreshing state... [id=maria@%]
 # module.mysql.mysql_grant.grant: Refreshing state... [id=maria@%:`my_data`]
-# 
-# Note: Objects have changed outside of Terraform
-# 
-# Terraform detected the following changes made outside of Terraform since the last "terraform apply":
-# 
-#   # module.mysql.mysql_grant.grant has been changed
-#   ~ resource "mysql_grant" "grant" {
-#         id         = "maria@%:`my_data`"
-#       ~ privileges = [
-#           - "ALL",
-#           + "ALL PRIVILEGES",
-#         ]
-#         # (6 unchanged attributes hidden)
-#     }
-# 
-# Unless you have made equivalent changes to your configuration, or ignored the relevant attributes using ignore_changes, the following plan may
-# include actions to undo or respond to these changes.
-# 
-# ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 # 
 # Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
 #   - destroy
@@ -332,13 +322,14 @@ module "mysql" {
 #   - resource "mysql_user" "user" {
 #       - host               = "%" -> null
 #       - id                 = "maria@%" -> null
-#       - plaintext_password = (sensitive value)
+#       - plaintext_password = (sensitive value) -> null
 #       - tls_option         = "NONE" -> null
 #       - user               = "maria" -> null
 #     }
 # 
 #   # module.mysql.random_password.password will be destroyed
 #   - resource "random_password" "password" {
+#       - bcrypt_hash = (sensitive value) -> null
 #       - id          = "none" -> null
 #       - length      = 10 -> null
 #       - lower       = true -> null
@@ -347,7 +338,8 @@ module "mysql" {
 #       - min_special = 0 -> null
 #       - min_upper   = 0 -> null
 #       - number      = true -> null
-#       - result      = (sensitive value)
+#       - numeric     = true -> null
+#       - result      = (sensitive value) -> null
 #       - special     = false -> null
 #       - upper       = true -> null
 #     }
@@ -355,7 +347,7 @@ module "mysql" {
 # Plan: 0 to add, 0 to change, 4 to destroy.
 # 
 # Changes to Outputs:
-#   - password = (sensitive value)
+#   - password = (sensitive value) -> null
 # 
 # Do you really want to destroy all resources?
 #   Terraform will destroy all your managed infrastructure, as shown above.
@@ -368,8 +360,8 @@ module "mysql" {
 # module.mysql.mysql_database.database: Destroying... [id=my_data]
 # module.mysql.mysql_user.user: Destroying... [id=maria@%]
 # module.mysql.mysql_user.user: Destruction complete after 0s
-# module.mysql.mysql_database.database: Destruction complete after 0s
 # module.mysql.random_password.password: Destroying... [id=none]
 # module.mysql.random_password.password: Destruction complete after 0s
+# module.mysql.mysql_database.database: Destruction complete after 0s
 # 
 # Destroy complete! Resources: 4 destroyed.
