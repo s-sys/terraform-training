@@ -17,13 +17,13 @@ terraform version
 # Verifique a saída, conforme a seguir:
 # 
 # # terraform version
-# Terraform v1.6.4
+# Terraform v1.6.6
 # on linux_amd64
 
 # Para a instalação apenas do binário do terraform, utilize as instruções abaixo (para todas as variantes de Linux):
 
 sudo su -
-TERRAFORM_VERSION="1.6.4"
+TERRAFORM_VERSION="1.6.6"
 cd /usr/local/bin
 wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
 unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
@@ -36,7 +36,7 @@ chmod +x terraform
 # Verifique a saída, conforme a seguir:
 # 
 # # ./terraform version
-# Terraform v1.6.4
+# Terraform v1.6.6
 # on linux_amd64
 
 # Para os demais sistemas consultar os links:
